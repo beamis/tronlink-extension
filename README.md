@@ -4,7 +4,7 @@ LiteLink is firstly launched at LITE’s official website and backed by LITE fou
 
 Main functions:    
 
-Sending and receiving LTX, LRC10 and LRC20 tokens;  
+Sending and receiving XLT, LTX, LRC10 and LRC20 tokens;  
 Smart contract calls integrated;    
 
 
