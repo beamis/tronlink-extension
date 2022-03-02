@@ -1,6 +1,6 @@
 import extensionizer from 'extensionizer';
-import Logger from '@tronlink/lib/logger';
-import Utils from '@tronlink/lib/utils';
+import Logger from '@litetokenslink/lib/logger';
+import Utils from '@litetokenslink/lib/utils';
 
 const logger = new Logger('StorageService');
 
@@ -40,7 +40,7 @@ const StorageService = {
     password: false,
 
     get needsMigrating() {
-        return localStorage.hasOwnProperty('TronLink_WALLET');
+        return localStorage.hasOwnProperty('LitetokensLink_WALLET');
     },
 
     get hasAccounts() {
@@ -177,7 +177,7 @@ const StorageService = {
 
     migrate() {
         try {
-            const storage = localStorage.getItem('TronLink_WALLET');
+            const storage = localStorage.getItem('LitetokensLink_WALLET');
             const decrypted = Utils.decrypt(
                 JSON.parse(storage),
                 this.password
@@ -288,13 +288,13 @@ const StorageService = {
     },
 
     purge() {
-        logger.warn('Purging TronLink. This will remove all stored transaction data');
+        logger.warn('Purging LitetokensLink. This will remove all stored transaction data');
 
         this.storage.set({
             transactions: Utils.encrypt({}, this.password)
         });
 
-        logger.info('Purge complete. Please reload TronLink');
+        logger.info('Purge complete. Please reload LitetokensLink');
     }
 };
 

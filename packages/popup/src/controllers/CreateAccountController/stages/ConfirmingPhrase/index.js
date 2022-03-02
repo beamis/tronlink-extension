@@ -2,7 +2,7 @@ import React from 'react';
 import Button from 'components/Button';
 
 import { FormattedMessage } from 'react-intl';
-import { BUTTON_TYPE } from '@tronlink/lib/constants';
+import { BUTTON_TYPE } from '@litetokenslink/lib/constants';
 
 import './ConfirmingPhrase.scss';
 
@@ -84,7 +84,7 @@ class ConfirmingPhrase extends React.Component {
         return (
             <div className='insetContainer confirmingPhrase'>
                 <div className='pageHeader'>
-                    TronLink
+                    LitetokensLink
                 </div>
                 <div className='greyModal'>
                     <div className='modalDesc'>

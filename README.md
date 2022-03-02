@@ -1,15 +1,15 @@
-# TronLink
-[View TronLink on the Chrome Webstore](https://chrome.google.com/webstore/detail/ibnejdfjmmkpcnlpebklmnkoeoihofec)
+# LitetokensLink
+[View LitetokensLink on the Chrome Webstore](https://chrome.google.com/webstore/detail/ibnejdfjmmkpcnlpebklmnkoeoihofec)
 
-TronLink is a Browser Extension for Website to Blockchain intercommunication on the Tron Network.  
+LitetokensLink is a Browser Extension for Website to Blockchain intercommunication on the Litetokens Network.  
 It allows developers to integrate smart contract calls on their site, in turn enabling the use of
-Dapps from within the browser. It also functions as a standard Tron wallet for anybody wanting to
+Dapps from within the browser. It also functions as a standard Litetokens wallet for anybody wanting to
 broadcast and receive transactions on the network.
 
-TronLink v2 uses lerna and yarn workspaces as a monorepo.
+LitetokensLink v2 uses lerna and yarn workspaces as a monorepo.
 
 At the moment, webpack and ESLint run at the root of the project. This does
-not follow the pattern for lerna, it should instead have a "@tronlink/tools"
+not follow the pattern for lerna, it should instead have a "@litetokenslink/tools"
 package. This would then host webpack and ESLint along with its configuration,
 which can then be used by the other packages.
 
@@ -19,7 +19,7 @@ holds the ESLint dependencies.
 
 Build Instructions:
 ```
-git clone https://github.com/TronWatch/TronLink/
+git clone https://github.com/LitetokensWatch/LitetokensLink/
 yarn install
 lerna bootstrap
 yarn build

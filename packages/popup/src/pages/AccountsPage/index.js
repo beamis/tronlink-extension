@@ -4,7 +4,7 @@ import CustomScroll from 'react-custom-scroll';
 import swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 
-import { PopupAPI } from '@tronlink/lib/api';
+import { PopupAPI } from '@litetokenslink/lib/api';
 import { connect } from 'react-redux';
 
 import {
@@ -15,7 +15,7 @@ import {
 import {
     APP_STATE,
     BUTTON_TYPE
-} from '@tronlink/lib/constants';
+} from '@litetokenslink/lib/constants';
 
 import './AccountsPage.scss';
 

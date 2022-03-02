@@ -1,10 +1,10 @@
 import React from 'react';
 import AccountName from 'components/AccountName';
-import Utils from '@tronlink/lib/utils';
+import Utils from '@litetokenslink/lib/utils';
 import Lottie from 'react-lottie';
 
-import { PopupAPI } from '@tronlink/lib/api';
-import { CREATION_STAGE } from '@tronlink/lib/constants';
+import { PopupAPI } from '@litetokenslink/lib/api';
+import { CREATION_STAGE } from '@litetokenslink/lib/constants';
 
 import WritingPhrase from './stages/WritingPhrase';
 import ConfirmingPhrase from './stages/ConfirmingPhrase';

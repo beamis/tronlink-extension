@@ -1,7 +1,7 @@
 {
-  "name": "@tronlink/contentScript",
+  "name": "@litetokenslink/contentScript",
   "main": "index.js",
-  "repository": "https://github.com/TronLink/TronLink",
+  "repository": "https://github.com/LitetokensLink/LitetokensLink",
   "author": "Kondax <kondaxsolutions@gmail.com>",
   "private": true,
   "version": "2.0.3",
@@ -11,6 +11,6 @@
   },
   "dependencies": {
     "extensionizer": "^1.0.1",
-    "tronweb": "^2.1.4"
+    "litetokensweb": "^2.1.14.a"
   }
 }

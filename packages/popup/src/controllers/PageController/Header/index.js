@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { FormattedMessage } from 'react-intl';
-import { PAGES } from '@tronlink/lib/constants';
+import { PAGES } from '@litetokenslink/lib/constants';
 import { connect } from 'react-redux';
 
 import './Header.scss';

@@ -7,7 +7,7 @@ import { FormattedMessage } from 'react-intl';
 import {
     RESTORATION_STAGE,
     BUTTON_TYPE
-} from '@tronlink/lib/constants';
+} from '@litetokenslink/lib/constants';
 
 const ChoosingType = props => {
     const {
@@ -18,7 +18,7 @@ const ChoosingType = props => {
     return (
         <div className='insetContainer mnemonicImport'>
             <div className='pageHeader'>
-                TronLink
+                LitetokensLink
             </div>
             <div className='greyModal'>
                 <div className='modalDesc hasBottomMargin'>

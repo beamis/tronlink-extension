@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import {
     BUTTON_TYPE,
     VALIDATION_STATE
-} from '@tronlink/lib/constants';
+} from '@litetokenslink/lib/constants';
 
 class AccountName extends React.Component {
     state = {
@@ -77,7 +77,7 @@ class AccountName extends React.Component {
         return (
             <div className='insetContainer'>
                 <div className='pageHeader'>
-                    TronLink
+                    LitetokensLink
                 </div>
                 <div className='greyModal'>
                     <div className='modalDesc hasBottomMargin'>

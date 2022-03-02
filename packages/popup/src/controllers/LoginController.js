@@ -3,7 +3,7 @@ import Input from 'components/Input';
 import Button from 'components/Button';
 
 import { FormattedMessage } from 'react-intl';
-import { PopupAPI } from '@tronlink/lib/api';
+import { PopupAPI } from '@litetokenslink/lib/api';
 import { app } from 'index';
 
 class LoginController extends React.Component {
@@ -60,7 +60,7 @@ class LoginController extends React.Component {
         return (
             <div className='insetContainer'>
                 <div className='pageHeader'>
-                    TronLink
+                    LitetokensLink
                 </div>
                 { error ? (
                     <div className='errorModal hasBottomMargin'>

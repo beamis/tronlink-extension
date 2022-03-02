@@ -1,9 +1,9 @@
 import React from 'react';
 import Button from 'components/Button';
-import TronWeb from 'tronweb';
+import LitetokensWeb from 'litetokensweb';
 import Dropdown from 'react-dropdown';
 
-import { PopupAPI } from '@tronlink/lib/api';
+import { PopupAPI } from '@litetokenslink/lib/api';
 import { connect } from 'react-redux';
 
 import {
@@ -15,7 +15,7 @@ import {
 import {
     CONFIRMATION_TYPE,
     BUTTON_TYPE
-} from '@tronlink/lib/constants';
+} from '@litetokenslink/lib/constants';
 
 import 'react-dropdown/style.css';
 import './ConfirmationController.scss';
@@ -118,13 +118,13 @@ class ConfirmationController extends React.Component {
             meta.push({ key: 'CONFIRMATIONS.COST', value: formatNumber(input.frozen_balance / 1000000) });
 
         if(input.asset_name)
-            meta.push({ key: 'CONFIRMATIONS.TOKEN', value: TronWeb.toUtf8(input.asset_name) });
+            meta.push({ key: 'CONFIRMATIONS.TOKEN', value: LitetokensWeb.toUtf8(input.asset_name) });
 
         if(input.token_id)
-            meta.push({ key: 'CONFIRMATIONS.TOKEN', value: TronWeb.toUtf8(input.token_id) });
+            meta.push({ key: 'CONFIRMATIONS.TOKEN', value: LitetokensWeb.toUtf8(input.token_id) });
 
         if(input.to_address) {
-            const address = TronWeb.address.fromHex(input.to_address);
+            const address = LitetokensWeb.address.fromHex(input.to_address);
             const trimmed = [
                 address.substr(0, 16),
                 address.substr(28)

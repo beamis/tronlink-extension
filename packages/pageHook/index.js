@@ -1,7 +1,7 @@
-import EventChannel from '@tronlink/lib/EventChannel';
-import Logger from '@tronlink/lib/logger';
-import TronWeb from 'tronweb';
-import Utils from '@tronlink/lib/utils';
+import EventChannel from '@litetokenslink/lib/EventChannel';
+import Logger from '@litetokenslink/lib/logger';
+import LitetokensWeb from 'litetokensweb';
+import Utils from '@litetokenslink/lib/utils';
 import RequestHandler from './handlers/RequestHandler';
 import ProxiedProvider from './handlers/ProxiedProvider';
 
@@ -14,7 +14,7 @@ const pageHook = {
     },
 
     init() {
-        this._bindTronWeb();
+        this._bindLitetokensWeb();
         this._bindEventChannel();
         this._bindEvents();
 
@@ -25,36 +25,36 @@ const pageHook = {
             if(node.fullNode)
                 this.setNode(node);
 
-            logger.info('TronLink initiated');
+            logger.info('LitetokensLink initiated');
         }).catch(err => {
-            logger.info('Failed to initialise TronWeb', err);
+            logger.info('Failed to initialise LitetokensWeb', err);
         });
     },
 
-    _bindTronWeb() {
-        if(window.tronWeb !== undefined)
-            logger.warn('TronWeb is already initiated. TronLink will overwrite the current instance');
+    _bindLitetokensWeb() {
+        if(window.litetokensWeb !== undefined)
+            logger.warn('LitetokensWeb is already initiated. LitetokensLink will overwrite the current instance');
 
-        const tronWeb = new TronWeb(
+        const litetokensWeb = new LitetokensWeb(
             new ProxiedProvider(),
             new ProxiedProvider(),
             new ProxiedProvider()
         );
 
         this.proxiedMethods = {
-            setAddress: tronWeb.setAddress.bind(tronWeb),
-            sign: tronWeb.trx.sign.bind(tronWeb)
+            setAddress: litetokensWeb.setAddress.bind(litetokensWeb),
+            sign: litetokensWeb.trx.sign.bind(litetokensWeb)
         };
 
         [ 'setPrivateKey', 'setAddress', 'setFullNode', 'setSolidityNode', 'setEventServer' ].forEach(method => (
-            tronWeb[ method ] = () => new Error('TronLink has disabled this method')
+            litetokensWeb[ method ] = () => new Error('LitetokensLink has disabled this method')
         ));
 
-        tronWeb.trx.sign = (...args) => (
+        litetokensWeb.trx.sign = (...args) => (
             this.sign(...args)
         );
 
-        window.tronWeb = tronWeb;
+        window.litetokensWeb = litetokensWeb;
     },
 
     _bindEventChannel() {
@@ -73,46 +73,46 @@ const pageHook = {
     },
 
     setAddress(address) {
-        // logger.info('TronLink: New address configured');
+        // logger.info('LitetokensLink: New address configured');
 
         this.proxiedMethods.setAddress(address);
-        tronWeb.ready = true;
+        litetokensWeb.ready = true;
     },
 
     setNode(node) {
-        // logger.info('TronLink: New node configured');
+        // logger.info('LitetokensLink: New node configured');
 
-        tronWeb.fullNode.configure(node.fullNode);
-        tronWeb.solidityNode.configure(node.solidityNode);
-        tronWeb.eventServer.configure(node.eventServer);
+        litetokensWeb.fullNode.configure(node.fullNode);
+        litetokensWeb.solidityNode.configure(node.solidityNode);
+        litetokensWeb.eventServer.configure(node.eventServer);
     },
 
-    sign(transaction, privateKey = false, useTronHeader = true, callback = false) {
+    sign(transaction, privateKey = false, useLitetokensHeader = true, callback = false) {
         if(Utils.isFunction(privateKey)) {
             callback = privateKey;
             privateKey = false;
         }
 
-        if(Utils.isFunction(useTronHeader)) {
-            callback = useTronHeader;
-            useTronHeader = true;
+        if(Utils.isFunction(useLitetokensHeader)) {
+            callback = useLitetokensHeader;
+            useLitetokensHeader = true;
         }
 
         if(!callback)
-            return Utils.injectPromise(this.sign.bind(this), transaction, privateKey, useTronHeader);
+            return Utils.injectPromise(this.sign.bind(this), transaction, privateKey, useLitetokensHeader);
 
         if(privateKey)
-            return this.proxiedMethods.sign(transaction, privateKey, useTronHeader, callback);
+            return this.proxiedMethods.sign(transaction, privateKey, useLitetokensHeader, callback);
 
         if(!transaction)
             return callback('Invalid transaction provided');
 
-        if(!tronWeb.ready)
+        if(!litetokensWeb.ready)
             return callback('User has not unlocked wallet');
 
         this.request('sign', {
             transaction,
-            useTronHeader,
+            useLitetokensHeader,
             input: (
                 typeof transaction === 'string' ?
                     transaction :

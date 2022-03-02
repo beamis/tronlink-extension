@@ -1,6 +1,6 @@
-import MessageDuplex from '@tronlink/lib/MessageDuplex';
-import EventChannel from '@tronlink/lib/EventChannel';
-import Logger from '@tronlink/lib/logger';
+import MessageDuplex from '@litetokenslink/lib/MessageDuplex';
+import EventChannel from '@litetokenslink/lib/EventChannel';
+import Logger from '@litetokenslink/lib/logger';
 import extensionizer from 'extensionizer';
 
 const logger = new Logger('contentScript');
@@ -10,7 +10,7 @@ const contentScript = {
     eventChannel: new EventChannel('contentScript'),
 
     init() {
-        logger.info('Initialising TronLink');
+        logger.info('Initialising LitetokensLink');
 
         this.registerListeners();
         this.inject();
@@ -47,7 +47,7 @@ const contentScript = {
             injectionSite.children[ 0 ]
         );
 
-        logger.info('TronLink injected');
+        logger.info('LitetokensLink injected');
     }
 };
 

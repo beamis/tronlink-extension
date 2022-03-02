@@ -1,21 +1,21 @@
-import Logger from '@tronlink/lib/logger';
-import MessageDuplex from '@tronlink/lib/MessageDuplex';
+import Logger from '@litetokenslink/lib/logger';
+import MessageDuplex from '@litetokenslink/lib/MessageDuplex';
 import NodeService from './services/NodeService';
 import StorageService from './services/StorageService';
 import WalletService from './services/WalletService';
-import Utils from '@tronlink/lib/utils';
-import transactionBuilder from '@tronlink/lib/transactionBuilder';
+import Utils from '@litetokenslink/lib/utils';
+import transactionBuilder from '@litetokenslink/lib/transactionBuilder';
 
 import * as Sentry from '@sentry/browser';
 
-import { CONFIRMATION_TYPE } from '@tronlink/lib/constants';
-import { BackgroundAPI } from '@tronlink/lib/api';
+import { CONFIRMATION_TYPE } from '@litetokenslink/lib/constants';
+import { BackgroundAPI } from '@litetokenslink/lib/api';
 import { version } from './package.json';
 
 // Make error reporting user-configurable
 Sentry.init({
     dsn: 'https://4757a0fdd2e743d48c184f75a179dffe@sentry.io/1273081',
-    release: `TronLink@${ version }`
+    release: `LitetokensLink@${ version }`
 });
 
 const duplex = new MessageDuplex.Host();
@@ -142,7 +142,7 @@ const backgroundScript = {
                             selectedAccount
                         } = this.walletService;
 
-                        const tronWeb = NodeService.tronWeb;
+                        const litetokensWeb = NodeService.litetokensWeb;
                         const account = this.walletService.getAccount(selectedAccount);
 
                         if(typeof input === 'string') {
@@ -161,7 +161,7 @@ const backgroundScript = {
                         const {
                             mapped,
                             error
-                        } = await transactionBuilder(tronWeb, contractType, input); // NodeService.getCurrentNode()
+                        } = await transactionBuilder(litetokensWeb, contractType, input); // NodeService.getCurrentNode()
 
                         if(error) {
                             return resolve({

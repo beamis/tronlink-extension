@@ -1,11 +1,11 @@
 import React from 'react';
 import Button from 'components/Button';
-import TronWeb from 'tronweb';
+import LitetokensWeb from 'litetokensweb';
 
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
-import { BUTTON_TYPE } from '@tronlink/lib/constants';
-import { PopupAPI } from '@tronlink/lib/api';
+import { BUTTON_TYPE } from '@litetokenslink/lib/constants';
+import { PopupAPI } from '@litetokenslink/lib/api';
 
 import './PrivateKeyImport.scss';
 
@@ -24,7 +24,7 @@ class PrivateKeyImport extends React.Component {
 
     onChange({ target: { value } }) {
         const { accounts } = this.props;
-        const address = TronWeb.address.fromPrivateKey(value);
+        const address = LitetokensWeb.address.fromPrivateKey(value);
 
         let isValid = false;
 
@@ -63,7 +63,7 @@ class PrivateKeyImport extends React.Component {
         return (
             <div className='insetContainer privateKeyImport'>
                 <div className='pageHeader'>
-                    TronLink
+                    LitetokensLink
                 </div>
                 <div className='greyModal'>
                     <div className='modalDesc hasBottomMargin'>

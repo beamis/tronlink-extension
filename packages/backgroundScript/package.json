@@ -1,7 +1,7 @@
 {
-  "name": "@tronlink/backgroundScript",
+  "name": "@litetokenslink/backgroundScript",
   "main": "index.js",
-  "repository": "https://github.com/TronLink/TronLink",
+  "repository": "https://github.com/LitetokensLink/LitetokensLink",
   "author": "Kondax <kondaxsolutions@gmail.com>",
   "private": true,
   "version": "2.0.3",
@@ -12,7 +12,7 @@
     "bip39": "^2.5.0",
     "buffer": "^5.2.1",
     "eventemitter3": "^3.1.0",
-    "tronweb": "^2.1.4"
+    "litetokensweb": "^2.1.14.a"
   },
   "scripts": {
     "build": "webpack --config ../../webpack.config.js --progress --colors -o ../../dist/backgroundScript.js",

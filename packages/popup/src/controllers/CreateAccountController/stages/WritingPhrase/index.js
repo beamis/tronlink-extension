@@ -2,7 +2,7 @@ import React from 'react';
 import Button from 'components/Button';
 
 import { FormattedMessage } from 'react-intl';
-import { BUTTON_TYPE } from '@tronlink/lib/constants';
+import { BUTTON_TYPE } from '@litetokenslink/lib/constants';
 
 import './WritingPhrase.scss';
 
@@ -16,7 +16,7 @@ const WritingPhrase = props => {
     return (
         <div className='insetContainer writingPhrase'>
             <div className='pageHeader'>
-                TronLink
+                LitetokensLink
             </div>
             <div className='greyModal'>
                 <div className='modalDesc'>

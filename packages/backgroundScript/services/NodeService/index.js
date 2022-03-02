@@ -1,7 +1,7 @@
 import StorageService from '../StorageService';
 import randomUUID from 'uuid/v4';
-import TronWeb from 'tronweb';
-import Logger from '@tronlink/lib/logger';
+import LitetokensWeb from 'litetokensweb';
+import Logger from '@litetokenslink/lib/logger';
 
 import { BigNumber } from 'bignumber.js';
 
@@ -11,16 +11,16 @@ const NodeService = {
     _nodes: {
         'f0b1e38e-7bee-485e-9d3f-69410bf30681': {
             name: 'Mainnet',
-            fullNode: 'https://api.trongrid.io',
-            solidityNode: 'https://api.trongrid.io',
-            eventServer: 'https://api.trongrid.io',
+            fullNode: 'https://api.litescan.org',
+            solidityNode: 'https://api.litescan.org',
+            eventServer: 'https://api.litescan.org',
             default: true // false
         },
         '6739be94-ee43-46af-9a62-690cf0947269': {
             name: 'Shasta Testnet',
-            fullNode: 'https://api.shasta.trongrid.io',
-            solidityNode: 'https://api.shasta.trongrid.io',
-            eventServer: 'https://api.shasta.trongrid.io',
+            fullNode: 'https://api.shasta.litescan.org',
+            solidityNode: 'https://api.shasta.litescan.org',
+            eventServer: 'https://api.shasta.litescan.org',
             default: true
         }
     },
@@ -47,17 +47,17 @@ const NodeService = {
 
     init() {
         this._read();
-        this._updateTronWeb();
+        this._updateLitetokensWeb();
     },
 
-    _updateTronWeb(skipAddress = false) {
+    _updateLitetokensWeb(skipAddress = false) {
         const {
             fullNode,
             solidityNode,
             eventServer
         } = this.getCurrentNode();
 
-        this.tronWeb = new TronWeb(
+        this.litetokensWeb = new LitetokensWeb(
             fullNode,
             solidityNode,
             eventServer
@@ -68,13 +68,13 @@ const NodeService = {
     },
 
     setAddress() {
-        if(!this.tronWeb)
-            this._updateTronWeb();
+        if(!this.litetokensWeb)
+            this._updateLitetokensWeb();
 
         if(!StorageService.selectedAccount)
-            return this._updateTronWeb(true);
+            return this._updateLitetokensWeb(true);
 
-        this.tronWeb.setAddress(
+        this.litetokensWeb.setAddress(
             StorageService.selectedAccount
         );
     },
@@ -85,7 +85,7 @@ const NodeService = {
         ));
 
         StorageService.selectNode(this._selectedNode);
-        this._updateTronWeb();
+        this._updateLitetokensWeb();
     },
 
     getNodes() {
@@ -103,7 +103,7 @@ const NodeService = {
         StorageService.selectNode(nodeID);
 
         this._selectedNode = nodeID;
-        this._updateTronWeb();
+        this._updateLitetokensWeb();
     },
 
     addNode(node) {
@@ -120,7 +120,7 @@ const NodeService = {
 
     async getSmartToken(address) {
         try {
-            const contract = await this.tronWeb.contract().at(address);
+            const contract = await this.litetokensWeb.contract().at(address);
 
             if(!contract.name && !contract.symbol && !contract.decimals)
                 return false;

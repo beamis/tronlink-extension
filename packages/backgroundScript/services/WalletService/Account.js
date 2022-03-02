@@ -1,7 +1,7 @@
 import StorageService from '../StorageService';
-import TronWeb from 'tronweb';
-import Logger from '@tronlink/lib/logger';
-import Utils from '@tronlink/lib/utils';
+import LitetokensWeb from 'litetokensweb';
+import Logger from '@litetokenslink/lib/logger';
+import Utils from '@litetokenslink/lib/utils';
 import NodeService from '../NodeService';
 import TransactionMapper from './TransactionMapper';
 
@@ -10,7 +10,7 @@ import { BigNumber } from 'bignumber.js';
 import {
     ACCOUNT_TYPE,
     SUPPORTED_CONTRACTS
-} from '@tronlink/lib/constants';
+} from '@litetokenslink/lib/constants';
 
 const logger = new Logger('WalletService/Account');
 
@@ -63,7 +63,7 @@ class Account {
 
         StorageService.removePendingTransaction(address, txID);
 
-        const txData = await NodeService.tronWeb.trx.getTransactionInfo(txID);
+        const txData = await NodeService.litetokensWeb.trx.getTransactionInfo(txID);
 
         if(!txData.id) {
             logger.info(`Transaction ${ txID } is still missing`);
@@ -105,7 +105,7 @@ class Account {
     _importPrivateKey(privateKey) {
         try {
             this.privateKey = privateKey;
-            this.address = TronWeb.address.fromPrivateKey(privateKey);
+            this.address = LitetokensWeb.address.fromPrivateKey(privateKey);
         } catch (ex) { // eslint-disable-line
             throw new Error('INVALID_PRIVATE_KEY');
         }
@@ -153,7 +153,7 @@ class Account {
         let offset = 0;
 
         while(hasMoreTransactions) {
-            const newTransactions = (await NodeService.tronWeb.trx
+            const newTransactions = (await NodeService.litetokensWeb.trx
                 .getTransactionsRelated(this.address, 'all', 90, offset))
                 .map(transaction => {
                     transaction.offset = offset;
@@ -208,7 +208,7 @@ class Account {
 
         logger.info(`Requested update for ${ address }`);
 
-        const accountExists = await NodeService.tronWeb.trx.getUnconfirmedAccount(address)
+        const accountExists = await NodeService.litetokensWeb.trx.getUnconfirmedAccount(address)
             .then(account => {
                 if(!account.address) {
                     logger.info(`Account ${ address } does not exist on the network`);
@@ -271,12 +271,12 @@ class Account {
     async updateBalance() {
         const { address } = this;
 
-        await NodeService.tronWeb.trx.getBandwidth(address)
+        await NodeService.litetokensWeb.trx.getBandwidth(address)
             .then((bandwidth = 0) => (
                 this.bandwidth = bandwidth
             ));
 
-        await NodeService.tronWeb.trx.getAccountResources(address)
+        await NodeService.litetokensWeb.trx.getAccountResources(address)
             .then(({ EnergyLimit = 0 }) => (
                 this.energy = EnergyLimit
             ));
@@ -310,7 +310,7 @@ class Account {
                 continue;
             }
 
-            const txData = await NodeService.tronWeb.trx
+            const txData = await NodeService.litetokensWeb.trx
                 .getTransactionInfo(transaction.txID);
 
             if(!txData.id) {
@@ -355,7 +355,7 @@ class Account {
             if(txID in this.transactions)
                 return;
 
-            // Transaction is now too old for TronLink (100+)
+            // Transaction is now too old for LitetokensLink (100+)
             this.ignoredTransactions.push(txID);
         });
 
@@ -368,7 +368,7 @@ class Account {
 
         for(const tokenAddress in tokens) {
             try {
-                const contract = await NodeService.tronWeb.contract().at(tokenAddress);
+                const contract = await NodeService.litetokensWeb.contract().at(tokenAddress);
                 const balance = await contract.balanceOf(address).call();
                 const bn = new BigNumber(balance.balance || balance);
 
@@ -394,7 +394,7 @@ class Account {
         let balance = 0;
 
         try {
-            const contract = await NodeService.tronWeb.contract().at(address);
+            const contract = await NodeService.litetokensWeb.contract().at(address);
             const balanceObj = await contract.balanceOf(this.address).call();
 
             const bn = new BigNumber(balanceObj.balance || balanceObj);
@@ -437,8 +437,8 @@ class Account {
     }
 
     async sign(transaction) {
-        const tronWeb = NodeService.tronWeb;
-        const signedTransaction = tronWeb.trx.sign(
+        const litetokensWeb = NodeService.litetokensWeb;
+        const signedTransaction = litetokensWeb.trx.sign(
             transaction,
             this.privateKey
         );
@@ -448,12 +448,12 @@ class Account {
 
     async sendTrx(recipient, amount) {
         try {
-            const transaction = await NodeService.tronWeb.transactionBuilder.sendTrx(
+            const transaction = await NodeService.litetokensWeb.transactionBuilder.sendTrx(
                 recipient,
                 amount
             );
 
-            await NodeService.tronWeb.trx.sendRawTransaction(
+            await NodeService.litetokensWeb.trx.sendRawTransaction(
                 await this.sign(transaction)
             ).then(() => true).catch(err => Promise.reject(
                 'Failed to broadcast transaction'
@@ -466,13 +466,13 @@ class Account {
 
     async sendBasicToken(recipient, amount, token) {
         try {
-            const transaction = await NodeService.tronWeb.transactionBuilder.sendToken(
+            const transaction = await NodeService.litetokensWeb.transactionBuilder.sendToken(
                 recipient,
                 amount,
                 token
             );
 
-            await NodeService.tronWeb.trx.sendRawTransaction(
+            await NodeService.litetokensWeb.trx.sendRawTransaction(
                 await this.sign(transaction)
             ).then(() => true).catch(err => Promise.reject(
                 'Failed to broadcast transaction'
@@ -485,7 +485,7 @@ class Account {
 
     async sendSmartToken(recipient, amount, token) {
         try {
-            const contract = await NodeService.tronWeb.contract().at(token);
+            const contract = await NodeService.litetokensWeb.contract().at(token);
 
             await contract.transfer(recipient, amount).send(
                 {},

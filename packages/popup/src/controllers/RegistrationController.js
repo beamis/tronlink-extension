@@ -4,8 +4,8 @@ import Button from 'components/Button';
 import InputCriteria from 'components/InputCriteria';
 
 import { FormattedMessage } from 'react-intl';
-import { VALIDATION_STATE } from '@tronlink/lib/constants';
-import { PopupAPI } from '@tronlink/lib/api';
+import { VALIDATION_STATE } from '@litetokenslink/lib/constants';
+import { PopupAPI } from '@litetokenslink/lib/api';
 
 class RegistrationController extends React.Component {
     state = {
@@ -100,7 +100,7 @@ class RegistrationController extends React.Component {
         return (
             <div className='insetContainer'>
                 <div className='pageHeader'>
-                    TronLink
+                    LitetokensLink
                 </div>
                 { error ? (
                     <div className='errorModal hasBottomMargin'>

@@ -2,9 +2,9 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
-import { PopupAPI } from '@tronlink/lib/api';
+import { PopupAPI } from '@litetokenslink/lib/api';
 
-import { APP_STATE } from '@tronlink/lib/constants';
+import { APP_STATE } from '@litetokenslink/lib/constants';
 
 import RegistrationController from 'controllers/RegistrationController';
 import LoginController from 'controllers/LoginController';

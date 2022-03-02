@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import reduxLogger from 'redux-logger';
 import App from 'app';
-import Logger from '@tronlink/lib/logger';
-import MessageDuplex from '@tronlink/lib/MessageDuplex';
+import Logger from '@litetokenslink/lib/logger';
+import MessageDuplex from '@litetokenslink/lib/MessageDuplex';
 import reducer from 'reducers';
 
 import * as Sentry from '@sentry/browser';
@@ -11,7 +11,7 @@ import * as Sentry from '@sentry/browser';
 import { addLocaleData, IntlProvider } from 'react-intl';
 import { Provider } from 'react-redux';
 import { configureStore, getDefaultMiddleware } from 'redux-starter-kit';
-import { PopupAPI } from '@tronlink/lib/api';
+import { PopupAPI } from '@litetokenslink/lib/api';
 import { setConfirmations } from 'reducers/confirmationsReducer';
 import { library } from '@fortawesome/fontawesome-svg-core';
 
@@ -41,7 +41,7 @@ import enMessages from 'translations/en.json';
 
 Sentry.init({
     dsn: 'https://546d9fe346d149f6b60962741858759b@sentry.io/1329911',
-    release: `TronLink@${ process.env.REACT_APP_VERSION }`
+    release: `LitetokensLink@${ process.env.REACT_APP_VERSION }`
 });
 
 const logger = new Logger('Popup');

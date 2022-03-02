@@ -1,12 +1,12 @@
 import React from 'react';
 import Button from 'components/Button';
-import Utils from '@tronlink/lib/utils';
+import Utils from '@litetokenslink/lib/utils';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
-import { BUTTON_TYPE } from '@tronlink/lib/constants';
-import { PopupAPI } from '@tronlink/lib/api';
+import { BUTTON_TYPE } from '@litetokenslink/lib/constants';
+import { PopupAPI } from '@litetokenslink/lib/api';
 
 import './MnemonicImport.scss';
 
@@ -126,7 +126,7 @@ class MnemonicImport extends React.Component {
         return (
             <div className='insetContainer mnemonicImport'>
                 <div className='pageHeader'>
-                    TronLink
+                    LitetokensLink
                 </div>
                 <div className='greyModal'>
                     <div className='modalDesc hasBottomMargin'>
@@ -189,7 +189,7 @@ class MnemonicImport extends React.Component {
         return (
             <div className='insetContainer mnemonicImport'>
                 <div className='pageHeader'>
-                    TronLink
+                    LitetokensLink
                 </div>
                 <div className='greyModal'>
                     <div className='modalDesc hasBottomMargin'>

@@ -1,7 +1,7 @@
 import crypto from 'crypto';
 import bip39 from 'bip39';
 import bip32 from 'bip32';
-import TronWeb from 'tronweb';
+import LitetokensWeb from 'litetokensweb';
 
 const Utils = {
     encryptionAlgorithm: 'aes-256-ctr',
@@ -73,7 +73,7 @@ const Utils = {
         const node = bip32.fromSeed(seed);
         const child = node.derivePath(`m/44'/195'/${ index }'/0/0`);
         const privateKey = child.privateKey.toString('hex');
-        const address = TronWeb.address.fromPrivateKey(privateKey);
+        const address = LitetokensWeb.address.fromPrivateKey(privateKey);
 
         return {
             privateKey,

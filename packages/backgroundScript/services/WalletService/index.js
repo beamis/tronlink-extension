@@ -1,4 +1,4 @@
-import Logger from '@tronlink/lib/logger';
+import Logger from '@litetokenslink/lib/logger';
 import EventEmitter from 'eventemitter3';
 import StorageService from '../StorageService';
 import NodeService from '../NodeService';
@@ -9,7 +9,7 @@ import extensionizer from 'extensionizer';
 import {
     APP_STATE,
     ACCOUNT_TYPE
-} from '@tronlink/lib/constants';
+} from '@litetokenslink/lib/constants';
 
 const logger = new Logger('WalletService');
 
@@ -58,8 +58,8 @@ class Wallet extends EventEmitter {
         if(error)
             return false;
 
-        localStorage.setItem('TronLink_WALLET.bak', localStorage.getItem('TronLink_WALLET'));
-        localStorage.removeItem('TronLink_WALLET');
+        localStorage.setItem('LitetokensLink_WALLET.bak', localStorage.getItem('LitetokensLink_WALLET'));
+        localStorage.removeItem('LitetokensLink_WALLET');
 
         accounts.forEach(account => (
             this.importAccount(account)
@@ -67,7 +67,7 @@ class Wallet extends EventEmitter {
 
         this.selectAccount(selectedAccount);
 
-        // Force "Reboot" TronLink
+        // Force "Reboot" LitetokensLink
         this.state = APP_STATE.PASSWORD_SET;
         StorageService.ready = false;
 
