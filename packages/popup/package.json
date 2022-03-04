@@ -13,7 +13,7 @@
     "@sentry/browser": "^4.3.4",
     "bignumber.js": "^8.0.1",
     "moment": "2.22.1",
-    "node-sass": "7.0.0",
+    "node-sass": "^4.10.0",
     "react": "^16.6.0",
     "react-custom-scroll": "^4.0.0",
     "react-dom": "^16.6.0",
