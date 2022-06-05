@@ -1,6 +1,6 @@
 import extensionizer from 'extensionizer';
-import Logger from '@tronlink/lib/logger';
-import Utils from '@tronlink/lib/utils';
+import Logger from '@litelink/lib/logger';
+import Utils from '@litelink/lib/utils';
 import NodeService from '../NodeService';
 import axios from 'axios';
 const logger = new Logger('StorageService');
@@ -86,7 +86,7 @@ const StorageService = {
     authorizeDapps: {},
     vTokenList: [],
     get needsMigrating() {
-        return localStorage.hasOwnProperty('TronLink_WALLET');
+        return localStorage.hasOwnProperty('LiteLink_WALLET');
     },
 
     get hasAccounts() {
@@ -270,7 +270,7 @@ const StorageService = {
 
     migrate() {
         try {
-            const storage = localStorage.getItem('TronLink_WALLET');
+            const storage = localStorage.getItem('LiteLink_WALLET');
             const decrypted = Utils.decrypt(
                 JSON.parse(storage),
                 this.password
@@ -395,7 +395,7 @@ const StorageService = {
             name,
             abbr,
             precision: decimals = 0
-        } = await NodeService.tronWeb.trx.getTokenFromID(tokenID);
+        } = await NodeService.liteWeb.trx.getTokenFromID(tokenID);
         this.tokenCache[ tokenID ] = {
             name,
             abbr,
@@ -413,7 +413,7 @@ const StorageService = {
             this.dappList = { recommend: [], used: [] };
         }
         if(!isFromStorage) {
-            const { data: { data: recommend } } = await axios.get('https://list.tronlink.org/dapphouseapp/plug').catch(e => {
+            const { data: { data: recommend } } = await axios.get('https://list.litelink.org/dapphouseapp/plug').catch(e => {
                 logger.error('Get dapp recommend list fail',e);
                 return { data: { data: this.dappList.recommend } };
             });
@@ -451,13 +451,13 @@ const StorageService = {
     },
 
     purge() {
-        logger.warn('Purging TronLink. This will remove all stored transaction data');
+        logger.warn('Purging LiteLink. This will remove all stored transaction data');
 
         this.storage.set({
             transactions: Utils.encrypt({}, this.password)
         });
 
-        logger.info('Purge complete. Please reload TronLink');
+        logger.info('Purge complete. Please reload LiteLink');
     }
 };
 

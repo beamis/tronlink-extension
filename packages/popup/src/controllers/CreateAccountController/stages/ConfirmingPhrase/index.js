@@ -1,5 +1,5 @@
 import React from 'react';
-import Button from '@tronlink/popup/src/components/Button';
+import Button from '@litelink/popup/src/components/Button';
 import Toast, { T } from 'react-toast-mobile';
 import { FormattedMessage, injectIntl } from 'react-intl';
 

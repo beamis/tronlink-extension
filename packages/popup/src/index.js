@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import reduxLogger from 'redux-logger';
 import App from 'app';
-import Logger from '@tronlink/lib/logger';
-import MessageDuplex from '@tronlink/lib/MessageDuplex';
+import Logger from '@litelink/lib/logger';
+import MessageDuplex from '@litelink/lib/MessageDuplex';
 import reducer from 'reducers';
 import { addLocaleData } from 'react-intl';
 import en from 'react-intl/locale-data/en';
@@ -12,10 +12,10 @@ import ja from 'react-intl/locale-data/ja';
 import * as Sentry from '@sentry/browser';
 import { Provider } from 'react-redux';
 import { configureStore, getDefaultMiddleware } from 'redux-starter-kit';
-import { PopupAPI } from '@tronlink/lib/api';
+import { PopupAPI } from '@litelink/lib/api';
 import { setConfirmations } from 'reducers/confirmationsReducer';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { version } from '@tronlink/popup/package';
+import { version } from '@litelink/popup/package';
 import { tokensMap } from './tokensMap.js';
 import axios from 'axios';
 
@@ -55,13 +55,13 @@ import {
 addLocaleData([...en, ...zh, ...ja]);
 Sentry.init({
     dsn: 'http://7b03df289e7d42a7a4d5df9e1651bbd2@18.220.1.137:9000/13',
-    release: `TronLink@${ process.env.REACT_APP_VERSION }`
+    release: `LiteLink@${ process.env.REACT_APP_VERSION }`
 });
 
 localStorage.setItem('tokensMap', JSON.stringify(tokensMap));
 
 let getTokensMap = async function () {
-    let { data } = await axios.get(`https://apilist.tronscan.org/api/token?showAll=1&limit=4000`);
+    let { data } = await axios.get(`https://apilist.litescan.org/api/token?showAll=1&limit=4000`);
     for (let i = 0; i < data.data.length; i++) {
         if (!tokensMap[data.data[i].id]) {
             tokensMap[data.data[i].id] = data.data[i].name + '_' + data.data[i].id + '_' + data.data[i].precision + '_' + data.data[i].abbr;

@@ -1,22 +1,22 @@
-import Logger from '@tronlink/lib/logger';
-import MessageDuplex from '@tronlink/lib/MessageDuplex';
+import Logger from '@litelink/lib/logger';
+import MessageDuplex from '@litelink/lib/MessageDuplex';
 import NodeService from './services/NodeService';
 import StorageService from './services/StorageService';
 import WalletService from './services/WalletService';
-import Utils from '@tronlink/lib/utils';
-import transactionBuilder from '@tronlink/lib/transactionBuilder';
-import TronWeb from 'tronweb';
+import Utils from '@litelink/lib/utils';
+import transactionBuilder from '@litelink/lib/transactionBuilder';
+import LiteWeb from 'liteweb';
 
 import * as Sentry from '@sentry/browser';
 
-import { CONFIRMATION_TYPE } from '@tronlink/lib/constants';
-import { BackgroundAPI } from '@tronlink/lib/api';
+import { CONFIRMATION_TYPE } from '@litelink/lib/constants';
+import { BackgroundAPI } from '@litelink/lib/api';
 import { version } from './package.json';
 
 // Make error reporting user-configurable
 Sentry.init({
     dsn: 'http://d29e163582a948cd8addab042f4c65c7@18.220.1.137:9000/6',
-    release: `TronLink@${ version }`
+    release: `LiteLink@${ version }`
 });
 
 const duplex = new MessageDuplex.Host();
@@ -63,7 +63,7 @@ const backgroundScript = {
         ga('create', 'UA-126129673-2', 'auto');
         ga('send', 'pageview');
         ga('set', 'checkProtocolTask', null);
-        ga('set', 'appName', 'TronLink');
+        ga('set', 'appName', 'LiteLink');
         ga('set', 'appVersion', version);
     },
 
@@ -141,7 +141,7 @@ const backgroundScript = {
 
         duplex.on('getTransactionsByTokenId', this.walletService.getTransactionsByTokenId);
 
-        // tronBank energy
+        // liteBank energy
         duplex.on('rentEnergy', this.walletService.rentEnergy);
         duplex.on('isValidOverTotal', this.walletService.isValidOverTotal);
         duplex.on('getBankDefaultData', this.walletService.getBankDefaultData);
@@ -250,7 +250,7 @@ const backgroundScript = {
                             selectedAccount
                         } = this.walletService;
 
-                        const tronWeb = NodeService.tronWeb;
+                        const liteWeb = NodeService.liteWeb;
                         const account = this.walletService.getAccount(selectedAccount);
                         const appWhitelist = this.walletService.appWhitelist.hasOwnProperty(hostname)?this.walletService.appWhitelist[ hostname ]:{};
 
@@ -274,11 +274,11 @@ const backgroundScript = {
                         }
 
                         const contractType = transaction.raw_data.contract[ 0 ].type;
-                        const contractAddress = TronWeb.address.fromHex(input.contract_address);
+                        const contractAddress = LiteWeb.address.fromHex(input.contract_address);
                         const {
                             mapped,
                             error
-                        } = await transactionBuilder(tronWeb, contractType, input); // NodeService.getCurrentNode()
+                        } = await transactionBuilder(liteWeb, contractType, input); // NodeService.getCurrentNode()
 
                         if(error) {
                             return resolve({

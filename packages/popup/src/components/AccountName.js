@@ -1,14 +1,14 @@
 import React from 'react';
-import Input from '@tronlink/popup/src/components/Input';
-import Button from '@tronlink/popup/src/components/Button';
-import InputCriteria from '@tronlink/popup/src/components/InputCriteria';
+import Input from '@litelink/popup/src/components/Input';
+import Button from '@litelink/popup/src/components/Button';
+import InputCriteria from '@litelink/popup/src/components/InputCriteria';
 
 // import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 
 import {
     VALIDATION_STATE
-} from '@tronlink/lib/constants';
+} from '@litelink/lib/constants';
 
 class AccountName extends React.Component {
     state = {

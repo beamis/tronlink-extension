@@ -1,8 +1,8 @@
 import React from 'react';
 import { BigNumber } from 'bignumber.js';
 import { FormattedMessage } from 'react-intl';
-import { APP_STATE,USDT_ACTIVITY_STAGE  } from "@tronlink/lib/constants";
-import { PopupAPI } from '@tronlink/lib/api';
+import { APP_STATE,USDT_ACTIVITY_STAGE  } from "@litelink/lib/constants";
+import { PopupAPI } from '@litelink/lib/api';
 import moment from 'moment';
 class IncomeRecordController extends React.Component {
     constructor(props) {

@@ -1,11 +1,11 @@
 {
     "ERRORS.UNSUPPORTED_STATE": "State '{appState}' not yet implemented. Click to force a state refresh",
-    "ERRORS.ALREADY_INITIALISED": "已经安装TronLink插件钱包",
+    "ERRORS.ALREADY_INITIALISED": "已经安装LiteLink插件钱包",
     "ERRORS.ACCOUNT_CREATION_FAILED": "创建账户失败",
     "ERRORS.UNLOCK_FAILED": "账户解锁失败",
-    "ERRORS.NOT_LOCKED": "TronLink插件钱包没有被锁定",
-    "ERRORS.ALREADY_UNLOCKED": "TronLink插件钱包已经被锁定",
-    "ERRORS.NOT_SETUP": "TronLink没有初始化",
+    "ERRORS.NOT_LOCKED": "LiteLink插件钱包没有被锁定",
+    "ERRORS.ALREADY_UNLOCKED": "LiteLink插件钱包已经被锁定",
+    "ERRORS.NOT_SETUP": "LiteLink没有初始化",
     "ERRORS.INVALID_PASSWORD": "密码无效",
     "ERRORS.INVALID_TOKEN": "不是一个有效的TRC20 token",
     "ERRORS.TOKEN_ADDED": "即将添加的Token已经存在",
@@ -67,7 +67,7 @@
     "CREATION.LEDGER.TITLE": "硬件钱包",
     "CREATION.LEDGER.TIP": "Ledger用户使用",
     "CREATION.LEDGER.CONNECT_TITLE": "连接硬件钱包",
-    "CREATION.LEDGER.PROCESS_1":"将Ledger与电脑连接，<br />并在Ledger中打开Tron APP",
+    "CREATION.LEDGER.PROCESS_1":"将Ledger与电脑连接，<br />并在Ledger中打开Lite APP",
     "CREATION.LEDGER.PROCESS_2":"核对即将导入的账户地址",
     "CREATION.LEDGER.PROCESS_3":"连接完成，请开始使用",
     "CREATION.LEDGER.LOADING":"在Ledger上打开TRON APP",
@@ -164,7 +164,7 @@
     "CONFIRMATIONS.PROPOSAL_ID": "Proposal ID",
     "CONFIRMATIONS.QUANTITY": "数量",
     "CONFIRMATIONS.WHITELIST.TITLE": "激活自动签名",
-    "CONFIRMATIONS.WHITELIST.BODY": "允许TronLink代表您自动签署交易",
+    "CONFIRMATIONS.WHITELIST.BODY": "允许LiteLink代表您自动签署交易",
     "CONFIRMATIONS.AUTO_AUTHORIZE.DESC": "将该应用加入白名单，此弹窗将不再弹出，自动授权。",
     "CONFIRMATIONS.CLICK_SHOW_PARAMS":"展示参数",
 
@@ -207,13 +207,13 @@
     "SETTINGS.NODES.EVENT_SERVER": "Event server",
     "SETTINGS.CUSTOM_NODE": "Add custom node",
     "SETTINGS.CUSTOM_NODE.NAME": "Node name",
-    "SETTINGS.CUSTOM_NODE.NAME.PLACEHOLDER": "TronGrid",
+    "SETTINGS.CUSTOM_NODE.NAME.PLACEHOLDER": "LiteGrid",
     "SETTINGS.CUSTOM_NODE.FULL_NODE": "Full node",
-    "SETTINGS.CUSTOM_NODE.FULL_NODE.PLACEHOLDER": "https://api.trongrid.io",
+    "SETTINGS.CUSTOM_NODE.FULL_NODE.PLACEHOLDER": "https://api.litegrid.io",
     "SETTINGS.CUSTOM_NODE.SOLIDITY_NODE": "Solidity node",
-    "SETTINGS.CUSTOM_NODE.SOLIDITY_NODE.PLACEHOLDER": "https://api.trongrid.io",
+    "SETTINGS.CUSTOM_NODE.SOLIDITY_NODE.PLACEHOLDER": "https://api.litegrid.io",
     "SETTINGS.CUSTOM_NODE.EVENT_SERVER": "Event server",
-    "SETTINGS.CUSTOM_NODE.EVENT_SERVER.PLACEHOLDER": "https://api.trongrid.io",
+    "SETTINGS.CUSTOM_NODE.EVENT_SERVER.PLACEHOLDER": "https://api.litegrid.io",
 
     "SETTING.TITLE":"设置",
     "SETTING.TITLE.DAPP_WHITELIST":"DAPP白名单",
@@ -334,7 +334,7 @@
     "BANK.RENTDETAIL.EXPIRESTIME":"到期时间",
 
     "BANK.RENTNUMMODAL.TITLE":"租用量说明",
-    "BANK.RENTNUMMODAL.CONTENT":"请填写希望冻结trx的数量，您将获得冻结对应数量trx所产生的能量。根据Tron网络机制， 冻结每个trx产生的能量与全网冻结量有关，因此能量将会实时波动。",
+    "BANK.RENTNUMMODAL.CONTENT":"请填写希望冻结trx的数量，您将获得冻结对应数量trx所产生的能量。根据Lite网络机制， 冻结每个trx产生的能量与全网冻结量有关，因此能量将会实时波动。",
     "BANK.RENTNUMMODAL.BUTTON":"关闭",
 
     "BANK.RENTINFO.CONFIRM":"租用信息确认",
@@ -376,7 +376,7 @@
     "EXCEPTION.SEND.ENERGY_NOT_ENOUGH_TRX_ERROR":"能量不足，将额外消耗少量trx，trx余额不足",
     "EXCEPTION.SEND.BANDWIDTH_ENERGY_NOT_ENOUGH_TRX_ERROR":"带宽，能量不足，将额外消耗少量trx，trx余额不足",
     "EXCEPTION.SEND.ADDRESS_UNACTIVATED_TRC20_ERROR":"地址未激活，无法发送20token，请向其转入trx，以激活该地址",
-    "EXCEPTION.TRANSFER.MAIN_ADDRESS_NO_ACTIVATE":"该地址在Tron主链上未激活",
+    "EXCEPTION.TRANSFER.MAIN_ADDRESS_NO_ACTIVATE":"该地址在Lite主链上未激活",
 
     "USDT.MAIN.INCOME_YESTERDAY":"昨日收益 {earning}",
     "USDT.TEXT.YESTERDAY_INCOME":"昨日收益",
@@ -445,5 +445,5 @@
     "NOTIFICATIONS.MESSAGE":"点击跳转tronscan查看交易详情",
 
     "ALERT.UPDATE_DESCRIPTION.TITLE":"更新说明",
-    "ALERT.UPDATE_DESCRIPTION.BODY":"本次更新主要支持了Tron官方的sunnetwork，即添加了侧链功能。现在您可以将资产在主链与侧链之间转移，并可以通过TronLink使用优先支持了侧链的Dapp。请注意，目前侧链上暂不支持ledger"
+    "ALERT.UPDATE_DESCRIPTION.BODY":"本次更新主要支持了Lite官方的sunnetwork，即添加了侧链功能。现在您可以将资产在主链与侧链之间转移，并可以通过LiteLink使用优先支持了侧链的Dapp。请注意，目前侧链上暂不支持ledger"
 }

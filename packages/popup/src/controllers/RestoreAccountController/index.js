@@ -1,8 +1,8 @@
 import React from 'react';
 import AccountName from 'components/AccountName';
 
-import { PopupAPI } from '@tronlink/lib/api';
-import { RESTORATION_STAGE } from '@tronlink/lib/constants';
+import { PopupAPI } from '@litelink/lib/api';
+import { RESTORATION_STAGE } from '@litelink/lib/constants';
 
 import ChoosingType from './stages/ChoosingType';
 import MnemonicImport from './stages/MnemonicImport';

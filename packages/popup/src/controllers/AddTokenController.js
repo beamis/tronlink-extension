@@ -1,8 +1,8 @@
 import React from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import { PopupAPI } from '@tronlink/lib/api';
+import { PopupAPI } from '@litelink/lib/api';
 import Toast, { T } from 'react-toast-mobile';
-import TronWeb from 'tronweb';
+import LiteWeb from 'liteweb';
 class AddTokenController extends React.Component {
     constructor(props) {
         super(props);
@@ -51,7 +51,7 @@ class AddTokenController extends React.Component {
                             <input type='text' onChange={ (e) => {
                                 const value = e.target.value;
                                 this.state.address.value = value;
-                                this.state.address.valid = TronWeb.isAddress(value);
+                                this.state.address.valid = LiteWeb.isAddress(value);
                                 this.setState({ address: this.state.address });
                             }} placeholder={formatMessage({ id: 'MENU.ADD_TRC20_TOKEN.INPUT_PLACE_HOLDER' })} />
                         </div>

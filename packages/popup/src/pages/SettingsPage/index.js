@@ -4,8 +4,8 @@ import Dropdown from 'react-dropdown';
 import Button from 'components/Button';
 import Input from 'components/Input';
 
-import { VALIDATION_STATE } from '@tronlink/lib/constants';
-import { PopupAPI } from '@tronlink/lib/api';
+import { VALIDATION_STATE } from '@litelink/lib/constants';
+import { PopupAPI } from '@litelink/lib/api';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { app } from 'index';

@@ -16,10 +16,10 @@ export const APP_STATE = {
     TRANSACTIONS: 9, //[x] Show transactions record
     SETTING: 10, //[x] Show setting
     ADD_TRC20_TOKEN: 11, //[x] Show setting
-    TRONBANK: 12, // [x] show TronBank page
-    TRONBANK_RECORD: 13, //[x] show TronBankRecord page
-    TRONBANK_DETAIL: 14, //[X] show TronBankDetail page
-    TRONBANK_HELP: 15,
+    LITEBANK: 12, // [x] show LiteBank page
+    LITEBANK_RECORD: 13, //[x] show LiteBankRecord page
+    LITEBANK_DETAIL: 14, //[X] show LiteBankDetail page
+    LITEBANK_HELP: 15,
     USDT_INCOME_RECORD: 16, //[X] income record for usdt
     USDT_ACTIVITY_DETAIL: 17,
     DAPP_LIST: 18, // [X]show dapp list
@@ -60,8 +60,8 @@ export const RESTORATION_STAGE = {
     SETTING_NAME: 0,
     CHOOSING_TYPE: 1,
     IMPORT_PRIVATE_KEY: 2,
-    IMPORT_TRONWATCH_LEGACY: 3,
-    IMPORT_TRONSCAN: 4,
+    IMPORT_LITEWATCH_LEGACY: 3,
+    IMPORT_LITESCAN: 4,
     IMPORT_MNEMONIC: 5,
     IMPORT_KEY_STORE: 7,
     SUCCESS: 6
@@ -172,8 +172,8 @@ export const SIDE_CHAIN_ID = '41E209E4DE650F0150788E8EC5CAFA240A23EB8EB7';
 export const NODE = {
     //MAIN: {fullNode:'http://47.252.84.158:8070',solidityNode:'http://47.252.84.158:8071',eventServer:'http://47.252.81.14:8070'},
     //SIDE: {fullNode:'http://47.252.85.90:8070',solidityNode:'http://47.252.85.90:8071',eventServer:'http://47.252.87.129:8070'},
-    MAIN: {fullNode: 'https://api.trongrid.io', solidityNode: 'https://api.trongrid.io', eventServer: 'https://api.trongrid.io'},
-    SIDE: {fullNode: 'https://sun.tronex.io', solidityNode: 'https://sun.tronex.io', eventServer: 'https://sun.tronex.io'}
+    MAIN: {fullNode: 'https://api.litegrid.io', solidityNode: 'https://api.litegrid.io', eventServer: 'https://api.litegrid.io'},
+    SIDE: {fullNode: 'https://sun.liteex.io', solidityNode: 'https://sun.liteex.io', eventServer: 'https://sun.liteex.io'}
 };
 export const FEE = {
     WITHDRAW_FEE:10000000,
@@ -182,4 +182,4 @@ export const FEE = {
     MIN_DEPOSIT_OR_WITHDRAW:10000000
 };
 
-export const API_URL = 'https://list.tronlink.org';
+export const API_URL = 'https://list.litelink.org';

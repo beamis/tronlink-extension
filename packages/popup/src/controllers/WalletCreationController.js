@@ -1,9 +1,9 @@
 import React from 'react';
-import WalletOption from '@tronlink/popup/src/components/WalletOption';
+import WalletOption from '@litelink/popup/src/components/WalletOption';
 
 // import { FormattedMessage } from 'react-intl';
-import { APP_STATE } from '@tronlink/lib/constants';
-import { PopupAPI } from '@tronlink/lib/api';
+import { APP_STATE } from '@litelink/lib/constants';
+import { PopupAPI } from '@litelink/lib/api';
 
 const onCreationSelect = () => PopupAPI.changeState(APP_STATE.CREATING);
 const onRestoreSelect = () => PopupAPI.changeState(APP_STATE.RESTORING);

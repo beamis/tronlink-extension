@@ -1,10 +1,10 @@
 import crypto from 'crypto';
 import bip39 from 'bip39';
 import bip32 from 'bip32';
-import TronWeb from 'tronweb';
+import LiteWeb from 'liteweb';
 import pbkdf2 from 'pbkdf2';
 import aesjs from "aes-js";
-import { isAddressValid,pkToAddress } from "@tronscan/client/src/utils/crypto";
+import { isAddressValid,pkToAddress } from "@litescan/client/src/utils/crypto";
 import {utils} from 'ethers';
 
 const encryptKey = (password, salt) => {
@@ -141,7 +141,7 @@ const Utils = {
         const node = bip32.fromSeed(seed);
         const child = node.derivePath(`m/44'/195'/${ index }'/0/0`);
         const privateKey = child.privateKey.toString('hex');
-        const address = TronWeb.address.fromPrivateKey(privateKey);
+        const address = LiteWeb.address.fromPrivateKey(privateKey);
 
         return {
             privateKey,
@@ -202,7 +202,7 @@ const Utils = {
         const curHost = location.hostname;
         let curApiHost;
         // const defaultUrl = 'http://52.14.133.221:8990'; //test
-        const defaultUrl = 'https://manger.tronlending.org'; //online
+        const defaultUrl = 'https://manger.litelending.org'; //online
         switch (curHost) {
             case 'nnceancbokoldkjjbpopcffaoekebnnb':
                 curApiHost = defaultUrl;
@@ -277,17 +277,17 @@ const Utils = {
     decodeParams(message,abiCode,function_selector) {
         const cutArr = function_selector.match(/(.+)\((.*)\)/);
         if(cutArr[2]!==''){
-            const byteArray = TronWeb.utils.code.hexStr2byteArray(message);
+            const byteArray = LiteWeb.utils.code.hexStr2byteArray(message);
             const abi = abiCode.filter(({name})=> name === cutArr[1]);
             return abi[0].inputs.map(({name,type},i)=>{
                 let value;
                 const array = byteArray.filter((v,index)=>index >=32 * i && index< 32 * (i + 1));
                 if(type === 'address') {
-                    value = TronWeb.address.fromHex('41'+TronWeb.utils.code.byteArray2hexStr(array.filter((v,i) => i>11)));
+                    value = LiteWeb.address.fromHex('41'+LiteWeb.utils.code.byteArray2hexStr(array.filter((v,i) => i>11)));
                 } else if(type === 'trcToken') {
-                    value = TronWeb.toDecimal('0x'+TronWeb.utils.code.byteArray2hexStr(array));
+                    value = LiteWeb.toDecimal('0x'+LiteWeb.utils.code.byteArray2hexStr(array));
                 } else {
-                    value = TronWeb.toDecimal('0x'+TronWeb.utils.code.byteArray2hexStr(array));
+                    value = LiteWeb.toDecimal('0x'+LiteWeb.utils.code.byteArray2hexStr(array));
                 }
                 return {name,type,value};
             });

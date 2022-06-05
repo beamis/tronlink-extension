@@ -1,6 +1,6 @@
-import Utils from '@tronlink/lib/utils';
+import Utils from '@litelink/lib/utils';
 
-// TronLending index
+// LiteLending index
 export const getBankDefaultDataApi = () => {
     const requestUrl = `${Utils.requestUrl()}/api/bank/default_data`;
     return requestUrl;
@@ -21,13 +21,13 @@ export const postBankOrderApi = () => {
     return requestUrl;
 };
 
-// TronLending page list
+// LiteLending page list
 export const getBankListApi = () => {
     const requestUrl = `${Utils.requestUrl()}/api/bank/list`;
     return requestUrl;
 };
 
-// TronLending record detail
+// LiteLending record detail
 export const getBankOrderInfoApi = () => {
     const requestUrl = `${Utils.requestUrl()}/api/bank/order_info`;
     return requestUrl;

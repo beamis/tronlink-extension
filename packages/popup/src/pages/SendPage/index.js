@@ -1,15 +1,15 @@
 import React from 'react';
-import AccountDetails from '@tronlink/popup/src/components/AccountDetails';
+import AccountDetails from '@litelink/popup/src/components/AccountDetails';
 import CustomScroll from 'react-custom-scroll';
-import Input from '@tronlink/popup/src/components/Input';
-import Button from '@tronlink/popup/src/components/Button';
-import TronWeb from 'tronweb';
+import Input from '@litelink/popup/src/components/Input';
+import Button from '@litelink/popup/src/components/Button';
+import LiteWeb from 'liteweb';
 import Dropdown from 'react-dropdown';
 
 import { connect } from 'react-redux';
 import { BigNumber } from 'bignumber.js';
-import { VALIDATION_STATE } from '@tronlink/lib/constants';
-import { PopupAPI } from '@tronlink/lib/api';
+import { VALIDATION_STATE } from '@litelink/lib/constants';
+import { PopupAPI } from '@litelink/lib/api';
 
 import {
     FormattedMessage,
@@ -68,7 +68,7 @@ class SendPage extends React.Component {
         if(!address.length)
             return this.setState({ recipient });
 
-        if(!TronWeb.isAddress(address))
+        if(!LiteWeb.isAddress(address))
             recipient.valid = VALIDATION_STATE.INVALID;
         else recipient.valid = VALIDATION_STATE.VALID;
 

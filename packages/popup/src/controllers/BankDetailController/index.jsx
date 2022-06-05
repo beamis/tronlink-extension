@@ -7,11 +7,11 @@
  */
 import React from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import { PopupAPI } from '@tronlink/lib/api';
-import { APP_STATE } from '@tronlink/lib/constants';
+import { PopupAPI } from '@litelink/lib/api';
+import { APP_STATE } from '@litelink/lib/constants';
 import { NavBar, Toast } from 'antd-mobile';
-import Utils from '@tronlink/lib/utils';
-import { getBankOrderInfoApi } from '@tronlink/popup/src/fetch/tronLending/tronLending';
+import Utils from '@litelink/lib/utils';
+import { getBankOrderInfoApi } from '@litelink/popup/src/fetch/liteLending/liteLending';
 
 import './BankDetailController.scss';
 

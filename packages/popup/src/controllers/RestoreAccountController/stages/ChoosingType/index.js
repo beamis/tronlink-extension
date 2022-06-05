@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 
 import {
     RESTORATION_STAGE
-} from '@tronlink/lib/constants';
+} from '@litelink/lib/constants';
 
 const ChoosingType = props => {
     const {

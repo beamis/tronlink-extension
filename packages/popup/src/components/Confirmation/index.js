@@ -2,7 +2,7 @@
  * Created by tron on 2019/8/29.
  */
 import React from 'react';
-import Button from '@tronlink/popup/src/components/Button';
+import Button from '@litelink/popup/src/components/Button';
 
 import { injectIntl } from 'react-intl';
 

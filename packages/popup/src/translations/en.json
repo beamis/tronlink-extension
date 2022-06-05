@@ -1,11 +1,11 @@
 {
     "ERRORS.UNSUPPORTED_STATE": "State {appState} not yet implemented. Click to force a state refresh",
-    "ERRORS.ALREADY_INITIALISED": "TronLink has already been initialised",
+    "ERRORS.ALREADY_INITIALISED": "LiteLink has already been initialised",
     "ERRORS.ACCOUNT_CREATION_FAILED": "Account creation failed",
     "ERRORS.UNLOCK_FAILED": "Account unlock failed",
-    "ERRORS.NOT_LOCKED": "TronLink is not locked",
-    "ERRORS.ALREADY_UNLOCKED": "TronLink is already unlocked",
-    "ERRORS.NOT_SETUP": "TronLink has not been initialised",
+    "ERRORS.NOT_LOCKED": "LiteLink is not locked",
+    "ERRORS.ALREADY_UNLOCKED": "LiteLink is already unlocked",
+    "ERRORS.NOT_SETUP": "LiteLink has not been initialised",
     "ERRORS.INVALID_PASSWORD": "Invalid password supplied",
     "ERRORS.INVALID_TOKEN": "Not a valid TRC20 token",
     "ERRORS.TOKEN_ADDED": "Token already added exists in wallet",
@@ -55,7 +55,7 @@
     "CREATION.CREATE.CONFIRM.MNEMONIC.DIALOG": "Mnemonic error",
     "CREATION.CREATE.TIP":"Recommend new users to use",
     "CREATION.RESTORE.TITLE": "Restore",
-    "CREATION.RESTORE.TIP":"Recommend for users with existing Tron accounts",
+    "CREATION.RESTORE.TIP":"Recommend for users with existing Lite accounts",
     "CREATION.RESTORE.PRIVATE_KEY.TITLE": "Import by private key",
     "CREATION.RESTORE.MNEMONIC.TITLE": "Import by mnemonic phrase",
     "CREATION.RESTORE.MNEMONIC.RELATED_TO.ACCOUNT.TITLE": "Select account",
@@ -164,7 +164,7 @@
     "CONFIRMATIONS.PROPOSAL_ID": "Proposal ID",
     "CONFIRMATIONS.QUANTITY": "Quantity",
     "CONFIRMATIONS.WHITELIST.TITLE": "Enable automatic signing",
-    "CONFIRMATIONS.WHITELIST.BODY": "This allows TronLink to automatically sign similar transactions on your behalf",
+    "CONFIRMATIONS.WHITELIST.BODY": "This allows LiteLink to automatically sign similar transactions on your behalf",
     "CONFIRMATIONS.AUTO_AUTHORIZE.DESC": "Add the app to the white list so it will be authenticated automatically. The pop-up window will also stop showing.",
     "CONFIRMATIONS.CLICK_SHOW_PARAMS":"click to display parameters",
 
@@ -207,13 +207,13 @@
     "SETTINGS.NODES.EVENT_SERVER": "Event server",
     "SETTINGS.CUSTOM_NODE": "Add custom node",
     "SETTINGS.CUSTOM_NODE.NAME": "Node name",
-    "SETTINGS.CUSTOM_NODE.NAME.PLACEHOLDER": "TronGrid",
+    "SETTINGS.CUSTOM_NODE.NAME.PLACEHOLDER": "LiteGrid",
     "SETTINGS.CUSTOM_NODE.FULL_NODE": "Full node",
-    "SETTINGS.CUSTOM_NODE.FULL_NODE.PLACEHOLDER": "https://api.trongrid.io",
+    "SETTINGS.CUSTOM_NODE.FULL_NODE.PLACEHOLDER": "https://api.litegrid.io",
     "SETTINGS.CUSTOM_NODE.SOLIDITY_NODE": "Solidity node",
-    "SETTINGS.CUSTOM_NODE.SOLIDITY_NODE.PLACEHOLDER": "https://api.trongrid.io",
+    "SETTINGS.CUSTOM_NODE.SOLIDITY_NODE.PLACEHOLDER": "https://api.litegrid.io",
     "SETTINGS.CUSTOM_NODE.EVENT_SERVER": "Event server",
-    "SETTINGS.CUSTOM_NODE.EVENT_SERVER.PLACEHOLDER": "https://api.trongrid.io",
+    "SETTINGS.CUSTOM_NODE.EVENT_SERVER.PLACEHOLDER": "https://api.litegrid.io",
 
     "SETTING.TITLE":"Setting",
     "SETTING.TITLE.DAPP_WHITELIST":"DAPP white list",
@@ -377,7 +377,7 @@
     "EXCEPTION.SEND.ENERGY_NOT_ENOUGH_TRX_ERROR":"Insufficient Energy, a small amout of TRX will be consumed, insufficient TRX balance",
     "EXCEPTION.SEND.BANDWIDTH_ENERGY_NOT_ENOUGH_TRX_ERROR":"Insufficient bandwidth and Energy, a small amout of TRX will be consumed, insufficient TRX balance",
     "EXCEPTION.SEND.ADDRESS_UNACTIVATED_TRC20_ERROR":"The address is not activated, 20token cannot be sent. Please transfer TRX to activate the address.",
-    "EXCEPTION.TRANSFER.MAIN_ADDRESS_NO_ACTIVATE":"This address is not activated on the Tron main chain",
+    "EXCEPTION.TRANSFER.MAIN_ADDRESS_NO_ACTIVATE":"This address is not activated on the Lite main chain",
 
     "USDT.MAIN.INCOME_YESTERDAY":"Yesterday's Income {earning}",
     "USDT.TEXT.YESTERDAY_INCOME":"Yesterday's Income",
@@ -426,7 +426,7 @@
     "TRANSACTION_DETAIL.TIME": "Transaction time",
     "TRANSACTION_DETAIL.BLOCK_HEIGHT": "Block Height",
     "TRANSACTION_DETAIL.FEE": "Fee",
-    "TRANSACTION_DETAIL.GO_TRONSCAN": "Go to Tronscan for detailed data",
+    "TRANSACTION_DETAIL.GO_TRONSCAN": "Go to Litescan for detailed data",
     "TRANSACTION_DETAIL.COPYED": "The screenshot is copied to the clipboard",
     "TRANSACTION_DETAIL.ENABLE_COPY": "Copyable",
     "TRANSACTION_DETAIL.HAVE_COPIED": "Copied",
@@ -443,9 +443,9 @@
     "INDEX_ICON_TITLE.SETTING":"set up",
 
     "NOTIFICATIONS.TITLE":"transaction finished",
-    "NOTIFICATIONS.MESSAGE":"go to Tronscan to check details",
+    "NOTIFICATIONS.MESSAGE":"go to Litescan to check details",
 
     "ALERT.UPDATE_DESCRIPTION.TITLE":"Update Description",
-    "ALERT.UPDATE_DESCRIPTION.BODY":"The update mainly supports TRON's official SUN Network. A side chain feature has been added. Now you can transfer your assets between the main chain and the side chain, and use Dapps that have already supported side chain by TronLink. Please note that the side chain does not support ledger yet."
+    "ALERT.UPDATE_DESCRIPTION.BODY":"The update mainly supports TRON's official SUN Network. A side chain feature has been added. Now you can transfer your assets between the main chain and the side chain, and use Dapps that have already supported side chain by LiteLink. Please note that the side chain does not support ledger yet."
 
 }

@@ -1,12 +1,12 @@
 {
-  "name": "@tronlink/lib",
+  "name": "@litelink/lib",
   "main": "index.js",
-  "repository": "https://github.com/TronLink/TronLink",
+  "repository": "https://github.com/Lite-Link/LiteLink-extension",
   "author": "Kondax <kondaxsolutions@gmail.com>",
   "private": true,
   "version": "3.0.1",
   "dependencies": {
-    "@tronscan/client": "^0.2.48",
+    "@litescan/client": "^0.2.48",
     "@ledgerhq/hw-transport-u2f": "^4.31.0",
     "aes-js": "^3.1.2",
     "bip32": "^1.0.2",
@@ -16,7 +16,7 @@
     "eventemitter3": "^3.1.0",
     "extensionizer": "^1.0.1",
     "pbkdf2": "^3.0.17",
-    "tronweb": "^2.7.4",
+    "liteweb": "^2.7.4",
     "uuid": "^3.3.2",
     "ethers": "^4.0.7"
   },

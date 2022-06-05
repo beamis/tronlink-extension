@@ -1,8 +1,8 @@
 /**
- * Created by tron on 2019/7/3.
+ * Created by lite on 2019/7/3.
  */
 import React from 'react';
-import Button from '@tronlink/popup/src/components/Button';
+import Button from '@litelink/popup/src/components/Button';
 import LoadingGif from 'assets/images/loading_black.gif';
 
 import { injectIntl } from 'react-intl';
@@ -15,11 +15,11 @@ class Loading extends React.Component {
     }
 
     componentDidMount(){
-        if(document.getElementById('tronLedgerBridge')){
-            document.head.removeChild(document.getElementById('tronLedgerBridge'));
+        if(document.getElementById('liteLedgerBridge')){
+            document.head.removeChild(document.getElementById('liteLedgerBridge'));
         }
         const iframe = document.createElement('iframe');
-        iframe.id = 'tronLedgerBridge';
+        iframe.id = 'liteLedgerBridge';
         iframe.src = 'https://zacharyle.github.io/tron-ledger-bridge?new='+Math.random();
         document.head.appendChild(iframe);
     }

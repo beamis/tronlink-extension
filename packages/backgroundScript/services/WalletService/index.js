@@ -1,19 +1,19 @@
-import Logger from '@tronlink/lib/logger';
+import Logger from '@litelink/lib/logger';
 import EventEmitter from 'eventemitter3';
 import StorageService from '../StorageService';
 import NodeService from '../NodeService';
 import Account from './Account';
 import axios from 'axios';
 import extensionizer from 'extensionizer';
-import Utils from '@tronlink/lib/utils';
-import TronWeb from 'tronweb';
+import Utils from '@litelink/lib/utils';
+import LiteWeb from 'liteweb';
 
 import {
     APP_STATE,
     ACCOUNT_TYPE,
     CONTRACT_ADDRESS,
     API_URL
-} from '@tronlink/lib/constants';
+} from '@litelink/lib/constants';
 
 const logger = new Logger('WalletService');
 let basicPrice;
@@ -70,8 +70,8 @@ class Wallet extends EventEmitter {
         if(error)
             return false;
 
-        localStorage.setItem('TronLink_WALLET.bak', localStorage.getItem('TronLink_WALLET'));
-        localStorage.removeItem('TronLink_WALLET');
+        localStorage.setItem('LiteLink_WALLET.bak', localStorage.getItem('LiteLink_WALLET'));
+        localStorage.removeItem('LiteLink_WALLET');
 
         accounts.forEach(account => (
             this.importAccount(account)
@@ -79,7 +79,7 @@ class Wallet extends EventEmitter {
 
         this.selectAccount(selectedAccount);
 
-        // Force "Reboot" TronLink
+        // Force "Reboot" LiteLink
         this.state = APP_STATE.PASSWORD_SET;
         StorageService.ready = false;
 
@@ -101,8 +101,8 @@ class Wallet extends EventEmitter {
         //         eventCategory: 'Dapp List',
         //         eventAction: 'Recommend',
         //         eventLabel: 'Recommend',
-        //         eventValue: TronWeb.address.fromHex(this.selectedAccount),
-        //         userId: Utils.hash(TronWeb.address.toHex(this.selectedAccount))
+        //         eventValue: LiteWeb.address.fromHex(this.selectedAccount),
+        //         userId: Utils.hash(LiteWeb.address.toHex(this.selectedAccount))
         //     });
         // }
 
@@ -288,10 +288,10 @@ class Wallet extends EventEmitter {
             APP_STATE.SETTING,
             APP_STATE.ADD_TRC20_TOKEN,
             APP_STATE.READY,
-            APP_STATE.TRONBANK,
-            APP_STATE.TRONBANK_RECORD,
-            APP_STATE.TRONBANK_DETAIL,
-            APP_STATE.TRONBANK_HELP,
+            APP_STATE.LITEBANK,
+            APP_STATE.LITEBANK_RECORD,
+            APP_STATE.LITEBANK_DETAIL,
+            APP_STATE.LITEBANK_HELP,
             APP_STATE.USDT_INCOME_RECORD,
             APP_STATE.USDT_ACTIVITY_DETAIL,
             APP_STATE.DAPP_LIST,
@@ -473,7 +473,7 @@ class Wallet extends EventEmitter {
                 eventLabel: confirmation.contractType || 'SignMessage',
                 eventValue: duration,
                 referrer: hostname,
-                userId: Utils.hash(TronWeb.address.toHex(this.selectedAccount))
+                userId: Utils.hash(LiteWeb.address.toHex(this.selectedAccount))
             });
 
         } else {
@@ -491,7 +491,7 @@ class Wallet extends EventEmitter {
             ga('send', 'event', {
                 eventCategory: 'Smart Contract',
                 eventAction: 'Whitelisted Smart Contract',
-                eventLabel: TronWeb.address.fromHex(confirmation.input.contract_address),
+                eventLabel: LiteWeb.address.fromHex(confirmation.input.contract_address),
                 eventValue: duration,
                 referrer: confirmation.hostname,
                 userId: Utils.hash(confirmation.input.owner_address)
@@ -528,7 +528,7 @@ class Wallet extends EventEmitter {
             eventLabel: confirmation.contractType || 'SignMessage',
             eventValue: confirmation.input.amount || 0,
             referrer: confirmation.hostname,
-            userId: Utils.hash(TronWeb.address.toHex(this.selectedAccount))
+            userId: Utils.hash(LiteWeb.address.toHex(this.selectedAccount))
         });
 
         callback({
@@ -564,7 +564,7 @@ class Wallet extends EventEmitter {
             eventValue: confirmation.input.amount || 0,
             referrer: confirmation.hostname,
             userId: Utils.hash(
-                TronWeb.address.toHex(this.selectedAccount)
+                LiteWeb.address.toHex(this.selectedAccount)
             )
         });
 
@@ -627,7 +627,7 @@ class Wallet extends EventEmitter {
         logger.info(`Importing account '${ name }' from popup`);
 
         const account = new Account(
-            privateKey.match(/^T/) && TronWeb.isAddress(privateKey) ? ACCOUNT_TYPE.LEDGER : ACCOUNT_TYPE.PRIVATE_KEY,
+            privateKey.match(/^T/) && LiteWeb.isAddress(privateKey) ? ACCOUNT_TYPE.LEDGER : ACCOUNT_TYPE.PRIVATE_KEY,
             privateKey
         );
 
@@ -652,12 +652,12 @@ class Wallet extends EventEmitter {
         const dapps   = axios.get('https://dappradar.com/api/xchain/dapps/theRest');
         const dapps2  = axios.get('https://dappradar.com/api/xchain/dapps/list/0');
         Promise.all([dapps, dapps2]).then(res => {
-            const tronDapps =  res[ 0 ].data.data.list.concat(res[ 1 ].data.data.list).filter(({ protocols: [ type ] }) => type === 'tron').map(({ logo: icon, url: href, title: name }) => ({ icon, href, name }));
-            StorageService.saveAllDapps(tronDapps);
+            const liteDapps =  res[ 0 ].data.data.list.concat(res[ 1 ].data.data.list).filter(({ protocols: [ type ] }) => type === 'lite').map(({ logo: icon, url: href, title: name }) => ({ icon, href, name }));
+            StorageService.saveAllDapps(liteDapps);
         });
-        const trc10tokens = axios.get('https://apilist.tronscan.org/api/token?showAll=1&limit=4000&fields=tokenID,name,precision,abbr,imgUrl,isBlack');
-        const trc20tokens = axios.get('https://apilist.tronscan.org/api/tokens/overview?start=0&limit=1000&filter=trc20');
-        const trc20tokens_s = axios.get('https://dappchainapi.tronscan.org/api/tokens/overview?start=0&limit=1000&filter=trc20');
+        const trc10tokens = axios.get('https://apilist.litescan.org/api/token?showAll=1&limit=4000&fields=tokenID,name,precision,abbr,imgUrl,isBlack');
+        const trc20tokens = axios.get('https://apilist.litescan.org/api/tokens/overview?start=0&limit=1000&filter=trc20');
+        const trc20tokens_s = axios.get('https://dappchainapi.litescan.org/api/tokens/overview?start=0&limit=1000&filter=trc20');
         Promise.all([trc10tokens, trc20tokens, trc20tokens_s]).then(res => {
             let t = [];
             let t2 = [];
@@ -878,7 +878,7 @@ class Wallet extends EventEmitter {
         } = this.accounts[ this.selectedAccount ];
         try {
             const bankContractAddress = this.bankContractAddress;
-            const contractInstance = await NodeService.tronWeb.contract().at(bankContractAddress);
+            const contractInstance = await NodeService.liteWeb.contract().at(bankContractAddress);
             const result = await contractInstance.entrustOrder(_freezeAmount, _days, _energyAddress).send(
                 {
                     callValue: _payAmount,
@@ -939,8 +939,8 @@ class Wallet extends EventEmitter {
     }
 
     async isValidOnlineAddress({ address }) {
-        // const account = await NodeService.tronWeb.trx.getUnconfirmedAccount(address);
-        const account = await NodeService.tronWeb.trx.getAccountResources(address);
+        // const account = await NodeService.liteWeb.trx.getUnconfirmedAccount(address);
+        const account = await NodeService.liteWeb.trx.getAccountResources(address);
         if(!account.TotalEnergyLimit)
             return logger.warn('Failed to get online address data');
         return account;
@@ -991,7 +991,7 @@ class Wallet extends EventEmitter {
         const { fullNode } = NodeService.getCurrentNode();
         const address = this.selectedAccount;
         let params = {limit};
-        let requestUrl = selectedChain === '_' ? 'https://apilist.tronscan.org' : 'https://dappchainapi.tronscan.org';
+        let requestUrl = selectedChain === '_' ? 'https://apilist.litescan.org' : 'https://dappchainapi.litescan.org';
         // if(selectedChain === '_') {
         //     params.fingerprint = fingerprint;
         //     if (!tokenId.match(/^T/)) {
@@ -1013,15 +1013,15 @@ class Wallet extends EventEmitter {
         //             let timestamp = 0;
         //             let hash = '';
         //             if (record['internal_tx_id']) {
-        //                 fromAddress = TronWeb.address.fromHex(record['from_address']);
-        //                 toAddress = TronWeb.address.fromHex(record['to_address']);
+        //                 fromAddress = LiteWeb.address.fromHex(record['from_address']);
+        //                 toAddress = LiteWeb.address.fromHex(record['to_address']);
         //                 amount = record['data']['call_value'][tokenId];
         //                 timestamp = record['block_timestamp'];
         //                 hash = record['tx_id'];
         //             } else {
         //                 const value = record['raw_data']['contract'][0]['parameter']['value'];
-        //                 fromAddress = TronWeb.address.fromHex(value['owner_address']);
-        //                 toAddress = TronWeb.address.fromHex(value['to_address']);
+        //                 fromAddress = LiteWeb.address.fromHex(value['owner_address']);
+        //                 toAddress = LiteWeb.address.fromHex(value['to_address']);
         //                 amount = value['amount'];
         //                 timestamp = record['raw_data']['timestamp'];
         //                 hash = record['txID']
@@ -1032,9 +1032,9 @@ class Wallet extends EventEmitter {
         //     } else {
         //         params['event_name'] = 'Transfer';
         //         if (direction === 'to') {
-        //             params.filters = `{"to":"${TronWeb.address.toHex(address).replace(/41/, '0x')}"}`;
+        //             params.filters = `{"to":"${LiteWeb.address.toHex(address).replace(/41/, '0x')}"}`;
         //         } else if (direction === 'from') {
-        //             params.filters = `{"from":"${TronWeb.address.toHex(address).replace(/41/, '0x')}"}`;
+        //             params.filters = `{"from":"${LiteWeb.address.toHex(address).replace(/41/, '0x')}"}`;
         //         }
         //         requestUrl = `${fullNode}/v1/contracts/${tokenId}/events`;
         //         const {data: {data: records, meta: {fingerprint: finger}}} = await axios.get(requestUrl, {
@@ -1042,8 +1042,8 @@ class Wallet extends EventEmitter {
         //             timeout: 5000
         //         }).catch(r => ({data: {data: [], meta: {fingerprint: ''}}}));
         //         let lists = records.map(record => {
-        //             const fromAddress = TronWeb.address.fromHex(record['result']['from'].replace(/^0x/, '41'));
-        //             const toAddress = TronWeb.address.fromHex(record['result']['to'].replace(/^0x/, '41'));
+        //             const fromAddress = LiteWeb.address.fromHex(record['result']['from'].replace(/^0x/, '41'));
+        //             const toAddress = LiteWeb.address.fromHex(record['result']['to'].replace(/^0x/, '41'));
         //             const amount = record['result']['value'];
         //             const timestamp = record['block_timestamp'];
         //             const hash = record['transaction_id'];
@@ -1131,7 +1131,7 @@ class Wallet extends EventEmitter {
 
     async setAirdropInfo(address) {
         const apiUrl = API_URL;
-        const hexAddress = TronWeb.address.toHex(address);
+        const hexAddress = LiteWeb.address.toHex(address);
         const res = await axios.get(apiUrl + '/api/wallet/airdrop_transaction',{ params: { address: hexAddress } }).catch(e=>false);
         if(res && res.data.code === 0) {
             this.accounts[ this.selectedAccount ].airdropInfo = res.data.data;
@@ -1161,7 +1161,7 @@ class Wallet extends EventEmitter {
             eventAction,
             eventLabel,
             referrer,
-            userId: Utils.hash(TronWeb.address.toHex(this.selectedAccount))
+            userId: Utils.hash(LiteWeb.address.toHex(this.selectedAccount))
         });
     }
 
@@ -1180,8 +1180,8 @@ class Wallet extends EventEmitter {
 
     async setTransactionDetail(hash) {
         const selectedChain = NodeService._selectedChain;
-        const requestUrl = selectedChain === '_'?'https://apilist.tronscan.org':'https://dappchainapi.tronscan.org';
-        //const reauestUrl = 'https://apilist.tronscan.org';
+        const requestUrl = selectedChain === '_'?'https://apilist.litescan.org':'https://dappchainapi.litescan.org';
+        //const reauestUrl = 'https://apilist.litescan.org';
         const res = await axios.get(`${requestUrl}/api/transaction-info`, { params: { hash } }).catch(e=>false);
         if(res) {
             let { confirmed, ownerAddress, toAddress, hash, block,timestamp = 0 ,cost, tokenTransferInfo = false, trigger_info, contractType, contractData } = res.data;
@@ -1214,7 +1214,7 @@ class Wallet extends EventEmitter {
     }
 
     async getAbiCode(contract_address){
-        const contract = await NodeService.tronWeb.contract().at(contract_address);
+        const contract = await NodeService.liteWeb.contract().at(contract_address);
         return contract.abi;
     }
 
@@ -1230,7 +1230,7 @@ class Wallet extends EventEmitter {
                 this.times = 0;
                 return;
             }
-            const transaction = await NodeService.tronWeb.trx.getConfirmedTransaction(hash);
+            const transaction = await NodeService.liteWeb.trx.getConfirmedTransaction(hash);
             if(transaction && transaction.txID === hash){
                 clearInterval(timer);
                 extensionizer.notifications.getPermissionLevel((level)=>{
@@ -1241,7 +1241,7 @@ class Wallet extends EventEmitter {
                             notifyId=>{}
                         );
                         extensionizer.notifications.onClicked.addListener(notifyId=>{
-                            window.open('https://tronscan.org/#/transaction/'+notifyId)
+                            window.open('https://litescan.org/#/transaction/'+notifyId)
                         });
                     } else {}
                 })

@@ -1,13 +1,13 @@
 import React from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import { PopupAPI } from '@tronlink/lib/api';
-import Utils from '@tronlink/lib/utils';
+import { PopupAPI } from '@litelink/lib/api';
+import Utils from '@litelink/lib/utils';
 import Toast, { T } from 'react-toast-mobile';
 import { Switch } from 'antd-mobile';
-import TronWeb from 'tronweb';
-import { TOP_TOKEN,CONTRACT_ADDRESS } from '@tronlink/lib/constants';
-const trxImg = require('@tronlink/popup/src/assets/images/new/trx.png');
-const token10DefaultImg = require('@tronlink/popup/src/assets/images/new/token_10_default.png');
+import LiteWeb from 'liteweb';
+import { TOP_TOKEN,CONTRACT_ADDRESS } from '@litelink/lib/constants';
+const trxImg = require('@litelink/popup/src/assets/images/new/trx.png');
+const token10DefaultImg = require('@litelink/popup/src/assets/images/new/token_10_default.png');
 class AssetManageController extends React.Component {
     constructor(props) {
         super(props);
@@ -133,7 +133,7 @@ class AssetManageController extends React.Component {
                             const value = e.target.value;
                             let fTokens = [];
                             if(value !== '') {
-                                if(TronWeb.isAddress(value)) {
+                                if(LiteWeb.isAddress(value)) {
                                     const token = await PopupAPI.getSmartToken(value);
                                     if(!token) {
                                         T.notify(formatMessage({ id: 'ERRORS.INVALID_TOKEN' }));
@@ -206,7 +206,7 @@ class AssetManageController extends React.Component {
                                                     this.setState({ filterTokens: filters });
                                                     if(!isList) {
                                                         const token = { name, imgUrl, balance, isLocked: false, decimals, price: 0 };
-                                                        //const key = TronWeb.isAddress(address.value) && !selected.tokens.smart.hasOwnProperty(address.value) ? 'symbol' : 'abbr';
+                                                        //const key = LiteWeb.isAddress(address.value) && !selected.tokens.smart.hasOwnProperty(address.value) ? 'symbol' : 'abbr';
                                                         const key = 'symbol';
                                                         token[ key ] = abbr || symbol;
                                                         if(field === 'smart'){
@@ -239,7 +239,7 @@ class AssetManageController extends React.Component {
                                                 {
                                                     isVerify
                                                         ?
-                                                    <img src={require('@tronlink/popup/src/assets/images/new/icon-verify.svg')} />
+                                                    <img src={require('@litelink/popup/src/assets/images/new/icon-verify.svg')} />
                                                         :
                                                     null
                                                 }

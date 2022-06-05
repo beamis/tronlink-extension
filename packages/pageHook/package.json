@@ -1,7 +1,7 @@
 {
-  "name": "@tronlink/pageHook",
+  "name": "@litelink/pageHook",
   "main": "index.js",
-  "repository": "https://github.com/TronLink/TronLink",
+  "repository": "https://github.com/Lite-Link/LiteLink-extension",
   "author": "Kondax <kondaxsolutions@gmail.com>",
   "private": true,
   "version": "3.1.0",
@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "ethers": "^4.0.33",
-    "tronweb": "^2.7.4",
+    "liteweb": "^2.7.4",
     "sunweb": "^1.0.7"
   }
 }

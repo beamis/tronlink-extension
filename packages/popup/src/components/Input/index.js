@@ -2,7 +2,7 @@ import React from 'react';
 
 import { injectIntl } from 'react-intl';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { VALIDATION_STATE } from '@tronlink/lib/constants';
+import { VALIDATION_STATE } from '@litelink/lib/constants';
 
 import './Input.scss';
 

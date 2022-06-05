@@ -1,7 +1,7 @@
 import {
     APP_STATE,
     PAGES
-} from '@tronlink/lib/constants';
+} from '@litelink/lib/constants';
 
 import {
     createReducer,

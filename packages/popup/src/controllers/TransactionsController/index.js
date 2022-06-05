@@ -4,11 +4,11 @@ import CopyToClipboard from 'react-copy-to-clipboard';
 import { Toast } from 'antd-mobile';
 import { BigNumber } from 'bignumber.js';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import { PopupAPI } from '@tronlink/lib/api';
-import { APP_STATE, CONTRACT_ADDRESS, ACCOUNT_TYPE } from '@tronlink/lib/constants';
+import { PopupAPI } from '@litelink/lib/api';
+import { APP_STATE, CONTRACT_ADDRESS, ACCOUNT_TYPE } from '@litelink/lib/constants';
 
 BigNumber.config({ EXPONENTIAL_AT: [-20, 30] });
-const token10DefaultImg = require('@tronlink/popup/src/assets/images/new/token_10_default.png');
+const token10DefaultImg = require('@litelink/popup/src/assets/images/new/token_10_default.png');
 
 class TransactionsController extends React.Component {
     constructor(props) {
@@ -59,7 +59,7 @@ class TransactionsController extends React.Component {
                     {
                         id !== '_' ?
                             <span className='detail' onClick={() => {
-                                let url = 'https://tronscan.org/#/';
+                                let url = 'https://litescan.org/#/';
                                 url += (id.match(/^T/) ? 'token20/' + id : 'token/' + id);
                                 window.open(url);
                             }

@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
-import { setPage } from '@tronlink/popup/src/reducers/appReducer';
+import { setPage } from '@litelink/popup/src/reducers/appReducer';
 
-import AccountsPage from '@tronlink/popup/src/pages/AccountsPage';
+import AccountsPage from '@litelink/popup/src/pages/AccountsPage';
 import './PageController.scss';
 
 class PageController extends React.Component {

@@ -1,14 +1,14 @@
 import React from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { BigNumber } from 'bignumber.js';
-import { PopupAPI } from "@tronlink/lib/api";
-import Button from '@tronlink/popup/src/components/Button';
-import Loading from '@tronlink/popup/src/components/Loading';
-import { VALIDATION_STATE, APP_STATE, CONTRACT_ADDRESS, ACCOUNT_TYPE, TOP_TOKEN } from '@tronlink/lib/constants';
-import TronWeb from "tronweb";
+import { PopupAPI } from "@litelink/lib/api";
+import Button from '@litelink/popup/src/components/Button';
+import Loading from '@litelink/popup/src/components/Loading';
+import { VALIDATION_STATE, APP_STATE, CONTRACT_ADDRESS, ACCOUNT_TYPE, TOP_TOKEN } from '@litelink/lib/constants';
+import LiteWeb from "liteweb";
 import { Toast } from 'antd-mobile';
-import Utils  from '@tronlink/lib/utils';
-const trxImg = require('@tronlink/popup/src/assets/images/new/trx.png');
+import Utils  from '@litelink/lib/utils';
+const trxImg = require('@litelink/popup/src/assets/images/new/trx.png');
 class SendController extends React.Component {
     constructor(props) {
         super(props);
@@ -148,7 +148,7 @@ class SendController extends React.Component {
         if(!address.length)
             return this.setState({recipient:{value: '', valid: false, error: ''}});
 
-        if(!TronWeb.isAddress(address)) {
+        if(!LiteWeb.isAddress(address)) {
             recipient.valid = false;
             recipient.error = 'EXCEPTION.SEND.ADDRESS_FORMAT_ERROR';
         } else {
@@ -381,7 +381,7 @@ class SendController extends React.Component {
                 }, true);
             });
         } else {
-            const iframe = document.querySelector('#tronLedgerBridge').contentWindow;
+            const iframe = document.querySelector('#liteLedgerBridge').contentWindow;
             const fromAddress = selected.address;
             const toAddress = recipient;
             this.setState({loadingLedger:true});
@@ -397,7 +397,7 @@ class SendController extends React.Component {
 
     onCancel() {
         const { selected, selectedToken } = this.props.accounts;
-        const token10DefaultImg = require('@tronlink/popup/src/assets/images/new/token_10_default.png');
+        const token10DefaultImg = require('@litelink/popup/src/assets/images/new/token_10_default.png');
         if( selected.dealCurrencyPage == 1) {
             const selectedCurrency = {
                 id: selectedToken.id,
@@ -421,7 +421,7 @@ class SendController extends React.Component {
 
     handleClose(){
         const { formatMessage } = this.props.intl;
-        const iframe = document.querySelector('#tronLedgerBridge').contentWindow;
+        const iframe = document.querySelector('#liteLedgerBridge').contentWindow;
         iframe.postMessage({target:"LEDGER-IFRAME",action:'cancel transaction',data:{}},'*');
         this.setState({loadingLedger:false,loading:false},()=>{
             Toast.fail(formatMessage({id:'CREATION.LEDGER.TIP_CANCEL_TRANSACTION'}),3,()=>{},true);

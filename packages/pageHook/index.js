@@ -1,10 +1,10 @@
-import EventChannel from '@tronlink/lib/EventChannel';
-import Logger from '@tronlink/lib/logger';
-import TronWeb from 'tronweb';
+import EventChannel from '@litelink/lib/EventChannel';
+import Logger from '@litelink/lib/logger';
+import LiteWeb from 'liteweb';
 //import SunWeb from 'sunweb';
 
-import Utils from '@tronlink/lib/utils';
-import { CONTRACT_ADDRESS, SIDE_CHAIN_ID, NODE } from '@tronlink/lib/constants'
+import Utils from '@litelink/lib/utils';
+import { CONTRACT_ADDRESS, SIDE_CHAIN_ID, NODE } from '@litelink/lib/constants'
 import RequestHandler from './handlers/RequestHandler';
 import ProxiedProvider from './handlers/ProxiedProvider';
 import SunWeb from './SunWeb';
@@ -19,7 +19,7 @@ const pageHook = {
     },
 
     init() {
-        this._bindTronWeb();
+        this._bindLiteWeb();
         this._bindEventChannel();
         this._bindEvents();
 
@@ -30,46 +30,46 @@ const pageHook = {
             if(node.fullNode)
                 this.setNode(node);
 
-            logger.info('TronLink initiated');
+            logger.info('LiteLink initiated');
             const href = window.location.origin;
             const c = phishingList.filter(({url})=>{
                 const reg = new RegExp(url);
                 return href.match(reg);
             });
             if(c.length && !c[0].isVisit){
-                window.location = 'https://www.tronlink.org/phishing.html?href='+href;
+                window.location = 'https://www.litelink.org/phishing.html?href='+href;
             }
         }).catch(err => {
-            logger.error('Failed to initialise TronWeb', err);
+            logger.error('Failed to initialise LiteWeb', err);
         });
     },
 
-    _bindTronWeb() {
-        if(window.tronWeb !== undefined)
-            logger.warn('TronWeb is already initiated. TronLink will overwrite the current instance');
+    _bindLiteWeb() {
+        if(window.liteWeb !== undefined)
+            logger.warn('LiteWeb is already initiated. LiteLink will overwrite the current instance');
 
-        const tronWeb = new TronWeb(
+        const liteWeb = new LiteWeb(
             new ProxiedProvider(),
             new ProxiedProvider(),
             new ProxiedProvider()
         );
 
-        const tronWeb1 = new TronWeb(
+        const liteWeb1 = new LiteWeb(
             new ProxiedProvider(),
             new ProxiedProvider(),
             new ProxiedProvider()
         );
 
-        const tronWeb2 = new TronWeb(
+        const liteWeb2 = new LiteWeb(
             new ProxiedProvider(),
             new ProxiedProvider(),
             new ProxiedProvider()
         );
         const sunWeb = new SunWeb(
-            tronWeb1,
-            tronWeb2,
-            //{fullNode:'https://api.trongrid.io',solidityNode:'https://api.trongrid.io',eventServer:'https://api.trongrid.io'},
-            //{fullNode:'https://sun.tronex.io',solidityNode:'https://sun.tronex.io',eventServer:'https://sun.tronex.io'},
+            liteWeb1,
+            liteWeb2,
+            //{fullNode:'https://api.litegrid.io',solidityNode:'https://api.litegrid.io',eventServer:'https://api.litegrid.io'},
+            //{fullNode:'https://sun.liteex.io',solidityNode:'https://sun.liteex.io',eventServer:'https://sun.liteex.io'},
             //{fullNode:'http://47.252.84.158:8070',solidityNode:'http://47.252.84.158:8071',eventServer:'http://47.252.81.14:8070'},
             //{fullNode:'http://47.252.85.90:8070',solidityNode:'http://47.252.85.90:8071',eventServer:'http://47.252.87.129:8070'},
             CONTRACT_ADDRESS.MAIN,
@@ -79,24 +79,24 @@ const pageHook = {
 
 
 
-        tronWeb.extension = {}; //add a extension object for black list
-        tronWeb.extension.setVisited=(href)=>{
+        liteWeb.extension = {}; //add a extension object for black list
+        liteWeb.extension.setVisited=(href)=>{
             this.setVisited(href);
         };
         this.proxiedMethods = {
-            setAddress: tronWeb.setAddress.bind(tronWeb),
+            setAddress: liteWeb.setAddress.bind(liteWeb),
             setMainAddress: sunWeb.mainchain.setAddress.bind(sunWeb.mainchain),
             setSideAddress: sunWeb.sidechain.setAddress.bind(sunWeb.sidechain),
-            sign: tronWeb.trx.sign.bind(tronWeb)
+            sign: liteWeb.trx.sign.bind(liteWeb)
         };
 
         [ 'setPrivateKey', 'setAddress', 'setFullNode', 'setSolidityNode', 'setEventServer' ].forEach(method => {
-            tronWeb[ method ] = () => new Error('TronLink has disabled this method');
-            sunWeb.mainchain[ method ] = () => new Error('TronLink has disabled this method');
-            sunWeb.sidechain[ method ] = () => new Error('TronLink has disabled this method');
+            liteWeb[ method ] = () => new Error('LiteLink has disabled this method');
+            sunWeb.mainchain[ method ] = () => new Error('LiteLink has disabled this method');
+            sunWeb.sidechain[ method ] = () => new Error('LiteLink has disabled this method');
         });
 
-        tronWeb.trx.sign = (...args) => (
+        liteWeb.trx.sign = (...args) => (
             this.sign(...args)
         );
 
@@ -109,7 +109,7 @@ const pageHook = {
 
 
         window.sunWeb = sunWeb;
-        window.tronWeb = tronWeb;
+        window.liteWeb = liteWeb;
     },
 
     _bindEventChannel() {
@@ -128,33 +128,33 @@ const pageHook = {
     },
 
     setAddress({address,name,type}) {
-        // logger.info('TronLink: New address configured');
-        if(!tronWeb.isAddress(address)){
-            tronWeb.defaultAddress = {
+        // logger.info('LiteLink: New address configured');
+        if(!liteWeb.isAddress(address)){
+            liteWeb.defaultAddress = {
                 hex: false,
                 base58: false
             };
-            tronWeb.ready = false;
+            liteWeb.ready = false;
         } else {
             this.proxiedMethods.setAddress(address);
             this.proxiedMethods.setMainAddress(address);
             this.proxiedMethods.setSideAddress(address);
-            tronWeb.defaultAddress.name = name;
-            tronWeb.defaultAddress.type =  type;
+            liteWeb.defaultAddress.name = name;
+            liteWeb.defaultAddress.type =  type;
             sunWeb.mainchain.defaultAddress.name = name;
             sunWeb.mainchain.defaultAddress.type = type;
             sunWeb.sidechain.defaultAddress.name = name;
             sunWeb.sidechain.defaultAddress.type = type;
-            tronWeb.ready = true;
+            liteWeb.ready = true;
         }
 
     },
 
     setNode(node) {
-        // logger.info('TronLink: New node configured');
-        tronWeb.fullNode.configure(node.fullNode);
-        tronWeb.solidityNode.configure(node.solidityNode);
-        tronWeb.eventServer.configure(node.eventServer);
+        // logger.info('LiteLink: New node configured');
+        liteWeb.fullNode.configure(node.fullNode);
+        liteWeb.solidityNode.configure(node.solidityNode);
+        liteWeb.eventServer.configure(node.eventServer);
 
         sunWeb.mainchain.fullNode.configure(NODE.MAIN.fullNode);
         sunWeb.mainchain.solidityNode.configure(NODE.MAIN.solidityNode);
@@ -173,31 +173,31 @@ const pageHook = {
         });
     },
 
-    sign(transaction, privateKey = false, useTronHeader = true, callback = false) {
+    sign(transaction, privateKey = false, useLiteHeader = true, callback = false) {
         if(Utils.isFunction(privateKey)) {
             callback = privateKey;
             privateKey = false;
         }
 
-        if(Utils.isFunction(useTronHeader)) {
-            callback = useTronHeader;
-            useTronHeader = true;
+        if(Utils.isFunction(useLiteHeader)) {
+            callback = useLiteHeader;
+            useLiteHeader = true;
         }
 
         if(!callback)
-            return Utils.injectPromise(this.sign.bind(this), transaction, privateKey, useTronHeader);
+            return Utils.injectPromise(this.sign.bind(this), transaction, privateKey, useLiteHeader);
 
         if(privateKey)
-            return this.proxiedMethods.sign(transaction, privateKey, useTronHeader, callback);
+            return this.proxiedMethods.sign(transaction, privateKey, useLiteHeader, callback);
 
         if(!transaction)
             return callback('Invalid transaction provided');
 
-        if(!tronWeb.ready)
+        if(!liteWeb.ready)
             return callback('User has not unlocked wallet');
         this.request('sign', {
             transaction,
-            useTronHeader,
+            useLiteHeader,
             input: (
                 typeof transaction === 'string' ?
                     transaction :

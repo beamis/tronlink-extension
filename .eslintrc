@@ -85,7 +85,7 @@
     "globals": {
         "EXTENSION_ID": false,
         "ENVIRONMENT": false,
-        "tronWeb": false,
+        "liteWeb": false,
         "ga": false
     }
 }

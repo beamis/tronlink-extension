@@ -1,10 +1,10 @@
 import React from 'react';
-import Button from '@tronlink/popup/src/components/Button';
-import TronWeb from 'tronweb';
+import Button from '@litelink/popup/src/components/Button';
+import LiteWeb from 'liteweb';
 
 import { connect } from 'react-redux';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import { PopupAPI } from '@tronlink/lib/api';
+import { PopupAPI } from '@litelink/lib/api';
 
 import './PrivateKeyImport.scss';
 
@@ -24,10 +24,10 @@ class PrivateKeyImport extends React.Component {
 
     onChange({ target: { value } }) {
         const { accounts } = this.props;
-        const address = TronWeb.address.fromPrivateKey(value);
+        const address = LiteWeb.address.fromPrivateKey(value);
         let isValid = false;
         let error = '';
-        if(address && TronWeb.isAddress(address)) {
+        if(address && LiteWeb.isAddress(address)) {
             isValid = true;
             error = '';
         }else{

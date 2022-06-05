@@ -8,9 +8,9 @@
 
 import React from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import { PopupAPI } from '@tronlink/lib/api';
-import { APP_STATE } from '@tronlink/lib/constants';
-import Utils from '@tronlink/lib/utils';
+import { PopupAPI } from '@litelink/lib/api';
+import { APP_STATE } from '@litelink/lib/constants';
+import Utils from '@litelink/lib/utils';
 import './RecordList.scss';
 
 class RecordList extends React.Component {
@@ -54,7 +54,7 @@ class RecordList extends React.Component {
                     const payMonkey = val.pay_amount / Math.pow(10, 6);
                     return(
                         <div key={ key } className='recordList' onClick={ () => { this.toMoreDetail(val.id); } }>
-                            <div className='address'><img src={require('../../../../assets/images/new/tronBank/receive.svg')} alt='receive'/><span>{`${val.energy_address.substr(0, 8)}...${val.energy_address.substr(-8)}`}</span></div>
+                            <div className='address'><img src={require('../../../../assets/images/new/liteBank/receive.svg')} alt='receive'/><span>{`${val.energy_address.substr(0, 8)}...${val.energy_address.substr(-8)}`}</span></div>
                             <div className='recordCont'>
                                 <section className='recordLeftInfo'>
                                     <div><FormattedMessage id='BANK.RENTRECORD.RENTDETAIL'/>{val.freeze_amount / Math.pow(10, 6)}TRX*{val.days}<FormattedMessage id='BANK.RENTRECORD.TIMEUNIT'/></div>

@@ -1,11 +1,11 @@
 import React from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import { PopupAPI } from '@tronlink/lib/api';
-import { APP_STATE } from '@tronlink/lib/constants';
+import { PopupAPI } from '@litelink/lib/api';
+import { APP_STATE } from '@litelink/lib/constants';
 import { Accordion, NavBar } from 'antd-mobile';
-import './TronBankHelp.scss';
+import './LiteBankHelp.scss';
 
-class TronBankHelp extends React.Component {
+class LiteBankHelp extends React.Component {
     onChange = (key) => {
         console.log(key);
     };
@@ -22,7 +22,7 @@ class TronBankHelp extends React.Component {
                 >
                     <FormattedMessage id='BANK.RENTNUMMODAL.HELP' />
                 </NavBar>
-                <section className='tronBankContent'>
+                <section className='liteBankContent'>
                     <Accordion className='my-accordion' onChange={this.onChange}>
                         <Accordion.Panel header={formatMessage({ id: 'BANK.HELP.ANNOUNCEMENTS' })} className='announcements'>
                             <section className='announcementsCont'>
@@ -36,13 +36,13 @@ class TronBankHelp extends React.Component {
                             <section className='feedbackCont'>
                                 <h2 className='title'><FormattedMessage id='BANK.HELP.JOINCOMMUNITY' /></h2>
                                 <p className='content'>
-                                    <img src={require('../../assets/images/new/tronBank/telegram.svg')} alt='telegram'/><a href='https://t.me/Tronlending' rel='noopener noreferrer' target='_blank'><span className='linkStyle'>（TronLink Official Group）</span></a>
+                                    <img src={require('../../assets/images/new/liteBank/telegram.svg')} alt='telegram'/><a href='https://t.me/Litelending' rel='noopener noreferrer' target='_blank'><span className='linkStyle'>（LiteLink Official Group）</span></a>
                                 </p>
                                 <h2 className='title'>
                                     <FormattedMessage id='BANK.HELP.FEEDBACK' />
                                 </h2>
                                 <p className='content single'>
-                                    tronlending@tronlink.org
+                                    litelending@litelink.org
                                 </p>
                             </section>
                         </Accordion.Panel>
@@ -53,4 +53,4 @@ class TronBankHelp extends React.Component {
     }
 }
 
-export default injectIntl(TronBankHelp);
+export default injectIntl(LiteBankHelp);

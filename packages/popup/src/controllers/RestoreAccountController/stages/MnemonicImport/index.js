@@ -1,11 +1,11 @@
 import React from 'react';
-import Button from '@tronlink/popup/src/components/Button';
-import Utils from '@tronlink/lib/utils';
+import Button from '@litelink/popup/src/components/Button';
+import Utils from '@litelink/lib/utils';
 import Toast, { T } from 'react-toast-mobile';
 import { connect } from 'react-redux';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import NodeService from '@tronlink/backgroundScript/services/NodeService';
-import { PopupAPI } from '@tronlink/lib/api';
+import NodeService from '@litelink/backgroundScript/services/NodeService';
+import { PopupAPI } from '@litelink/lib/api';
 
 import './MnemonicImport.scss';
 const IMPORT_STAGE = {

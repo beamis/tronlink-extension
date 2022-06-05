@@ -174,7 +174,7 @@ export default {
     },
 
 
-    //tronbank contract
+    //litebank contract
     rentEnergy(_freezeAmount, _payAmount, _days, _energyAddress) {
         return this.duplex.send('rentEnergy', {
             _freezeAmount,
@@ -192,7 +192,7 @@ export default {
         });
     },
 
-    //tronbank  index
+    //litebank  index
     getBankDefaultData(requestUrl) {
         return this.duplex.send('getBankDefaultData', { requestUrl });
     },

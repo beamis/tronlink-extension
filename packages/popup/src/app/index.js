@@ -1,45 +1,45 @@
 import React from 'react';
 import { IntlProvider, FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import { PopupAPI } from '@tronlink/lib/api';
+import { PopupAPI } from '@litelink/lib/api';
 
-import { APP_STATE } from '@tronlink/lib/constants';
+import { APP_STATE } from '@litelink/lib/constants';
 
-import RegistrationController from '@tronlink/popup/src/controllers/RegistrationController';
-import LoginController from '@tronlink/popup/src/controllers/LoginController';
-import WalletCreationController from '@tronlink/popup/src/controllers/WalletCreationController';
-import CreateAccountController from '@tronlink/popup/src/controllers/CreateAccountController';
-import RestoreAccountController from '@tronlink/popup/src/controllers/RestoreAccountController';
-import PageController from '@tronlink/popup/src/controllers/PageController';
-import ConfirmationController from '@tronlink/popup/src/controllers/ConfirmationController';
-import ReceiveController from '@tronlink/popup/src/controllers/ReceiveController';
-import SendController from '@tronlink/popup/src/controllers/SendController';
-import TransactionsController from '@tronlink/popup/src/controllers/TransactionsController';
-import SettingController from '@tronlink/popup/src/controllers/SettingController';
-import AddTokenController from '@tronlink/popup/src/controllers/AddTokenController';
-import BankController from '@tronlink/popup/src/controllers/TronBankController';
-import BankRecordController from '@tronlink/popup/src/controllers/BankRecordController';
-import BankDetailController from '@tronlink/popup/src/controllers/BankDetailController';
-import BankHelplController from '@tronlink/popup/src/controllers/TronBankHelp';
-import IncomeRecordController from '@tronlink/popup/src/controllers/IncomeRecordController';
-import ActivityDetailController from '@tronlink/popup/src/controllers/ActivityDetailController';
-import DappListController from '@tronlink/popup/src/controllers/DappListController';
-import AssetManageController from '@tronlink/popup/src/controllers/AssetManageController';
-import TransactionDetailController from '@tronlink/popup/src/controllers/TransactionDetailController';
-import DappWhitelistController from '@tronlink/popup/src/controllers/DappWhitelistController';
-import LedgerController from '@tronlink/popup/src/controllers/LedgerController';
-import LedgerAccountImportController from '@tronlink/popup/src/controllers/LedgerController/LedgerAccountImportController';
-import NodeManageController from '@tronlink/popup/src/controllers/NodeManageController';
-import TransferController from '@tronlink/popup/src/controllers/TransferController';
+import RegistrationController from '@litelink/popup/src/controllers/RegistrationController';
+import LoginController from '@litelink/popup/src/controllers/LoginController';
+import WalletCreationController from '@litelink/popup/src/controllers/WalletCreationController';
+import CreateAccountController from '@litelink/popup/src/controllers/CreateAccountController';
+import RestoreAccountController from '@litelink/popup/src/controllers/RestoreAccountController';
+import PageController from '@litelink/popup/src/controllers/PageController';
+import ConfirmationController from '@litelink/popup/src/controllers/ConfirmationController';
+import ReceiveController from '@litelink/popup/src/controllers/ReceiveController';
+import SendController from '@litelink/popup/src/controllers/SendController';
+import TransactionsController from '@litelink/popup/src/controllers/TransactionsController';
+import SettingController from '@litelink/popup/src/controllers/SettingController';
+import AddTokenController from '@litelink/popup/src/controllers/AddTokenController';
+import BankController from '@litelink/popup/src/controllers/LiteBankController';
+import BankRecordController from '@litelink/popup/src/controllers/BankRecordController';
+import BankDetailController from '@litelink/popup/src/controllers/BankDetailController';
+import BankHelplController from '@litelink/popup/src/controllers/LiteBankHelp';
+import IncomeRecordController from '@litelink/popup/src/controllers/IncomeRecordController';
+import ActivityDetailController from '@litelink/popup/src/controllers/ActivityDetailController';
+import DappListController from '@litelink/popup/src/controllers/DappListController';
+import AssetManageController from '@litelink/popup/src/controllers/AssetManageController';
+import TransactionDetailController from '@litelink/popup/src/controllers/TransactionDetailController';
+import DappWhitelistController from '@litelink/popup/src/controllers/DappWhitelistController';
+import LedgerController from '@litelink/popup/src/controllers/LedgerController';
+import LedgerAccountImportController from '@litelink/popup/src/controllers/LedgerController/LedgerAccountImportController';
+import NodeManageController from '@litelink/popup/src/controllers/NodeManageController';
+import TransferController from '@litelink/popup/src/controllers/TransferController';
 
 import 'antd-mobile/dist/antd-mobile.css';
 import 'react-custom-scroll/dist/customScroll.css';
 import 'assets/styles/global.scss';
 import 'react-toast-mobile/lib/react-toast-mobile.css';
 
-import enMessages from '@tronlink/popup/src/translations/en.json';
-import zhMessages from '@tronlink/popup/src/translations/zh.json';
-import jaMessages from '@tronlink/popup/src/translations/ja.json';
+import enMessages from '@litelink/popup/src/translations/en.json';
+import zhMessages from '@litelink/popup/src/translations/zh.json';
+import jaMessages from '@litelink/popup/src/translations/ja.json';
 class App extends React.Component {
     messages = {
         en: enMessages,
@@ -90,16 +90,16 @@ class App extends React.Component {
             case APP_STATE.ADD_TRC20_TOKEN:
                 dom = <AddTokenController tokens={accounts.selected.tokens} onCancel={ () => PopupAPI.changeState(APP_STATE.READY) } />;
                 break;
-            case APP_STATE.TRONBANK:
+            case APP_STATE.LITEBANK:
                 dom = <BankController accounts={accounts} language={language} />;
                 break;
-            case APP_STATE.TRONBANK_RECORD:
+            case APP_STATE.LITEBANK_RECORD:
                 dom = <BankRecordController accounts={accounts} />;
                 break;
-            case APP_STATE.TRONBANK_DETAIL:
+            case APP_STATE.LITEBANK_DETAIL:
                 dom = <BankDetailController accounts={accounts} />;
                 break;
-            case APP_STATE.TRONBANK_HELP:
+            case APP_STATE.LITEBANK_HELP:
                 dom = <BankHelplController />;
                 break;
             case APP_STATE.USDT_INCOME_RECORD:

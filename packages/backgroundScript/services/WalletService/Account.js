@@ -1,7 +1,7 @@
 import StorageService from '../StorageService';
-import TronWeb from 'tronweb';
-import Logger from '@tronlink/lib/logger';
-import Utils from '@tronlink/lib/utils';
+import LiteWeb from 'liteweb';
+import Logger from '@litelink/lib/logger';
+import Utils from '@litelink/lib/utils';
 import NodeService from '../NodeService';
 
 import { BigNumber } from 'bignumber.js';
@@ -12,7 +12,7 @@ import {
     FEE,
     TOP_TOKEN,
     API_URL
-} from '@tronlink/lib/constants';
+} from '@litelink/lib/constants';
 import axios from 'axios';
 
 BigNumber.config({ EXPONENTIAL_AT: [-20, 30] });
@@ -89,12 +89,12 @@ class Account {
 
     _importPrivateKey(privateKey) {
         try {
-            if (privateKey.match(/^T/) && TronWeb.isAddress(privateKey)) {
+            if (privateKey.match(/^T/) && LiteWeb.isAddress(privateKey)) {
                 this.privateKey = null;
                 this.address = privateKey;
             } else {
                 this.privateKey = privateKey;
-                this.address = TronWeb.address.fromPrivateKey(privateKey);
+                this.address = LiteWeb.address.fromPrivateKey(privateKey);
             }
         } catch (ex) { // eslint-disable-line
             throw new Error('INVALID_PRIVATE_KEY');
@@ -225,7 +225,7 @@ class Account {
         try {
             const node = NodeService.getNodes().selected;
             //if (node === 'f0b1e38e-7bee-485e-9d3f-69410bf30681') {
-            const account = await NodeService.tronWeb.trx.getUnconfirmedAccount(address);
+            const account = await NodeService.liteWeb.trx.getUnconfirmedAccount(address);
 
             if (!account.address) {
                 logger.info(`Account ${address} does not exist on the network`);
@@ -234,7 +234,7 @@ class Account {
             }
             const addSmartTokens = Object.entries(this.tokens.smart).filter(([tokenId, token]) => !token.hasOwnProperty('abbr'));
             for (const [tokenId, token] of addSmartTokens) {
-                const contract = await NodeService.tronWeb.contract().at(tokenId).catch(e => false);
+                const contract = await NodeService.liteWeb.contract().at(tokenId).catch(e => false);
                 if (contract) {
                     let balance;
                     const number = await contract.balanceOf(address).call();
@@ -353,7 +353,7 @@ class Account {
                 //console.log(tokenAddress, this.tokens.smart[ tokenAddress ]);
             }
             //} else {
-            // const account = await NodeService.tronWeb.trx.getUnconfirmedAccount(address);
+            // const account = await NodeService.liteWeb.trx.getUnconfirmedAccount(address);
             // if (!account.address) {
             //     logger.info(`Account ${address} does not exist on the network`);
             //     this.reset();
@@ -403,7 +403,7 @@ class Account {
             // //this.tokens.smart = {};
             // const addSmartTokens = Object.entries(this.tokens.smart).filter(([tokenId, token]) => !token.hasOwnProperty('abbr') );
             // for (const [tokenId, token] of addSmartTokens) {
-            //     const contract = await NodeService.tronWeb.contract().at(tokenId).catch(e => false);
+            //     const contract = await NodeService.liteWeb.contract().at(tokenId).catch(e => false);
             //     if (contract) {
             //         let balance;
             //         const number = await contract.balanceOf(address).call();
@@ -451,7 +451,7 @@ class Account {
 
     async updateBalance() {
         const { address } = this;
-        const { EnergyLimit = 0, EnergyUsed = 0, freeNetLimit, NetLimit = 0, freeNetUsed = 0, NetUsed = 0, TotalEnergyWeight, TotalEnergyLimit } = await NodeService.tronWeb.trx.getAccountResources(address);
+        const { EnergyLimit = 0, EnergyUsed = 0, freeNetLimit, NetLimit = 0, freeNetUsed = 0, NetUsed = 0, TotalEnergyWeight, TotalEnergyLimit } = await NodeService.liteWeb.trx.getAccountResources(address);
         this.energy = EnergyLimit;
         this.energyUsed = EnergyUsed;
         this.netLimit = freeNetLimit + NetLimit;
@@ -466,7 +466,7 @@ class Account {
         let balance = 0;
 
         try {
-            const contract = await NodeService.tronWeb.contract().at(address);
+            const contract = await NodeService.liteWeb.contract().at(address);
             const balanceObj = await contract.balanceOf(this.address).call();
 
             const bn = new BigNumber(balanceObj.balance || balanceObj);
@@ -521,12 +521,12 @@ class Account {
         StorageService.saveAccount(this);
     }
 
-    async sign(transaction, tronWeb = NodeService.tronWeb) {
+    async sign(transaction, liteWeb = NodeService.liteWeb) {
 
         if (!this.privateKey) {
             return 'CREATION.LEDGER.ALERT.BODY';
         }
-        const signedTransaction = tronWeb.trx.sign(
+        const signedTransaction = liteWeb.trx.sign(
             transaction,
             this.privateKey
         );
@@ -538,12 +538,12 @@ class Account {
         const selectedChain = NodeService._selectedChain;
         try {
             if (selectedChain === '_') {
-                const transaction = await NodeService.tronWeb.transactionBuilder.sendTrx(
+                const transaction = await NodeService.liteWeb.transactionBuilder.sendTrx(
                     recipient,
                     amount
                 );
 
-                await NodeService.tronWeb.trx.sendRawTransaction(
+                await NodeService.liteWeb.trx.sendRawTransaction(
                     await this.sign(transaction)
                 ).then(() => true).catch(err => Promise.reject(
                     'Failed to broadcast transaction'
@@ -563,13 +563,13 @@ class Account {
         const selectedChain = NodeService._selectedChain;
         try {
             if (selectedChain === '_') {
-                const transaction = await NodeService.tronWeb.transactionBuilder.sendToken(
+                const transaction = await NodeService.liteWeb.transactionBuilder.sendToken(
                     recipient,
                     amount,
                     token
                 );
 
-                await NodeService.tronWeb.trx.sendRawTransaction(
+                await NodeService.liteWeb.trx.sendRawTransaction(
                     await this.sign(transaction)
                 ).then(() => true).catch(err => Promise.reject(
                     'Failed to broadcast transaction'
@@ -589,7 +589,7 @@ class Account {
         const selectedChain = NodeService._selectedChain;
         try {
             if (selectedChain === '_') {
-                const contract = await NodeService.tronWeb.contract().at(token);
+                const contract = await NodeService.liteWeb.contract().at(token);
                 const transactionId = await contract.transfer(recipient, amount).send(
                     { feeLimit: 10 * Math.pow(10, 6) },
                     this.privateKey
@@ -597,7 +597,7 @@ class Account {
                 return Promise.resolve(transactionId);
             } else {
                 const sidechain = NodeService.sunWeb.sidechain;
-                const { transaction } = await NodeService.tronWeb.transactionBuilder.triggerSmartContract(TronWeb.address.toHex(token), 'transfer(address,uint256)', { feeLimit: 1000000 }, [{
+                const { transaction } = await NodeService.liteWeb.transactionBuilder.triggerSmartContract(LiteWeb.address.toHex(token), 'transfer(address,uint256)', { feeLimit: 1000000 }, [{
                     'type': 'address',
                     'value': recipient
                 }, { 'type': 'uint256', 'value': amount }]);

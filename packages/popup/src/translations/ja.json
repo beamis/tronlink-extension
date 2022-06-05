@@ -1,11 +1,11 @@
 {
   "ERRORS.UNSUPPORTED_STATE": "State '{appState}' not yet implemented. Click to force a state refresh",
-  "ERRORS.ALREADY_INITIALISED": "TronLinkウォレットを既にインストールしました",
+  "ERRORS.ALREADY_INITIALISED": "LiteLinkウォレットを既にインストールしました",
   "ERRORS.ACCOUNT_CREATION_FAILED": "アカウントを作成できません",
   "ERRORS.UNLOCK_FAILED": "アカウントがロック解除できません",
-  "ERRORS.NOT_LOCKED": "TronLinkウォレットがロックされません",
-  "ERRORS.ALREADY_UNLOCKED": "TronLinkウォレットが既にロックされました",
-  "ERRORS.NOT_SETUP": "TronLinkが初期化されません",
+  "ERRORS.NOT_LOCKED": "LiteLinkウォレットがロックされません",
+  "ERRORS.ALREADY_UNLOCKED": "LiteLinkウォレットが既にロックされました",
+  "ERRORS.NOT_SETUP": "LiteLinkが初期化されません",
   "ERRORS.INVALID_PASSWORD": "無効のパスワード",
   "ERRORS.INVALID_TOKEN": "無効のTRC20トークン",
   "ERRORS.TOKEN_ADDED": "トークンが既に存在しています",
@@ -67,7 +67,7 @@
   "CREATION.LEDGER.TITLE": "ハードウェアウォレット",
   "CREATION.LEDGER.TIP": "Ledgerユーザー使用",
   "CREATION.LEDGER.CONNECT_TITLE": "ハードウェアウォレットに接続",
-  "CREATION.LEDGER.PROCESS_1":"Ledgerをパソコンに接続し、<br />LedgerでTron APPを起動してください",
+  "CREATION.LEDGER.PROCESS_1":"Ledgerをパソコンに接続し、<br />LedgerでLite APPを起動してください",
   "CREATION.LEDGER.PROCESS_2":"インポートするアカウントのアドレスを確認します",
   "CREATION.LEDGER.PROCESS_3":"接続完了、スタートください",
   "CREATION.LEDGER.LOADING":"LedgerでTRON APPを起動してください",
@@ -164,7 +164,7 @@
   "CONFIRMATIONS.PROPOSAL_ID": "Proposal ID",
   "CONFIRMATIONS.QUANTITY": "数量",
   "CONFIRMATIONS.WHITELIST.TITLE": "自動サインを有効にする",
-  "CONFIRMATIONS.WHITELIST.BODY": "TronLinkがあなたに代わって自動的に取引に署名することを許可する",
+  "CONFIRMATIONS.WHITELIST.BODY": "LiteLinkがあなたに代わって自動的に取引に署名することを許可する",
   "CONFIRMATIONS.AUTO_AUTHORIZE.DESC":"アプリをホワイトリストに追加すると、ポップアップを廃止、自動承認となります。",
   "CONFIRMATIONS.CLICK_SHOW_PARAMS":"click to display parameters",
 
@@ -207,13 +207,13 @@
   "SETTINGS.NODES.EVENT_SERVER": "Event server",
   "SETTINGS.CUSTOM_NODE": "Add custom node",
   "SETTINGS.CUSTOM_NODE.NAME": "Node name",
-  "SETTINGS.CUSTOM_NODE.NAME.PLACEHOLDER": "TronGrid",
+  "SETTINGS.CUSTOM_NODE.NAME.PLACEHOLDER": "LiteGrid",
   "SETTINGS.CUSTOM_NODE.FULL_NODE": "Full node",
-  "SETTINGS.CUSTOM_NODE.FULL_NODE.PLACEHOLDER": "https://api.trongrid.io",
+  "SETTINGS.CUSTOM_NODE.FULL_NODE.PLACEHOLDER": "https://api.litegrid.io",
   "SETTINGS.CUSTOM_NODE.SOLIDITY_NODE": "Solidity node",
-  "SETTINGS.CUSTOM_NODE.SOLIDITY_NODE.PLACEHOLDER": "https://api.trongrid.io",
+  "SETTINGS.CUSTOM_NODE.SOLIDITY_NODE.PLACEHOLDER": "https://api.litegrid.io",
   "SETTINGS.CUSTOM_NODE.EVENT_SERVER": "Event server",
-  "SETTINGS.CUSTOM_NODE.EVENT_SERVER.PLACEHOLDER": "https://api.trongrid.io",
+  "SETTINGS.CUSTOM_NODE.EVENT_SERVER.PLACEHOLDER": "https://api.litegrid.io",
 
   "SETTING.TITLE":"設定する",
   "SETTING.TITLE.DAPP_WHITELIST":"DAPPホワイトリスト",
@@ -332,7 +332,7 @@
   "BANK.RENTDETAIL.EXPIRESTIME":"期限切れ時間",
 
   "BANK.RENTNUMMODAL.TITLE":"賃借量についての説明",
-  "BANK.RENTNUMMODAL.CONTENT":"希望している凍結量を記入すると、それに応じるtrx凍結量の産出エネルギーが得られます。Tronネットワークのメカニズムによれば，各trxが産出したエネルギーの凍結はネットワーク全体の凍結量と関係しているので、エネルギーがリアルタイムで変動します。",
+  "BANK.RENTNUMMODAL.CONTENT":"希望している凍結量を記入すると、それに応じるtrx凍結量の産出エネルギーが得られます。Liteネットワークのメカニズムによれば，各trxが産出したエネルギーの凍結はネットワーク全体の凍結量と関係しているので、エネルギーがリアルタイムで変動します。",
   "BANK.RENTNUMMODAL.BUTTON":"閉じます",
 
   "BANK.RENTINFO.CONFIRM":"賃借情報を確認します",
@@ -372,7 +372,7 @@
   "EXCEPTION.SEND.ENERGY_NOT_ENOUGH_ERROR":"エネルギーが不十分です。 少しの余分な TRX （1 以下） が消費されます。",
   "EXCEPTION.SEND.BANDWIDTH_ENERGY_NOT_ENOUGH_ERROR":"エネルギーと帯域幅が不十分です。 少しの余分な TRX （1 以下） が消費されます。",
   "EXCEPTION.SEND.ADDRESS_UNACTIVATED_TRC20_ERROR":"アドレスが有効になっていません。 アドレスを有効にするには、このアカウントに TRX を転送してください。",
-  "EXCEPTION.TRANSFER.MAIN_ADDRESS_NO_ACTIVATE":"このアドレスはTronメインチェーンではアクティブではありません。",
+  "EXCEPTION.TRANSFER.MAIN_ADDRESS_NO_ACTIVATE":"このアドレスはLiteメインチェーンではアクティブではありません。",
 
   "USDT.MAIN.INCOME_YESTERDAY":"昨日の収入 {earning}",
   "USDT.TEXT.YESTERDAY_INCOME":"昨日の収入",
@@ -441,5 +441,5 @@
   "NOTIFICATIONS.MESSAGE":"クリックして、tronscanにジャンプし取引詳細をご覧ください。",
 
   "ALERT.UPDATE_DESCRIPTION.TITLE":"アップデートについての説明",
-  "ALERT.UPDATE_DESCRIPTION.BODY":"今回のアップデートでTRON公式のSUN NETWORKをサポートして、サイドチェーン機能を添加しました。現在から、資産をメインチェーンとサイドチェーンの間で移動することができ、およびTronLinkを通じて、先にサイドチェーンをサポートするDAppをご利用になります。しかし、現時点にサイドチェーンがledgerをサポートしていません、ご了承ください。"
+  "ALERT.UPDATE_DESCRIPTION.BODY":"今回のアップデートでTRON公式のSUN NETWORKをサポートして、サイドチェーン機能を添加しました。現在から、資産をメインチェーンとサイドチェーンの間で移動することができ、およびLiteLinkを通じて、先にサイドチェーンをサポートするDAppをご利用になります。しかし、現時点にサイドチェーンがledgerをサポートしていません、ご了承ください。"
 }

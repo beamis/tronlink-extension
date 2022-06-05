@@ -1,10 +1,10 @@
 import React from 'react';
-import Button from '@tronlink/popup/src/components/Button';
-import Alert from '@tronlink/popup/src/components/Alert';
-import TronWeb from 'tronweb';
+import Button from '@litelink/popup/src/components/Button';
+import Alert from '@litelink/popup/src/components/Alert';
+import LiteWeb from 'liteweb';
 import Dropdown from 'react-dropdown';
-import Utils from '@tronlink/lib/utils';
-import { PopupAPI } from '@tronlink/lib/api';
+import Utils from '@litelink/lib/utils';
+import { PopupAPI } from '@litelink/lib/api';
 import { connect } from 'react-redux';
 import ReactTooltip from 'react-tooltip';
 import {
@@ -17,7 +17,7 @@ import {
     CONFIRMATION_TYPE,
     BUTTON_TYPE,
     ACCOUNT_TYPE
-} from '@tronlink/lib/constants';
+} from '@litelink/lib/constants';
 
 import 'react-dropdown/style.css';
 import './ConfirmationController.scss';
@@ -81,7 +81,7 @@ class ConfirmationController extends React.Component {
         const { hostname } = this.props.confirmation;
         const dappList = await PopupAPI.getDappList(true);
         const { used } = dappList;
-        const tronDapps = await PopupAPI.getAllDapps();
+        const liteDapps = await PopupAPI.getAllDapps();
         const regExp = new RegExp(hostname);
         if (used.length && used.some(({ href }) => href.match(regExp))) {
             const index = used.findIndex(({ href }) => href.match(regExp));
@@ -89,7 +89,7 @@ class ConfirmationController extends React.Component {
             used.splice(index, 1);
             used.unshift(item);
         } else {
-            const dapp = tronDapps.filter(({ href }) => href.match(regExp));
+            const dapp = liteDapps.filter(({ href }) => href.match(regExp));
             if (dapp.length) used.unshift(dapp[0]);
         }
         dappList.used = used;
@@ -108,7 +108,7 @@ class ConfirmationController extends React.Component {
         const { confirmation, authorizeDapps } = this.props;
         if (confirmation.contractType === 'TriggerSmartContract') {
             await this.addUsedDapp();
-            const contractAddress = TronWeb.address.fromHex(confirmation.input.contract_address);
+            const contractAddress = LiteWeb.address.fromHex(confirmation.input.contract_address);
             if (isAutoAuthorize && !authorizeDapps.hasOwnProperty(contractAddress)) {
                 const o = {};
                 o.url = confirmation.hostname;
@@ -232,7 +232,7 @@ class ConfirmationController extends React.Component {
         if (input.asset_name) {
             meta.push({
                 key: 'CONFIRMATIONS.TOKEN',
-                value: this.tokensMap[TronWeb.toUtf8(input.asset_name)].split('_')[0] + ' (' + TronWeb.toUtf8(input.asset_name) + ')'
+                value: this.tokensMap[LiteWeb.toUtf8(input.asset_name)].split('_')[0] + ' (' + LiteWeb.toUtf8(input.asset_name) + ')'
             });
         }
 
@@ -241,7 +241,7 @@ class ConfirmationController extends React.Component {
         }
 
         if (input.to_address) {
-            const address = TronWeb.address.fromHex(input.to_address);
+            const address = LiteWeb.address.fromHex(input.to_address);
             const trimmed = [
                 address.substr(0, 16),
                 address.substr(28)

@@ -4,14 +4,14 @@
 import React from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { BigNumber } from 'bignumber.js';
-import { PopupAPI } from "@tronlink/lib/api";
-import Button from '@tronlink/popup/src/components/Button';
-import { VALIDATION_STATE, APP_STATE, CONTRACT_ADDRESS, ACCOUNT_TYPE, TOP_TOKEN,FEE } from '@tronlink/lib/constants';
+import { PopupAPI } from "@litelink/lib/api";
+import Button from '@litelink/popup/src/components/Button';
+import { VALIDATION_STATE, APP_STATE, CONTRACT_ADDRESS, ACCOUNT_TYPE, TOP_TOKEN,FEE } from '@litelink/lib/constants';
 import { Toast } from 'antd-mobile';
 import { Popover } from 'antd-mobile';
-import Utils  from '@tronlink/lib/utils';
-import Alert from '@tronlink/popup/src/components/Alert';
-const trxImg = require('@tronlink/popup/src/assets/images/new/trx.png');
+import Utils  from '@litelink/lib/utils';
+import Alert from '@litelink/popup/src/components/Alert';
+const trxImg = require('@litelink/popup/src/assets/images/new/trx.png');
 class TransferController extends React.Component {
     constructor(props) {
         super(props);

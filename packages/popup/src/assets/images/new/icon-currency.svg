@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="19px" height="18px" viewBox="0 0 19 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <!-- Generator: Sketch 51.1 (57501) - http://www.bohemiancoding.com/sketch -->
-    <title>TronLink</title>
+    <title>LiteLink</title>
     <desc>Created with Sketch.</desc>
     <defs>
         <path d="M2.32137213,0.744587755 C0.955859111,1.29181325 0,0.744587755 0,0.744587755 L0,10.728957 L1.70689127,12.0968156 L1.70689127,2.86469334 C5.73515467,1.42858543 8.7392833,2.11230957 8.7392833,2.11230957 C13.3820276,3.06971484 16.1239777,2.11613919 16.1130536,2.11230957 L16.1130536,0.334271211 C12.0165145,1.15504107 8.7392833,0.334271211 8.7392833,0.334271211 C7.86125843,0.171512315 7.03785408,0.109417745 6.29214742,0.109417745 C3.90700584,0.109554517 2.32137213,0.744587755 2.32137213,0.744587755" id="path-1"></path>
         <polygon id="path-3" points="0 0.0880602195 15.4302971 0.0880602195 15.4302971 13.5404399 0 13.5404399"></polygon>
     </defs>
-    <g id="TRONLink" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g id="LITELink" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="9.1设置-1" transform="translate(-20.000000, -124.000000)">
             <g id="计价货币" transform="translate(20.000000, 122.000000)">
-                <g id="TronLink" transform="translate(0.000000, 2.000000)">
+                <g id="LiteLink" transform="translate(0.000000, 2.000000)">
                     <g id="Group-3" transform="translate(0.000000, 0.027354)">
                         <mask id="mask-2" fill="white">
                             <use xlink:href="#path-1"></use>

@@ -4,17 +4,17 @@
  * @Last Modified by: lxm
 
  * @Last Modified time: 2019-06-13 12:05:36
- * TronBankPage
+ * LiteBankPage
  */
 import React from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import { PopupAPI } from '@tronlink/lib/api';
-import TronWeb from 'tronweb';
-import { BANK_STATE, APP_STATE } from '@tronlink/lib/constants';
+import { PopupAPI } from '@litelink/lib/api';
+import LiteWeb from 'liteweb';
+import { BANK_STATE, APP_STATE } from '@litelink/lib/constants';
 import { NavBar, Button, Modal, Toast } from 'antd-mobile';
-import Utils from '@tronlink/lib/utils';
-import { getBankDefaultDataApi, getBankIsRentApi, getBankBalanceEnoughApi, postBankOrderApi } from '@tronlink/popup/src/fetch/tronLending/tronLending';
-import './TronBankController.scss';
+import Utils from '@litelink/lib/utils';
+import { getBankDefaultDataApi, getBankIsRentApi, getBankBalanceEnoughApi, postBankOrderApi } from '@litelink/popup/src/fetch/liteLending/liteLending';
+import './LiteBankController.scss';
 class BankController extends React.Component {
     constructor(props) {
         super(props);
@@ -153,7 +153,7 @@ class BankController extends React.Component {
             }
             return;
         }
-        if(!TronWeb.isAddress(address)) {
+        if(!LiteWeb.isAddress(address)) {
             recipient.valid = false;
             validOrderOverLimit.valid = true;
             isOnlineAddress.error = false;
@@ -538,16 +538,16 @@ class BankController extends React.Component {
             { id: 'BANK.RENTINFO.PAYNUM', type: 0, value: `${rentUnit.cost}TRX` },
         ];
         const saveCost = parseFloat(rentUnit.cost / discount * (1 - discount));
-        const myImg = src => { return require(`../../assets/images/new/tronBank/${src}.svg`); };
+        const myImg = src => { return require(`../../assets/images/new/liteBank/${src}.svg`); };
         return (
-            <div className='TronBankContainer' onClick={(e) => { this.setState({ popoverVisible: false }); }}>
+            <div className='LiteBankContainer' onClick={(e) => { this.setState({ popoverVisible: false }); }}>
                 <NavBar
                     className='navbar'
                     mode='light'
                     icon={<div className='commonBack'></div>}
                     onLeftClick={() => PopupAPI.changeState(APP_STATE.READY)}
                     rightContent={<img onClick={(e) => { e.stopPropagation();this.setState({ popoverVisible: !this.state.popoverVisible }); }} className='rightMore' src={myImg('more')} alt={'more'}/>}
-                >TronLending
+                >LiteLending
                 </NavBar>
                 {/* navModal */}
                 <div className='navBarMoreMenu'>
@@ -723,7 +723,7 @@ class BankController extends React.Component {
                                 </section>
                             }
                         </div>
-                        {/* tronBank submit */}
+                        {/* liteBank submit */}
                         <Button disabled={recipient.valid && rentNum.valid && rentDay.valid ? false : true }
                             className={recipient.valid && rentNum.valid && rentDay.valid ? 'bankSubmit normalValid' : 'bankSubmit inValid'}
                             onClick = {this.handlerInfoConfirm }

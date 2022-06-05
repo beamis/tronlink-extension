@@ -3,21 +3,21 @@ import CopyToClipboard from 'react-copy-to-clipboard';
 import swal from 'sweetalert2';
 import { Toast } from 'antd-mobile';
 import { BigNumber } from 'bignumber.js';
-import { PopupAPI } from '@tronlink/lib/api';
-import Utils from '@tronlink/lib/utils';
-import Header from '@tronlink/popup/src/controllers/PageController/Header';
-import ProcessBar from '@tronlink/popup/src/components/ProcessBar';
-import Button from '@tronlink/popup/src/components/Button';
+import { PopupAPI } from '@litelink/lib/api';
+import Utils from '@litelink/lib/utils';
+import Header from '@litelink/popup/src/controllers/PageController/Header';
+import ProcessBar from '@litelink/popup/src/components/ProcessBar';
+import Button from '@litelink/popup/src/components/Button';
 import { connect } from 'react-redux';
-import { CONTRACT_ADDRESS, APP_STATE, BUTTON_TYPE, ACCOUNT_TYPE, TOP_TOKEN } from '@tronlink/lib/constants';
+import { CONTRACT_ADDRESS, APP_STATE, BUTTON_TYPE, ACCOUNT_TYPE, TOP_TOKEN } from '@litelink/lib/constants';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import { app } from "@tronlink/popup/src";
-import Alert from '@tronlink/popup/src/components/Alert';
+import { app } from "@litelink/popup/src";
+import Alert from '@litelink/popup/src/components/Alert';
 import './AccountsPage.scss';
-import '@tronlink/popup/src/controllers/PageController/Header/Header.scss';
-const trxImg = require('@tronlink/popup/src/assets/images/new/trx.png');
-const token10DefaultImg = require('@tronlink/popup/src/assets/images/new/token_10_default.png');
-let tronscanUrl = '';
+import '@litelink/popup/src/controllers/PageController/Header/Header.scss';
+const trxImg = require('@litelink/popup/src/assets/images/new/trx.png');
+const token10DefaultImg = require('@litelink/popup/src/assets/images/new/token_10_default.png');
+let litescanUrl = '';
 class AccountsPage extends React.Component {
     constructor() {
         super();
@@ -50,7 +50,7 @@ class AccountsPage extends React.Component {
         const { prices, accounts } = this.props;
         const t = { name: 'TRX', abbr:'trx', id: '_', amount: 0, decimals: 6, price: prices.priceList[ prices.selected ], imgUrl: trxImg };
         PopupAPI.setSelectedToken(t);
-        tronscanUrl = 'https://tronscan.org/#';
+        litescanUrl = 'https://litescan.org/#';
         const news = await PopupAPI.getNews();
         const ieos = await PopupAPI.getIeos();
         if(news.length > 0) {
@@ -156,7 +156,7 @@ class AccountsPage extends React.Component {
                             </div>
                             {
                                 accounts.selected.type !== ACCOUNT_TYPE.LEDGER && chains.selected === '_' ?
-                                    <div onClick={(e) => { e.stopPropagation();window.open(`${tronscanUrl}/account?from=tronlink&type=frozen`); }} className='item'>
+                                    <div onClick={(e) => { e.stopPropagation();window.open(`${litescanUrl}/account?from=litelink&type=frozen`); }} className='item'>
                                         <span className='icon frozen'>&nbsp;</span>
                                         <FormattedMessage id='MENU.FROZEN_UNFROZEN' />
                                     </div>
@@ -165,7 +165,7 @@ class AccountsPage extends React.Component {
                             }
                             {
                                 accounts.selected.type !== ACCOUNT_TYPE.LEDGER && chains.selected === '_' ?
-                                    <div onClick={(e) => { e.stopPropagation();window.open(`${tronscanUrl}/sr/votes?from=tronlink`); }} className='item'>
+                                    <div onClick={(e) => { e.stopPropagation();window.open(`${litescanUrl}/sr/votes?from=litelink`); }} className='item'>
                                         <span className='icon vote'>&nbsp;</span>
                                         <FormattedMessage id='MENU.VOTE' />
                                     </div>
@@ -184,7 +184,7 @@ class AccountsPage extends React.Component {
                             {
                                 accounts.selected.type !== ACCOUNT_TYPE.LEDGER && chains.selected === '_'
                                     ?
-                                    <div onClick={(e) => { e.stopPropagation();window.open(`${tronscanUrl}/account?from=tronlink`) }} className='item'>
+                                    <div onClick={(e) => { e.stopPropagation();window.open(`${litescanUrl}/account?from=litelink`) }} className='item'>
                                         <span className='icon link'>&nbsp;</span>
                                         <FormattedMessage id='MENU.ACCOUNT_DETAIL' />
                                     </div>
@@ -240,14 +240,14 @@ class AccountsPage extends React.Component {
                     <div className={'cell'+(nodes.selected === 'f0b1e38e-7bee-485e-9d3f-69410bf30681' || nodes.selected === 'f0b1e38e-7bee-485e-9d3f-69410bf30682'?' bankSingle':'')} onClick={ () => {
                         //PopupAPI.changeState(APP_STATE.TRONBANK);
                         if(nodes.selected === 'f0b1e38e-7bee-485e-9d3f-69410bf30681' || nodes.selected === 'f0b1e38e-7bee-485e-9d3f-69410bf30682')
-                            window.open('http://www.tronlending.org');
+                            window.open('http://www.litelending.org');
                     }}>
                         <div className='title'>
                             {
                                 nodes.selected === 'f0b1e38e-7bee-485e-9d3f-69410bf30681' || nodes.selected === 'f0b1e38e-7bee-485e-9d3f-69410bf30682' ?
                                     <span className='bankBox'>
                                         <FormattedMessage id='CONFIRMATIONS.RESOURCE.ENERGY' />
-                                        {/*<img className='bankArrow' src={require('../../assets/images/new/tronBank/rightArrow.svg')} alt='arrow'/>*/}
+                                        {/*<img className='bankArrow' src={require('../../assets/images/new/liteBank/rightArrow.svg')} alt='arrow'/>*/}
                                         {/*<div className='bankPopover'>*/}
                                             {/*<div className='popoverTitle'><FormattedMessage id='BANK.INDEX.ENTRANCE' /></div>*/}
                                         {/*</div>*/}
@@ -352,7 +352,7 @@ class AccountsPage extends React.Component {
                                     }
                                     {
                                         token.isVerify ?
-                                            <img src={require('@tronlink/popup/src/assets/images/new/icon-verify.svg')} />
+                                            <img src={require('@litelink/popup/src/assets/images/new/icon-verify.svg')} />
                                             :
                                             null
                                     }

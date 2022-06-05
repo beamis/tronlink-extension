@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import { PopupAPI } from '@tronlink/lib/api';
+import { PopupAPI } from '@litelink/lib/api';
 import moment from 'moment';
 import ReactTooltip from 'react-tooltip';
 import CopyToClipboard from 'react-copy-to-clipboard';

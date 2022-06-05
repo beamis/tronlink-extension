@@ -3,15 +3,15 @@ import QRCode from 'qrcode-react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { Toast } from 'antd-mobile';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import { PopupAPI } from "@tronlink/lib/api";
-import { APP_STATE } from "@tronlink/lib/constants";
+import { PopupAPI } from "@litelink/lib/api";
+import { APP_STATE } from "@litelink/lib/constants";
 
 class ReceiveController extends React.Component {
 // const ReceiveController = props => {
 
     onCancel() {
         const { selected, selectedToken } = this.props.accounts;
-        const token10DefaultImg = require('@tronlink/popup/src/assets/images/new/token_10_default.png');
+        const token10DefaultImg = require('@litelink/popup/src/assets/images/new/token_10_default.png');
         if( selected.dealCurrencyPage == 1) {
             const selectedCurrency = {
                 id: selectedToken.id,

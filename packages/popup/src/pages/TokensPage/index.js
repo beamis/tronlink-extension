@@ -2,11 +2,11 @@ import React from 'react';
 import Button from 'components/Button';
 import Input from 'components/Input';
 import CustomScroll from 'react-custom-scroll';
-import TronWeb from 'tronweb';
+import LiteWeb from 'liteweb';
 
 import { BigNumber } from 'bignumber.js';
 import { connect } from 'react-redux';
-import { PopupAPI } from '@tronlink/lib/api';
+import { PopupAPI } from '@litelink/lib/api';
 import {
     FormattedMessage,
     FormattedNumber
@@ -81,7 +81,7 @@ class TokensPage extends React.Component {
         let isValid = !error && address.length === 34;
 
         try {
-            isValid = isValid && TronWeb.isAddress(address);
+            isValid = isValid && LiteWeb.isAddress(address);
         } catch {}
 
         this.setState({

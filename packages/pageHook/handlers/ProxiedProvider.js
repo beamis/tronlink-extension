@@ -1,8 +1,8 @@
-import TronWeb from 'tronweb';
-import Logger from '@tronlink/lib/logger';
+import LiteWeb from 'liteweb';
+import Logger from '@litelink/lib/logger';
 import axios from 'axios';
 
-const { HttpProvider } = TronWeb.providers;
+const { HttpProvider } = LiteWeb.providers;
 const logger = new Logger('ProxiedProvider');
 
 class ProxiedProvider extends HttpProvider {

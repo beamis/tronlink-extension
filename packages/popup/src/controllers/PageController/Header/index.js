@@ -2,11 +2,11 @@ import React from 'react';
 import { injectIntl } from 'react-intl';
 import { Toast } from 'antd-mobile';
 import ReactTooltip from 'react-tooltip';
-import { APP_STATE } from '@tronlink/lib/constants';
-import { PopupAPI } from '@tronlink/lib/api';
+import { APP_STATE } from '@litelink/lib/constants';
+import { PopupAPI } from '@litelink/lib/api';
 
 
-const logo = require('@tronlink/popup/src/assets/images/new/logo2.svg');
+const logo = require('@litelink/popup/src/assets/images/new/logo2.svg');
 
 
 class Header extends React.Component {
@@ -33,7 +33,7 @@ class Header extends React.Component {
             chains,
             handleShowChainList
         } = this.props;
-        const trxMarketUrl = developmentMode ? 'https://trx.market?from=tronlink' : 'https://trx.market?from=tronlink';
+        const trxMarketUrl = developmentMode ? 'https://trx.market?from=litelink' : 'https://trx.market?from=litelink';
         return (
             <div className='header'>
                 <div className='titleContainer'>
@@ -53,9 +53,9 @@ class Header extends React.Component {
                     </div>
                     <div>
                         <div className="linkWrap">
-                            {/*<a href="https://t.me/TronLink" target="_blank" data-tip='telegram' data-for='telegram' className="link link-telegram">&nbsp;</a>*/}
+                            {/*<a href="https://t.me/LiteLink" target="_blank" data-tip='telegram' data-for='telegram' className="link link-telegram">&nbsp;</a>*/}
                             {/*<ReactTooltip id='telegram' effect='solid' />*/}
-                            <a href="https://www.tronlink.org" target="_blank" data-tip={formatMessage({id:'INDEX_ICON_TITLE.OFFICIAL_WEBSITE'})} data-for="website" className="link link-home">&nbsp;</a>
+                            <a href="https://www.litelink.org" target="_blank" data-tip={formatMessage({id:'INDEX_ICON_TITLE.OFFICIAL_WEBSITE'})} data-for="website" className="link link-home">&nbsp;</a>
                             <ReactTooltip id='website' effect='solid' />
                             <a href={trxMarketUrl} target="_blank" data-tip={formatMessage({id:'INDEX_ICON_TITLE.EXCHANGE'})} data-for="exchange" className="link link-exchange">&nbsp;</a>
                             <ReactTooltip id='exchange' effect='solid' />

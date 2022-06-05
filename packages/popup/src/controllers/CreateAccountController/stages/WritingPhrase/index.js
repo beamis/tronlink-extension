@@ -1,8 +1,8 @@
 import React from 'react';
-import Button from '@tronlink/popup/src/components/Button';
+import Button from '@litelink/popup/src/components/Button';
 
 import { FormattedMessage } from 'react-intl';
-// import { BUTTON_TYPE } from '@tronlink/lib/constants';
+// import { BUTTON_TYPE } from '@litelink/lib/constants';
 
 import './WritingPhrase.scss';
 
