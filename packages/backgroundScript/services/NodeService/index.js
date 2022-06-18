@@ -1,7 +1,7 @@
 import StorageService from '../StorageService';
 import randomUUID from 'uuid/v4';
 import LiteWeb from 'liteweb';
-import SunWeb from 'sunweb';
+import SolWeb from 'solweb';
 import Logger from '@litelink/lib/logger';
 import { CONTRACT_ADDRESS,SIDE_CHAIN_ID,NODE } from '@litelink/lib/constants';
 import { BigNumber } from 'bignumber.js';
@@ -113,7 +113,7 @@ const NodeService = {
             eventServer
         } = this.getCurrentNode();
 
-        this.sunWeb = new SunWeb(
+        this.solWeb = new SolWeb(
             //{fullNode:'https://api.litegrid.io',solidityNode:'https://api.litegrid.io',eventServer:'https://api.litegrid.io'},
             //{fullNode:'https://sun.liteex.io',solidityNode:'https://sun.liteex.io',eventServer:'https://sun.liteex.io'},
             NODE.MAIN,

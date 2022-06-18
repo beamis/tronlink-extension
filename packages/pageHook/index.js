@@ -1,14 +1,14 @@
 import EventChannel from '@litelink/lib/EventChannel';
 import Logger from '@litelink/lib/logger';
 import LiteWeb from 'liteweb';
-//import SunWeb from 'sunweb';
+//import SolWeb from 'solweb';
 
 import Utils from '@litelink/lib/utils';
 import { CONTRACT_ADDRESS, SIDE_CHAIN_ID, NODE } from '@litelink/lib/constants'
 import RequestHandler from './handlers/RequestHandler';
 import ProxiedProvider from './handlers/ProxiedProvider';
-import SunWeb from './SunWeb';
-// import SunWeb from './SunWeb/js-sdk/src/index';
+import SolWeb from './SolWeb';
+// import SolWeb from './SolWeb/js-sdk/src/index';
 
 const logger = new Logger('pageHook');
 
@@ -65,7 +65,7 @@ const pageHook = {
             new ProxiedProvider(),
             new ProxiedProvider()
         );
-        const sunWeb = new SunWeb(
+        const solWeb = new SolWeb(
             liteWeb1,
             liteWeb2,
             //{fullNode:'https://api.litegrid.io',solidityNode:'https://api.litegrid.io',eventServer:'https://api.litegrid.io'},
@@ -85,30 +85,30 @@ const pageHook = {
         };
         this.proxiedMethods = {
             setAddress: liteWeb.setAddress.bind(liteWeb),
-            setMainAddress: sunWeb.mainchain.setAddress.bind(sunWeb.mainchain),
-            setSideAddress: sunWeb.sidechain.setAddress.bind(sunWeb.sidechain),
-            sign: liteWeb.trx.sign.bind(liteWeb)
+            setMainAddress: solWeb.mainchain.setAddress.bind(solWeb.mainchain),
+            setSideAddress: solWeb.sidechain.setAddress.bind(solWeb.sidechain),
+            sign: liteWeb.xlt.sign.bind(liteWeb)
         };
 
         [ 'setPrivateKey', 'setAddress', 'setFullNode', 'setSolidityNode', 'setEventServer' ].forEach(method => {
             liteWeb[ method ] = () => new Error('LiteLink has disabled this method');
-            sunWeb.mainchain[ method ] = () => new Error('LiteLink has disabled this method');
-            sunWeb.sidechain[ method ] = () => new Error('LiteLink has disabled this method');
+            solWeb.mainchain[ method ] = () => new Error('LiteLink has disabled this method');
+            solWeb.sidechain[ method ] = () => new Error('LiteLink has disabled this method');
         });
 
-        liteWeb.trx.sign = (...args) => (
+        liteWeb.xlt.sign = (...args) => (
             this.sign(...args)
         );
 
-        sunWeb.mainchain.trx.sign = (...args) => (
+        solWeb.mainchain.xlt.sign = (...args) => (
             this.sign(...args)
         );
-        sunWeb.sidechain.trx.sign = (...args) => (
+        solWeb.sidechain.xlt.sign = (...args) => (
             this.sign(...args)
         );
 
 
-        window.sunWeb = sunWeb;
+        window.solWeb = solWeb;
         window.liteWeb = liteWeb;
     },
 
@@ -141,10 +141,10 @@ const pageHook = {
             this.proxiedMethods.setSideAddress(address);
             liteWeb.defaultAddress.name = name;
             liteWeb.defaultAddress.type =  type;
-            sunWeb.mainchain.defaultAddress.name = name;
-            sunWeb.mainchain.defaultAddress.type = type;
-            sunWeb.sidechain.defaultAddress.name = name;
-            sunWeb.sidechain.defaultAddress.type = type;
+            solWeb.mainchain.defaultAddress.name = name;
+            solWeb.mainchain.defaultAddress.type = type;
+            solWeb.sidechain.defaultAddress.name = name;
+            solWeb.sidechain.defaultAddress.type = type;
             liteWeb.ready = true;
         }
 
@@ -156,13 +156,13 @@ const pageHook = {
         liteWeb.solidityNode.configure(node.solidityNode);
         liteWeb.eventServer.configure(node.eventServer);
 
-        sunWeb.mainchain.fullNode.configure(NODE.MAIN.fullNode);
-        sunWeb.mainchain.solidityNode.configure(NODE.MAIN.solidityNode);
-        sunWeb.mainchain.eventServer.configure(NODE.MAIN.eventServer);
+        solWeb.mainchain.fullNode.configure(NODE.MAIN.fullNode);
+        solWeb.mainchain.solidityNode.configure(NODE.MAIN.solidityNode);
+        solWeb.mainchain.eventServer.configure(NODE.MAIN.eventServer);
 
-        sunWeb.sidechain.fullNode.configure(NODE.SIDE.fullNode);
-        sunWeb.sidechain.solidityNode.configure(NODE.SIDE.solidityNode);
-        sunWeb.sidechain.eventServer.configure(NODE.SIDE.eventServer);
+        solWeb.sidechain.fullNode.configure(NODE.SIDE.fullNode);
+        solWeb.sidechain.solidityNode.configure(NODE.SIDE.solidityNode);
+        solWeb.sidechain.eventServer.configure(NODE.SIDE.eventServer);
     },
 
     setVisited(href){

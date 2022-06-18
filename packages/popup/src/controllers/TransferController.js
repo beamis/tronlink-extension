@@ -11,7 +11,7 @@ import { Toast } from 'antd-mobile';
 import { Popover } from 'antd-mobile';
 import Utils  from '@litelink/lib/utils';
 import Alert from '@litelink/popup/src/components/Alert';
-const trxImg = require('@litelink/popup/src/assets/images/new/trx.png');
+const xltImg = require('@litelink/popup/src/assets/images/new/xlt.png');
 class TransferController extends React.Component {
     constructor(props) {
         super(props);
@@ -22,10 +22,10 @@ class TransferController extends React.Component {
             },
             selectedToken: {
                 id: '_',
-                name: 'TRX',
+                name: 'XLT',
                 amount: 0,
                 decimals: 6,
-                abbr: 'TRX'
+                abbr: 'XLT'
             },
             amount: {
                 error: '',
@@ -79,7 +79,7 @@ class TransferController extends React.Component {
         //const { chains } = this.props;
         // const selectedToken = {
         //     id: '_',
-        //     name: 'TRX',
+        //     name: 'XLT',
         //     decimals: 6,
         //     amount: new BigNumber(accounts[ address ].balance).shiftedBy(-6).toString()
         // };
@@ -163,7 +163,7 @@ class TransferController extends React.Component {
                     amount: {
                         ...amount,
                         valid:false,
-                        error: 'ACCOUNT.TRANSFER.WARNING.TRX_LIMIT'
+                        error: 'ACCOUNT.TRANSFER.WARNING.XLT_LIMIT'
                     }
                 });
             } else if(id !== '_' && chains.selected !== '_' && new BigNumber(selected.balance).shiftedBy(-6).lt(new BigNumber(FEE.WITHDRAW_FEE).shiftedBy(-6))){
@@ -171,7 +171,7 @@ class TransferController extends React.Component {
                     amount: {
                         ...amount,
                         valid: false,
-                        error: 'ACCOUNT.TRANSFER.WARNING.TRX_NOT_ENOUGH'
+                        error: 'ACCOUNT.TRANSFER.WARNING.XLT_NOT_ENOUGH'
                     }
                 });
             } else if(id === '_' && chains.selected !== '_' && new BigNumber(selected.balance - FEE.WITHDRAW_FEE).shiftedBy(-6).lt(value) ){
@@ -179,7 +179,7 @@ class TransferController extends React.Component {
                     amount: {
                         ...amount,
                         valid: false,
-                        error: 'ACCOUNT.TRANSFER.WARNING.TRX_NOT_ENOUGH'
+                        error: 'ACCOUNT.TRANSFER.WARNING.XLT_NOT_ENOUGH'
                     }
                 });
             }
@@ -190,7 +190,7 @@ class TransferController extends React.Component {
                     amount: {
                         ...amount,
                         valid,
-                        error: valid?'EXCEPTION.SEND.BANDWIDTH_NOT_ENOUGH_ERROR':'EXCEPTION.SEND.BANDWIDTH_NOT_ENOUGH_TRX_ERROR'
+                        error: valid?'EXCEPTION.SEND.BANDWIDTH_NOT_ENOUGH_ERROR':'EXCEPTION.SEND.BANDWIDTH_NOT_ENOUGH_XLT_ERROR'
                     }
                 });
             } else if(selected.netLimit - selected.netUsed >= 300 && selected.energy - selected.energyUsed < 10000) {
@@ -198,7 +198,7 @@ class TransferController extends React.Component {
                     amount: {
                         ...amount,
                         valid,
-                        error: valid?'EXCEPTION.SEND.ENERGY_NOT_ENOUGH_ERROR':'EXCEPTION.SEND.ENERGY_NOT_ENOUGH_TRX_ERROR'
+                        error: valid?'EXCEPTION.SEND.ENERGY_NOT_ENOUGH_ERROR':'EXCEPTION.SEND.ENERGY_NOT_ENOUGH_XLT_ERROR'
                     }
                 });
             } else if(selected.netLimit - selected.netUsed < 300 && selected.energy - selected.energyUsed < 10000) {
@@ -206,7 +206,7 @@ class TransferController extends React.Component {
                     amount: {
                         ...amount,
                         valid:valid,
-                        error: valid?'EXCEPTION.SEND.BANDWIDTH_ENERGY_NOT_ENOUGH_ERROR':'EXCEPTION.SEND.ENERGY_NOT_ENOUGH_TRX_ERROR'
+                        error: valid?'EXCEPTION.SEND.BANDWIDTH_ENERGY_NOT_ENOUGH_ERROR':'EXCEPTION.SEND.ENERGY_NOT_ENOUGH_XLT_ERROR'
                     }
                 });
             } else {
@@ -247,9 +247,9 @@ class TransferController extends React.Component {
             let func;
             if (id === "_") {
                 if(chains.selected === '_'){
-                    func = PopupAPI.depositTrx(new BigNumber(amount).shiftedBy(6).toString());
+                    func = PopupAPI.depositXlt(new BigNumber(amount).shiftedBy(6).toString());
                 }else{
-                    func = PopupAPI.withdrawTrx(new BigNumber(amount).shiftedBy(6).toString());
+                    func = PopupAPI.withdrawXlt(new BigNumber(amount).shiftedBy(6).toString());
                 }
             } else if (id.match(/^T/)) {
                 if(chains.selected === '_') {
@@ -293,7 +293,7 @@ class TransferController extends React.Component {
         const { selected } = this.props.accounts;
         const { chains,onCancel } = this.props;
         const { formatMessage } = this.props.intl;
-        const trx = { tokenId: '_', name: 'TRX', balance: selected.balance, frozenBalance:selected.frozenBalance ,abbr: 'TRX', decimals: 6, imgUrl: trxImg,isMapping:true };
+        const xlt = { tokenId: '_', name: 'XLT', balance: selected.balance, frozenBalance:selected.frozenBalance ,abbr: 'XLT', decimals: 6, imgUrl: xltImg,isMapping:true };
         let tokens = { ...selected.tokens.basic, ...selected.tokens.smart };
         const topArray = [];
         allTokens.length && TOP_TOKEN[chains.selected === "_" ? 'mainchain':'sidechain'].forEach(v=>{
@@ -309,7 +309,7 @@ class TransferController extends React.Component {
         });
         tokens = Utils.dataLetterSort(Object.entries(tokens).filter(([tokenId, token]) => typeof token === 'object' && (!token.hasOwnProperty('chain') || token.chain === chains.selected) ).map(v => { v[ 1 ].tokenId = v[ 0 ];return v[ 1 ]; }), 'abbr' ,'symbol',topArray);
         tokens = tokens.map(v=>{ v.isMapping = v.hasOwnProperty('isMapping') ? v.isMapping:( v.tokenId.match(/^T/) ? false : true); return v;}).filter(({isMapping = false})=> isMapping);
-        tokens = [trx, ...tokens];
+        tokens = [xlt, ...tokens];
         return (
             <div className='insetContainer send' onClick={() => this.setState({ isOpen: { account: false, token: false } }) }>
                 <div className='pageHeader'>
@@ -325,7 +325,7 @@ class TransferController extends React.Component {
                         </div>
                         <div className='otherInfo'>
                             <FormattedMessage id='COMMON.BALANCE'/>:&nbsp;
-                            {selected.balance / Math.pow(10, 6)} TRX
+                            {selected.balance / Math.pow(10, 6)} XLT
                         </div>
                     </div>
                     <div className='input-group'>
@@ -367,7 +367,7 @@ class TransferController extends React.Component {
                             }
                         </label>
                         <div className='input'>
-                            <input type='text' value={amount.value} placeholder={selectedToken.id === '_'?formatMessage({id:'ACCOUNT.TRANSFER.WARNING.TRX_LIMIT'}):''} onChange={ (e) => {
+                            <input type='text' value={amount.value} placeholder={selectedToken.id === '_'?formatMessage({id:'ACCOUNT.TRANSFER.WARNING.XLT_LIMIT'}):''} onChange={ (e) => {
                                 if(e.target.value != selectedToken.amount){
                                     this.refs['max'].classList.remove('selected');
                                 }else{

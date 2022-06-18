@@ -15,7 +15,7 @@ import { app } from "@litelink/popup/src";
 import Alert from '@litelink/popup/src/components/Alert';
 import './AccountsPage.scss';
 import '@litelink/popup/src/controllers/PageController/Header/Header.scss';
-const trxImg = require('@litelink/popup/src/assets/images/new/trx.png');
+const xltImg = require('@litelink/popup/src/assets/images/new/xlt.png');
 const token10DefaultImg = require('@litelink/popup/src/assets/images/new/token_10_default.png');
 let litescanUrl = '';
 class AccountsPage extends React.Component {
@@ -48,7 +48,7 @@ class AccountsPage extends React.Component {
         },100);
 
         const { prices, accounts } = this.props;
-        const t = { name: 'TRX', abbr:'trx', id: '_', amount: 0, decimals: 6, price: prices.priceList[ prices.selected ], imgUrl: trxImg };
+        const t = { name: 'XLT', abbr:'xlt', id: '_', amount: 0, decimals: 6, price: prices.priceList[ prices.selected ], imgUrl: xltImg };
         PopupAPI.setSelectedToken(t);
         litescanUrl = 'https://litescan.org/#';
         const news = await PopupAPI.getNews();
@@ -238,7 +238,7 @@ class AccountsPage extends React.Component {
                         <ProcessBar percentage={(account.netLimit - account.netUsed) / account.netLimit} />
                     </div>
                     <div className={'cell'+(nodes.selected === 'f0b1e38e-7bee-485e-9d3f-69410bf30681' || nodes.selected === 'f0b1e38e-7bee-485e-9d3f-69410bf30682'?' bankSingle':'')} onClick={ () => {
-                        //PopupAPI.changeState(APP_STATE.TRONBANK);
+                        //PopupAPI.changeState(APP_STATE.LITEBANK);
                         if(nodes.selected === 'f0b1e38e-7bee-485e-9d3f-69410bf30681' || nodes.selected === 'f0b1e38e-7bee-485e-9d3f-69410bf30682')
                             window.open('http://www.litelending.org');
                     }}>
@@ -453,7 +453,7 @@ class AccountsPage extends React.Component {
     render() {
         BigNumber.config({ EXPONENTIAL_AT: [-20,30] });
         let totalAsset = new BigNumber(0);
-        let totalTrx = new BigNumber(0);
+        let totalXlt = new BigNumber(0);
         const { showChainList,mnemonic,privateKey,news,ieos,allTokens }  = this.state;
         const id = news.length > 0 ? news[0].id : 0;
         const { accounts,prices,nodes,setting,language:lng,vTokenList,chains } = this.props;
@@ -461,8 +461,8 @@ class AccountsPage extends React.Component {
         const { selected: { airdropInfo } } = accounts;
         const mode = 'productionMode';
         const { formatMessage } = this.props.intl;
-        const trx_price = prices.priceList[prices.selected];
-        const trx = { tokenId: '_', name: 'TRX', balance: (accounts.selected.balance + (accounts.selected.frozenBalance ? accounts.selected.frozenBalance: 0)), abbr: 'TRX', decimals: 6, imgUrl: trxImg, price: trx_price,isMapping:true};
+        const xlt_price = prices.priceList[prices.selected];
+        const xlt = { tokenId: '_', name: 'XLT', balance: (accounts.selected.balance + (accounts.selected.frozenBalance ? accounts.selected.frozenBalance: 0)), abbr: 'XLT', decimals: 6, imgUrl: xltImg, price: xlt_price,isMapping:true};
         let tokens = { ...accounts.selected.tokens.basic, ...accounts.selected.tokens.smart };
 
         const topArray = [];
@@ -478,7 +478,7 @@ class AccountsPage extends React.Component {
             }
         });
         tokens = Utils.dataLetterSort(Object.entries(tokens).filter(([tokenId, token])=> typeof token === 'object').map(v => { v[1].isMapping = v[1].hasOwnProperty('isMapping')?v[1].isMapping:true;v[ 1 ].tokenId = v[ 0 ];return v[ 1 ]; }).filter(v => !v.isLocked ), 'abbr', 'symbol',topArray);
-        tokens = [trx, ...tokens];
+        tokens = [xlt, ...tokens];
         tokens = tokens.map(({ tokenId, ...token }) => {
             token.decimals = token.decimals || 0;
             if(vTokenList.includes(tokenId))
@@ -489,7 +489,7 @@ class AccountsPage extends React.Component {
 
         Object.entries(accounts.accounts).map(([address, account]) => {
             totalAsset = totalAsset.plus(new BigNumber(account.asset));
-            totalTrx   = totalTrx.plus(new BigNumber(account.balance).shiftedBy(-6));
+            totalXlt   = totalXlt.plus(new BigNumber(account.balance).shiftedBy(-6));
         });
         const asset = accounts.accounts[ accounts.selected.address ] && accounts.accounts[ accounts.selected.address ].asset ? accounts.accounts[accounts.selected.address].asset : 0;
         const totalMoney = new BigNumber(asset).multipliedBy(prices.priceList[ prices.selected ]).toFixed(2);
@@ -564,12 +564,12 @@ class AccountsPage extends React.Component {
                             </div>
                             <div className="row2">
                                 <div className="cell">
-                                    <span>TRX:</span>
-                                    <span>{new BigNumber(totalTrx.toFixed(2)).toFormat()}</span>
+                                    <span>XLT:</span>
+                                    <span>{new BigNumber(totalXlt.toFixed(2)).toFormat()}</span>
                                 </div>
                                 <div className="cell">
                                     <FormattedMessage id="MENU.ACCOUNTS.TOTAL_ASSET" values={{sign:':'}} />
-                                    <span>{new BigNumber(totalAsset.multipliedBy(trx_price).toFixed(2)).toFormat()}{ prices.selected }</span>
+                                    <span>{new BigNumber(totalAsset.multipliedBy(xlt_price).toFixed(2)).toFormat()}{ prices.selected }</span>
                                 </div>
                             </div>
                             <div className="row3">
@@ -592,8 +592,8 @@ class AccountsPage extends React.Component {
                                                     </div>
                                                 </div>
                                                 <div className="asset">
-                                                    <span>TRX: { new BigNumber(new BigNumber(account.balance).shiftedBy(-6).toFixed(2)).toFormat() }</span>
-                                                    <span><FormattedMessage id="MENU.ACCOUNTS.TOTAL_ASSET" values={{sign:':'}} /> {new BigNumber(new BigNumber(account.asset).multipliedBy(trx_price).toFixed(2)).toFormat()}{ prices.selected }</span>
+                                                    <span>XLT: { new BigNumber(new BigNumber(account.balance).shiftedBy(-6).toFixed(2)).toFormat() }</span>
+                                                    <span><FormattedMessage id="MENU.ACCOUNTS.TOTAL_ASSET" values={{sign:':'}} /> {new BigNumber(new BigNumber(account.asset).multipliedBy(xlt_price).toFixed(2)).toFormat()}{ prices.selected }</span>
                                                 </div>
                                             </div>
                                             <div className="bottom">

@@ -395,7 +395,7 @@ const StorageService = {
             name,
             abbr,
             precision: decimals = 0
-        } = await NodeService.liteWeb.trx.getTokenFromID(tokenID);
+        } = await NodeService.liteWeb.xlt.getTokenFromID(tokenID);
         this.tokenCache[ tokenID ] = {
             name,
             abbr,

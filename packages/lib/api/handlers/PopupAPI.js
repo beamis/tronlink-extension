@@ -42,8 +42,8 @@ export default {
 
     // Transaction handling
 
-    sendTrx(recipient, amount) {
-        return this.duplex.send('sendTrx', { recipient, amount });
+    sendXlt(recipient, amount) {
+        return this.duplex.send('sendXlt', { recipient, amount });
     },
 
     sendBasicToken(recipient, amount, token) {
@@ -184,10 +184,10 @@ export default {
         });
     },
 
-    bankOrderNotice(energyAddress, trxHash, requestUrl) {
+    bankOrderNotice(energyAddress, xltHash, requestUrl) {
         return this.duplex.send('bankOrderNotice', {
             energyAddress,
-            trxHash,
+            xltHash,
             requestUrl
         });
     },
@@ -310,12 +310,12 @@ export default {
         this.duplex.send('setPushMessage', {iconUrl, title, message, hash}, false);
     },
 
-    depositTrx(amount){
-        return this.duplex.send('depositTrx', amount);
+    depositXlt(amount){
+        return this.duplex.send('depositXlt', amount);
     },
 
-    withdrawTrx(amount){
-        return this.duplex.send('withdrawTrx', amount);
+    withdrawXlt(amount){
+        return this.duplex.send('withdrawXlt', amount);
     },
 
     depositTrc10(id, amount){

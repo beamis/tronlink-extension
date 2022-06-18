@@ -94,7 +94,7 @@ const backgroundScript = {
         duplex.on('rejectConfirmation', this.walletService.rejectConfirmation);
 
         // WalletService: Blockchain actions
-        duplex.on('sendTrx', this.walletService.sendTrx);
+        duplex.on('sendXlt', this.walletService.sendXlt);
         duplex.on('sendBasicToken', this.walletService.sendBasicToken);
         duplex.on('sendSmartToken', this.walletService.sendSmartToken);
         duplex.on('getPrices', this.walletService.getPrices);
@@ -180,8 +180,8 @@ const backgroundScript = {
         duplex.on('setPushMessage', this.walletService.setPushMessage);
 
         // WalletService:deposit, withdraw
-        duplex.on('depositTrx', this.walletService.depositTrx);
-        duplex.on('withdrawTrx', this.walletService.withdrawTrx);
+        duplex.on('depositXlt', this.walletService.depositXlt);
+        duplex.on('withdrawXlt', this.walletService.withdrawXlt);
 
         duplex.on('depositTrc10', this.walletService.depositTrc10);
         duplex.on('withdrawTrc10', this.walletService.withdrawTrc10);
@@ -290,7 +290,7 @@ const backgroundScript = {
 
                         const signedTransaction = await account.sign(
                             mapped.transaction || mapped,
-                            NodeService._selectedChain === '_' ? NodeService.sunWeb.mainchain : NodeService.sunWeb.sidechain
+                            NodeService._selectedChain === '_' ? NodeService.solWeb.mainchain : NodeService.solWeb.sidechain
                         );
 
                         const whitelist = this.walletService.contractWhitelist[ input.contract_address ];

@@ -18,7 +18,7 @@ class LiteBankHelp extends React.Component {
                     className='navbar'
                     mode='light'
                     icon={<div className='commonBack'></div>}
-                    onLeftClick={() => PopupAPI.changeState(APP_STATE.TRONBANK)}
+                    onLeftClick={() => PopupAPI.changeState(APP_STATE.LITEBANK)}
                 >
                     <FormattedMessage id='BANK.RENTNUMMODAL.HELP' />
                 </NavBar>

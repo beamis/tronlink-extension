@@ -33,7 +33,7 @@ class Header extends React.Component {
             chains,
             handleShowChainList
         } = this.props;
-        const trxMarketUrl = developmentMode ? 'https://trx.market?from=litelink' : 'https://trx.market?from=litelink';
+        const xltMarketUrl = developmentMode ? 'https://xlt.market?from=litelink' : 'https://xlt.market?from=litelink';
         return (
             <div className='header'>
                 <div className='titleContainer'>
@@ -57,7 +57,7 @@ class Header extends React.Component {
                             {/*<ReactTooltip id='telegram' effect='solid' />*/}
                             <a href="https://www.litelink.org" target="_blank" data-tip={formatMessage({id:'INDEX_ICON_TITLE.OFFICIAL_WEBSITE'})} data-for="website" className="link link-home">&nbsp;</a>
                             <ReactTooltip id='website' effect='solid' />
-                            <a href={trxMarketUrl} target="_blank" data-tip={formatMessage({id:'INDEX_ICON_TITLE.EXCHANGE'})} data-for="exchange" className="link link-exchange">&nbsp;</a>
+                            <a href={xltMarketUrl} target="_blank" data-tip={formatMessage({id:'INDEX_ICON_TITLE.EXCHANGE'})} data-for="exchange" className="link link-exchange">&nbsp;</a>
                             <ReactTooltip id='exchange' effect='solid' />
                         </div>
                         <div className="linkWrap">

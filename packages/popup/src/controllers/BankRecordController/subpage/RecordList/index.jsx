@@ -22,7 +22,7 @@ class RecordList extends React.Component {
     async toMoreDetail(_id) {
         // PopupAPI
         await PopupAPI.setSelectedBankRecordId(_id);
-        PopupAPI.changeState(APP_STATE.TRONBANK_DETAIL);
+        PopupAPI.changeState(APP_STATE.LITEBANK_DETAIL);
     }
 
     render() {
@@ -57,7 +57,7 @@ class RecordList extends React.Component {
                             <div className='address'><img src={require('../../../../assets/images/new/liteBank/receive.svg')} alt='receive'/><span>{`${val.energy_address.substr(0, 8)}...${val.energy_address.substr(-8)}`}</span></div>
                             <div className='recordCont'>
                                 <section className='recordLeftInfo'>
-                                    <div><FormattedMessage id='BANK.RENTRECORD.RENTDETAIL'/>{val.freeze_amount / Math.pow(10, 6)}TRX*{val.days}<FormattedMessage id='BANK.RENTRECORD.TIMEUNIT'/></div>
+                                    <div><FormattedMessage id='BANK.RENTRECORD.RENTDETAIL'/>{val.freeze_amount / Math.pow(10, 6)}XLT*{val.days}<FormattedMessage id='BANK.RENTRECORD.TIMEUNIT'/></div>
                                     <div style={{ padding: '4px 0' }}><FormattedMessage id='BANK.RENTRECORD.DEADLINE'/>{Utils.timetransTime(val.expire_time)}</div>
                                     <div className='time'>{Utils.timeFormatTime(val.create_time)}</div>
                                 </section>
@@ -66,7 +66,7 @@ class RecordList extends React.Component {
                                         <FormattedMessage id='BANK.RENTRECORD.COST'/>
                                         {
                                             String(payMonkey).indexOf('.') > -1 ? payMonkey.toFixed(2) : payMonkey
-                                        }TRX
+                                        }XLT
                                     </div>
                                     <div className='recordValStatus'>
                                         { statusMessage }

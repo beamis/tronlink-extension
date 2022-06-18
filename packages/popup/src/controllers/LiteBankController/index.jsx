@@ -94,10 +94,10 @@ class BankController extends React.Component {
             total: totalEnergy,
             show: true
         };
-        let costTrx;
+        let costXlt;
         const totalEnergyWeight = selected.totalEnergyWeight;
         const totalenergyLimitNum = selected.TotalEnergyLimit;
-        if(Number.isFinite(defaultData.energy)) costTrx = Math.ceil(defaultData.energy / totalenergyLimitNum * totalEnergyWeight);else costTrx = 0;
+        if(Number.isFinite(defaultData.energy)) costXlt = Math.ceil(defaultData.energy / totalenergyLimitNum * totalEnergyWeight);else costXlt = 0;
         this.setState({
             rentNumMin: defaultData.rental_amount_min / Math.pow(10, 6),
             rentNumMax: defaultData.rental_amount_max / Math.pow(10, 6),
@@ -108,8 +108,8 @@ class BankController extends React.Component {
                 num: defaultData.energy / 10000,
                 day: defaultData.days,
                 cost: defaultData.pay_amount / Math.pow(10, 6),
-                min: 1, // min distroy 1trx
-                total: costTrx
+                min: 1, // min distroy 1xlt
+                total: costXlt
             },
             curentInputBalance,
             ratio: defaultData.ratio
@@ -533,9 +533,9 @@ class BankController extends React.Component {
         const orderList = [
             { id: 'BANK.RENTINFO.PAYADDRESS', user: 1, value: selected.address },
             { id: 'BANK.RENTINFO.RECEIVEADDRESS', user: 1, value: recipientVal },
-            { id: 'BANK.RENTINFO.RENTNUM', tip: 1, value: `${rentNum.value}TRX` },
+            { id: 'BANK.RENTINFO.RENTNUM', tip: 1, value: `${rentNum.value}XLT` },
             { id: 'BANK.RENTINFO.RENTDAY', type: 3, value: rentDay.value },
-            { id: 'BANK.RENTINFO.PAYNUM', type: 0, value: `${rentUnit.cost}TRX` },
+            { id: 'BANK.RENTINFO.PAYNUM', type: 0, value: `${rentUnit.cost}XLT` },
         ];
         const saveCost = parseFloat(rentUnit.cost / discount * (1 - discount));
         const myImg = src => { return require(`../../assets/images/new/liteBank/${src}.svg`); };
@@ -552,11 +552,11 @@ class BankController extends React.Component {
                 {/* navModal */}
                 <div className='navBarMoreMenu'>
                     <div className={ this.state.popoverVisible ? 'dropList menuList menuVisible' : 'dropList menuList'}>
-                        <div onClick={ () => { PopupAPI.changeState(APP_STATE.TRONBANK_RECORD); } } className='item'>
+                        <div onClick={ () => { PopupAPI.changeState(APP_STATE.LITEBANK_RECORD); } } className='item'>
                             <img onClick={() => { this.setState({ popoverVisible: true }); }} className='rightMoreIcon' src={myImg('record')} alt={'record'}/>
                             <FormattedMessage id='BANK.RENTNUMMODAL.RECORD' />
                         </div>
-                        <div onClick={(e) => { PopupAPI.changeState(APP_STATE.TRONBANK_HELP); }} className='item'>
+                        <div onClick={(e) => { PopupAPI.changeState(APP_STATE.LITEBANK_HELP); }} className='item'>
                             <img onClick={() => { this.setState({ popoverVisible: true }); }} className='rightMoreIcon' src={myImg('help')} alt={'help'}/>
                             <FormattedMessage id='BANK.RENTNUMMODAL.HELP' />
                         </div>
@@ -623,7 +623,7 @@ class BankController extends React.Component {
                                         onBlur={ (e) => this.handlerRentNumChange(e, 2)}
                                         className='commonInput rentNumInput'
                                         placeholder={ formatMessage({ id: 'BANK.INDEX.FREEZEPLACEHOLDER' }) + `（${rentNumMin}-${rentNumMax}）`}
-                                    /><span>TRX</span>
+                                    /><span>XLT</span>
                                 </div>
                                 { rentNum.formatError ?
                                     <div className='errorMsg'>
@@ -683,26 +683,26 @@ class BankController extends React.Component {
                             {rentNum.valid && rentDay.valid ?
                                 <section className='calculation'>
                                     <div className='info'>
-                                        <span>{rentNum.value}TRX*{rentDay.value}</span>
+                                        <span>{rentNum.value}XLT*{rentDay.value}</span>
                                         <span className='numInfo'>{rentDay.value > 2 ? <FormattedMessage id='BANK.INDEX.RENTDAYUNITS'/> : <FormattedMessage id='BANK.INDEX.RENTDAYUNIT'/>}</span>
                                         <span className='pointColor'>
-                                            <FormattedMessage id='BANK.INDEX.RENTCONST' /> {rentUnit.cost} TRX
+                                            <FormattedMessage id='BANK.INDEX.RENTCONST' /> {rentUnit.cost} XLT
                                         </span>
                                     </div>
                                     <div className='curNum'>
                                         {
                                             language === 'en' ?
                                                 <span>
-                                                    (<span className='pointColor'>{ saveCost.toFixed(2) }TRX </span>saved than burn-TRX,<span className='pointColor'>{rentNum.value}TRX</span> required to freeze)
+                                                    (<span className='pointColor'>{ saveCost.toFixed(2) }XLT </span>saved than burn-XLT,<span className='pointColor'>{rentNum.value}XLT</span> required to freeze)
                                                 </span>
                                                 :
                                                 <span>
                                                     (
                                                     <FormattedMessage id='BANK.INDEX.ESTIMATECOMPARE'/>
                                                     <span className='pointColor'>
-                                                        <FormattedMessage id='BANK.INDEX.ESTIMATESAVE'/>{ saveCost.toFixed(2) }trx
+                                                        <FormattedMessage id='BANK.INDEX.ESTIMATESAVE'/>{ saveCost.toFixed(2) }xlt
                                                     </span>,<FormattedMessage id='BANK.INDEX.ESTIMATEINFO'/>
-                                                    <span className='pointColor'>{rentNum.value}TRX</span>
+                                                    <span className='pointColor'>{rentNum.value}XLT</span>
                                                     )
                                                 </span>
                                         }
@@ -713,7 +713,7 @@ class BankController extends React.Component {
                                         {
                                             language === 'en' ?
                                                 <span>
-                                                    renting {defaultUnit.num * 10}k energy * {defaultUnit.day} day costs {defaultUnit.cost}TRX
+                                                    renting {defaultUnit.num * 10}k energy * {defaultUnit.day} day costs {defaultUnit.cost}XLT
                                                 </span>
                                                 :
                                                 <FormattedMessage id='BANK.INDEX.RENTINTRODUCE' values={{ ...defaultUnit }} />

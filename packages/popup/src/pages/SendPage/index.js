@@ -19,7 +19,7 @@ import {
 import './SendPage.scss';
 
 const TOKEN_MODE = {
-    TRX: 'TRX',
+    XLT: 'XLT',
     TRC10: 'TRC10',
     TRC20: 'TRC20'
 };
@@ -35,7 +35,7 @@ class SendPage extends React.Component {
             value: ''
         },
         token: {
-            mode: TOKEN_MODE.TRX
+            mode: TOKEN_MODE.XLT
         },
         success: false,
         error: false,
@@ -54,7 +54,7 @@ class SendPage extends React.Component {
 
     reset() {
         this.onAmountChange('0');
-        this.onModeChange(TOKEN_MODE.TRX);
+        this.onModeChange(TOKEN_MODE.XLT);
     }
 
     onRecipientChange(address) {
@@ -181,7 +181,7 @@ class SendPage extends React.Component {
 
         let balance = new BigNumber(0);
 
-        if(mode === TOKEN_MODE.TRX)
+        if(mode === TOKEN_MODE.XLT)
             balance = new BigNumber(this.props.account.balance).shiftedBy(-6);
 
         if(mode === TOKEN_MODE.TRC10) {
@@ -226,8 +226,8 @@ class SendPage extends React.Component {
 
         let func;
 
-        if(mode === TOKEN_MODE.TRX) {
-            func = PopupAPI.sendTrx(
+        if(mode === TOKEN_MODE.XLT) {
+            func = PopupAPI.sendXlt(
                 recipient,
                 new BigNumber(amount).shiftedBy(6).toString()
             );
@@ -372,11 +372,11 @@ class SendPage extends React.Component {
             <div className='tokens'>
                 <div className='tabs'>
                     <FormattedMessage
-                        id='SEND.TOKENS.TRX'
+                        id='SEND.TOKENS.XLT'
                         children={ token => (
                             <div
-                                className={ `token ${ mode === TOKEN_MODE.TRX ? 'active' : '' }` }
-                                onClick={ () => this.onModeChange(TOKEN_MODE.TRX) }
+                                className={ `token ${ mode === TOKEN_MODE.XLT ? 'active' : '' }` }
+                                onClick={ () => this.onModeChange(TOKEN_MODE.XLT) }
                             >
                                 { token }
                             </div>
@@ -405,7 +405,7 @@ class SendPage extends React.Component {
                         ) }
                     />
                 </div>
-                <div className={ `amount ${ mode === TOKEN_MODE.TRX ? 'noLeftRadius' : '' } ${ mode === TOKEN_MODE.TRC20 ? 'noRightRadius' : '' }` }>
+                <div className={ `amount ${ mode === TOKEN_MODE.XLT ? 'noLeftRadius' : '' } ${ mode === TOKEN_MODE.TRC20 ? 'noRightRadius' : '' }` }>
                     <div className='inputContainer'>
                         <Input
                             value={ value }
@@ -414,8 +414,8 @@ class SendPage extends React.Component {
                             isDisabled={ isLoading }
                         />
                         {
-                            mode === TOKEN_MODE.TRX ?
-                                <span>TRX</span> :
+                            mode === TOKEN_MODE.XLT ?
+                                <span>XLT</span> :
                                 mode === TOKEN_MODE.TRC10 ?
                                     this.renderBasicDropdown() :
                                     this.renderSmartDropdown()

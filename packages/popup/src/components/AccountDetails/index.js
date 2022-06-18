@@ -26,10 +26,10 @@ const AccountDetails = ({ account, prices }) => {
     return (
         <div className='accountInfo'>
             <div className='accountBalance'>
-                <div className='trxBalance'>
+                <div className='xltBalance'>
                     <FormattedNumber value={ balance / 1000000 } maximumFractionDigits={ 6 } />
                     <span className='ticker'>
-                        TRX
+                        XLT
                     </span>
                 </div>
                 <FormattedMessage id='TRANSACTIONS.CURRENCY' values={{ amount, currency }} />

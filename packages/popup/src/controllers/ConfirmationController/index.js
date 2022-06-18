@@ -262,8 +262,8 @@ class ConfirmationController extends React.Component {
             //args.length && args.map(({name,type,value})=>({key:name,value})).forEach(v=>meta.push(v))
         }
 
-        if (input.trx_num) {
-            meta.push({ key: 'CONFIRMATIONS.TRX_RATIO', value: formatNumber(input.trx_num) });
+        if (input.xlt_num) {
+            meta.push({ key: 'CONFIRMATIONS.XLT_RATIO', value: formatNumber(input.xlt_num) });
         }
 
         if (input.num) {

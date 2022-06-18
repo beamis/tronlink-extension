@@ -8,7 +8,7 @@ import { VALIDATION_STATE, APP_STATE, CONTRACT_ADDRESS, ACCOUNT_TYPE, TOP_TOKEN 
 import LiteWeb from "liteweb";
 import { Toast } from 'antd-mobile';
 import Utils  from '@litelink/lib/utils';
-const trxImg = require('@litelink/popup/src/assets/images/new/trx.png');
+const xltImg = require('@litelink/popup/src/assets/images/new/xlt.png');
 class SendController extends React.Component {
     constructor(props) {
         super(props);
@@ -19,10 +19,10 @@ class SendController extends React.Component {
             },
             selectedToken: {
                 id: '_',
-                name: 'TRX',
+                name: 'XLT',
                 amount: 0,
                 decimals: 6,
-                abbr: 'TRX'
+                abbr: 'XLT'
             },
             recipient: {
                 error: '',
@@ -118,9 +118,9 @@ class SendController extends React.Component {
         const { selected, accounts } = this.props.accounts;
         const selectedToken = {
             isMapping : true,
-            imgUrl: trxImg,
+            imgUrl: xltImg,
             id: '_',
-            name: 'TRX',
+            name: 'XLT',
             decimals: 6,
             amount: new BigNumber(accounts[ address ].balance).shiftedBy(-6).toString(),
             balance : new BigNumber(accounts[ address ].balance - accounts[ address ].frozenBalance).shiftedBy(-6).toString(),
@@ -235,7 +235,7 @@ class SendController extends React.Component {
                         amount: {
                             ...amount,
                             valid: false,
-                            error: 'ACCOUNT.TRANSFER.WARNING.TRX_NOT_ENOUGH'
+                            error: 'ACCOUNT.TRANSFER.WARNING.XLT_NOT_ENOUGH'
                         }
                     });
                 }
@@ -245,7 +245,7 @@ class SendController extends React.Component {
                         amount: {
                             ...amount,
                             valid: false,
-                            error: 'EXCEPTION.SEND.BANDWIDTH_NOT_ENOUGH_TRX_ERROR'
+                            error: 'EXCEPTION.SEND.BANDWIDTH_NOT_ENOUGH_XLT_ERROR'
                         }
                     });
                 }
@@ -348,7 +348,7 @@ class SendController extends React.Component {
         if(selected.type !== ACCOUNT_TYPE.LEDGER) {
             let func;
             if (id === "_") {
-                func = PopupAPI.sendTrx(
+                func = PopupAPI.sendXlt(
                     recipient,
                     new BigNumber(amount).shiftedBy(6).toString()
                 );
@@ -386,7 +386,7 @@ class SendController extends React.Component {
             const toAddress = recipient;
             this.setState({loadingLedger:true});
             if (id === "_") {
-                iframe.postMessage({target:"LEDGER-IFRAME",action:'send trx',data:{toAddress,fromAddress,amount:new BigNumber(amount).shiftedBy(6).toString()}},'*')
+                iframe.postMessage({target:"LEDGER-IFRAME",action:'send xlt',data:{toAddress,fromAddress,amount:new BigNumber(amount).shiftedBy(6).toString()}},'*')
             }else if(id.match(/^T/)){
                 iframe.postMessage({target:"LEDGER-IFRAME",action:'send trc20',data:{id,toAddress,fromAddress,amount:new BigNumber(amount).shiftedBy(decimals).toString(),decimals,TokenName:name}},'*')
             }else{
@@ -432,7 +432,7 @@ class SendController extends React.Component {
         const {chains} = this.props;
         const { isOpen, selectedToken, loading, amount, recipient, loadingLedger,allTokens } = this.state;
         const { selected, accounts } = this.props.accounts;
-        const trx = { tokenId: '_', name: 'TRX', balance: selected.balance,frozenBalance: selected.frozenBalance, abbr: 'TRX', decimals: 6, imgUrl: trxImg,isMapping:true };
+        const xlt = { tokenId: '_', name: 'XLT', balance: selected.balance,frozenBalance: selected.frozenBalance, abbr: 'XLT', decimals: 6, imgUrl: xltImg,isMapping:true };
         let tokens = { ...selected.tokens.basic, ...selected.tokens.smart};
         const topArray = [];
         allTokens.length && TOP_TOKEN[chains.selected === '_' ? 'mainchain':'sidechain'].forEach(v=>{
@@ -447,7 +447,7 @@ class SendController extends React.Component {
             }
         });
         tokens = Utils.dataLetterSort(Object.entries(tokens).filter(([tokenId, token]) => typeof token === 'object' && !token.hasOwnProperty('chain') || token.chain === chains.selected ).map(v => { v[1].isMapping = v[1].hasOwnProperty('isMapping')?v[1].isMapping:true;v[ 1 ].tokenId = v[ 0 ];return v[ 1 ]; }), 'abbr' ,'symbol',topArray);
-        tokens = [trx, ...tokens];
+        tokens = [xlt, ...tokens];
         return (
             <div className='insetContainer send' onClick={() => this.setState({ isOpen: { account: false, token: false } }) }>
                 <Loading show={loadingLedger} onClose={this.handleClose.bind(this)} />
@@ -468,7 +468,7 @@ class SendController extends React.Component {
                         </div>
                         <div className='otherInfo'>
                             <FormattedMessage id='COMMON.BALANCE'/>:&nbsp;
-                            {selected.balance / Math.pow(10, 6)} TRX
+                            {selected.balance / Math.pow(10, 6)} XLT
                         </div>
                     </div>
                     <div className={'input-group' + (recipient.error ? ' error' : '')}>

@@ -6,7 +6,7 @@ import Toast, { T } from 'react-toast-mobile';
 import { Switch } from 'antd-mobile';
 import LiteWeb from 'liteweb';
 import { TOP_TOKEN,CONTRACT_ADDRESS } from '@litelink/lib/constants';
-const trxImg = require('@litelink/popup/src/assets/images/new/trx.png');
+const xltImg = require('@litelink/popup/src/assets/images/new/xlt.png');
 const token10DefaultImg = require('@litelink/popup/src/assets/images/new/token_10_default.png');
 class AssetManageController extends React.Component {
     constructor(props) {
@@ -90,8 +90,8 @@ class AssetManageController extends React.Component {
         const { formatMessage } = this.props.intl;
         const { selected, onCancel, vTokenList, prices, chains  } = this.props;
         const { address, allTokens, filterTokens, deleteToken } = this.state;
-        const trx_price = prices.priceList[prices.selected];
-        const trx = { tokenId: '_', name: 'TRX', balance: (selected.balance + (selected.frozenBalance ? selected.frozenBalance: 0)), abbr: 'TRX', decimals: 6, imgUrl: trxImg, price: trx_price}
+        const xlt_price = prices.priceList[prices.selected];
+        const xlt = { tokenId: '_', name: 'XLT', balance: (selected.balance + (selected.frozenBalance ? selected.frozenBalance: 0)), abbr: 'XLT', decimals: 6, imgUrl: xltImg, price: xlt_price}
         let tokens = { ...selected.tokens.basic, ...selected.tokens.smart };
         const topArray = [];
         TOP_TOKEN[ chains.selected === '_'? 'mainchain':'sidechain' ].forEach(v=>{
@@ -106,7 +106,7 @@ class AssetManageController extends React.Component {
             }
         });
         tokens = Utils.dataLetterSort(Object.entries(tokens).filter(([tokenId, token]) => typeof token === 'object' ).map(v => { v[ 1 ].tokenId = v[ 0 ];return v[ 1 ]; }).filter(v => v.balance > 0 || (v.balance == 0 && !v.isLocked) ), 'abbr', 'symbol',topArray);
-        tokens = [trx, ...tokens];
+        tokens = [xlt, ...tokens];
         tokens = tokens.filter(({tokenId, ...token})=>!token.hasOwnProperty('chain') || token.chain === chains.selected).map(({tokenId,...token})=>{
             if(TOP_TOKEN[ chains.selected === '_'? 'mainchain':'sidechain' ].includes(tokenId) || tokenId === '_')
                 token.isTop = true;

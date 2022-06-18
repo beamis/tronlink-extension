@@ -12,6 +12,6 @@
   "dependencies": {
     "ethers": "^4.0.33",
     "liteweb": "^2.7.4",
-    "sunweb": "^1.0.7"
+    "solweb": "^1.0.7"
   }
 }

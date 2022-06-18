@@ -137,11 +137,11 @@ class Wallet extends EventEmitter {
 
         const accounts = Object.values(this.accounts);
         if(accounts.length > 0) {
-            // const { data: { data: basicTokenPriceList } } = await axios.get('https://bancor.trx.market/api/exchanges/list?sort=-balance').catch(e => {
+            // const { data: { data: basicTokenPriceList } } = await axios.get('https://bancor.xlt.market/api/exchanges/list?sort=-balance').catch(e => {
             //     logger.error('get trc10 token price fail');
             //     return { data: { data: [] } };
             // });
-            const { data: { data: { rows: smartTokenPriceList } } } = await axios.get('https://api.trx.market/api/exchange/marketPair/list').catch(e => {
+            const { data: { data: { rows: smartTokenPriceList } } } = await axios.get('https://api.xlt.market/api/exchange/marketPair/list').catch(e => {
                 logger.error('get trc20 token price fail');
                 return { data: { data: { rows: [] } } };
             });
@@ -174,7 +174,7 @@ class Wallet extends EventEmitter {
         if(!StorageService.ready)
             return;
 
-        const prices = axios('https://min-api.cryptocompare.com/data/price?fsym=TRX&tsyms=USD,CNY,GBP,EUR,BTC,ETH');
+        const prices = axios('https://min-api.cryptocompare.com/data/price?fsym=XLT&tsyms=USD,CNY,GBP,EUR,BTC,ETH');
         const usdtPrices = axios('https://min-api.cryptocompare.com/data/price?fsym=USDT&tsyms=USD,CNY,GBP,EUR,BTC,ETH');
         Promise.all([prices, usdtPrices]).then(res => {
             StorageService.setPrices(res[0].data, res[1].data);
@@ -765,7 +765,7 @@ class Wallet extends EventEmitter {
     }
 
     getSelectedToken() {
-        return JSON.stringify(StorageService.selectedToken) === '{}' ? { id: '_', name: 'TRX', abbr:'trx', amount: 0, decimals: 6 } : StorageService.selectedToken;
+        return JSON.stringify(StorageService.selectedToken) === '{}' ? { id: '_', name: 'XLT', abbr:'xlt', amount: 0, decimals: 6 } : StorageService.selectedToken;
     }
 
     setLanguage(language) {
@@ -849,8 +849,8 @@ class Wallet extends EventEmitter {
         return this.confirmations;
     }
 
-    async sendTrx({ recipient, amount }) {
-        return await this.accounts[ this.selectedAccount ].sendTrx(
+    async sendXlt({ recipient, amount }) {
+        return await this.accounts[ this.selectedAccount ].sendXlt(
             recipient,
             amount
         );
@@ -893,8 +893,8 @@ class Wallet extends EventEmitter {
         }
     }
 
-    async bankOrderNotice({ energyAddress, trxHash, requestUrl }) {
-        const { data: isValid } = await axios.post(requestUrl, { receiver_address: energyAddress, trxHash } )
+    async bankOrderNotice({ energyAddress, xltHash, requestUrl }) {
+        const { data: isValid } = await axios.post(requestUrl, { receiver_address: energyAddress, xltHash } )
             .then(res => res.data)
             .catch(err => { logger.error(err); });
         if(!isValid)
@@ -939,8 +939,8 @@ class Wallet extends EventEmitter {
     }
 
     async isValidOnlineAddress({ address }) {
-        // const account = await NodeService.liteWeb.trx.getUnconfirmedAccount(address);
-        const account = await NodeService.liteWeb.trx.getAccountResources(address);
+        // const account = await NodeService.liteWeb.xlt.getUnconfirmedAccount(address);
+        const account = await NodeService.liteWeb.xlt.getAccountResources(address);
         if(!account.TotalEnergyLimit)
             return logger.warn('Failed to get online address data');
         return account;
@@ -1001,7 +1001,7 @@ class Wallet extends EventEmitter {
         //         } else if (direction === 'from') {
         //             params.only_from = true;
         //         }
-        //         params.token_id = tokenId === '_' ? 'trx' : tokenId;
+        //         params.token_id = tokenId === '_' ? 'xlt' : tokenId;
         //         const {data: {data: records, meta: {fingerprint: finger}}} = await axios.get(requestUrl, {
         //             params,
         //             timeout: 5000
@@ -1150,8 +1150,8 @@ class Wallet extends EventEmitter {
 
     async getAccountInfo(address) {
         return {
-            mainchain: await NodeService.sunWeb.mainchain.trx.getUnconfirmedAccount(address),
-            sidechain: await NodeService.sunWeb.sidechain.trx.getUnconfirmedAccount(address),
+            mainchain: await NodeService.solWeb.mainchain.xlt.getUnconfirmedAccount(address),
+            sidechain: await NodeService.solWeb.sidechain.xlt.getUnconfirmedAccount(address),
         };
     }
 
@@ -1230,7 +1230,7 @@ class Wallet extends EventEmitter {
                 this.times = 0;
                 return;
             }
-            const transaction = await NodeService.liteWeb.trx.getConfirmedTransaction(hash);
+            const transaction = await NodeService.liteWeb.xlt.getConfirmedTransaction(hash);
             if(transaction && transaction.txID === hash){
                 clearInterval(timer);
                 extensionizer.notifications.getPermissionLevel((level)=>{
@@ -1249,12 +1249,12 @@ class Wallet extends EventEmitter {
         },10000);
     }
 
-    async depositTrx(amount){
-        return await this.accounts[ this.selectedAccount ].depositTrx(amount);
+    async depositXlt(amount){
+        return await this.accounts[ this.selectedAccount ].depositXlt(amount);
     }
 
-    async withdrawTrx(amount){
-        return await this.accounts[ this.selectedAccount ].withdrawTrx(amount);
+    async withdrawXlt(amount){
+        return await this.accounts[ this.selectedAccount ].withdrawXlt(amount);
 
     }
 

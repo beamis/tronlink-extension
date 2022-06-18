@@ -45,7 +45,7 @@ class Account {
             basic: {},
             smart: {}
         };
-        this.trxAddress = 'T9yD14Nj9j7xAB4dbGeiX9h8unkKHxuWwb';
+        this.xltAddress = 'T9yD14Nj9j7xAB4dbGeiX9h8unkKHxuWwb';
         // this.tokens.smart[ CONTRACT_ADDRESS.USDT ] = {
         //     abbr: 'USDT',
         //     name: 'Tether USD',
@@ -206,8 +206,8 @@ class Account {
     }
 
     /** update data of an account
-     * basicTokenPriceList  trc10token price list(source from trxmarket)
-     * smartTokenPriceList  trc20token price list(source from trxmarket)
+     * basicTokenPriceList  trc10token price list(source from xltmarket)
+     * smartTokenPriceList  trc20token price list(source from xltmarket)
      * usdtPrice            price of usdt
      **/
     async update(basicTokenPriceList = [], smartTokenPriceList = [], usdtPrice = 0) {
@@ -225,7 +225,7 @@ class Account {
         try {
             const node = NodeService.getNodes().selected;
             //if (node === 'f0b1e38e-7bee-485e-9d3f-69410bf30681') {
-            const account = await NodeService.liteWeb.trx.getUnconfirmedAccount(address);
+            const account = await NodeService.liteWeb.xlt.getUnconfirmedAccount(address);
 
             if (!account.address) {
                 logger.info(`Account ${address} does not exist on the network`);
@@ -264,7 +264,7 @@ class Account {
             for (const { key, value } of filteredTokens) {
                 let token = this.tokens.basic[key] || false;
                 const filter = basicTokenPriceList.length ? basicTokenPriceList.filter(({ first_token_id }) => first_token_id === key) : [];
-                const trc20Filter = smartTokenPriceList.length ? smartTokenPriceList.filter(({ fTokenAddr, sTokenAddr }) => key === fTokenAddr && sTokenAddr === this.trxAddress) : [];
+                const trc20Filter = smartTokenPriceList.length ? smartTokenPriceList.filter(({ fTokenAddr, sTokenAddr }) => key === fTokenAddr && sTokenAddr === this.xltAddress) : [];
                 let { precision = 0, price } = filter.length ? filter[0] : (trc20Filter.length ? {
                     price: trc20Filter[0].price,
                     precision: trc20Filter[0].sPrecision
@@ -273,8 +273,8 @@ class Account {
                 if (node === 'f0b1e38e-7bee-485e-9d3f-69410bf30681' || node === 'a981e232-a995-4c81-9653-c85e4d05f599') {
                     if (StorageService.allTokens[NodeService._selectedChain === '_' ? 'mainchain' : 'sidechain'].filter(({ tokenId }) => tokenId === key).length === 0) return;
                     const {
-                        name = 'TRX',
-                        abbr = 'TRX',
+                        name = 'XLT',
+                        abbr = 'XLT',
                         decimals = 6,
                         imgUrl = false
                     } = StorageService.allTokens[NodeService._selectedChain === '_' ? 'mainchain' : 'sidechain'].filter(({ tokenId }) => tokenId === key)[0];
@@ -329,7 +329,7 @@ class Account {
             });
             for (let { tokenAddress, logoUrl = false, decimals = 6, isMapping, name, shortName, balance } of smartTokens) {
                 let token = this.tokens.smart[tokenAddress] || false;
-                const filter = smartTokenPriceList.filter(({ fTokenAddr, sTokenAddr }) => fTokenAddr === tokenAddress && sTokenAddr === this.trxAddress);
+                const filter = smartTokenPriceList.filter(({ fTokenAddr, sTokenAddr }) => fTokenAddr === tokenAddress && sTokenAddr === this.xltAddress);
                 const price = filter.length ? new BigNumber(filter[0].price).shiftedBy(-decimals).toString() : 0;
 
                 token = {
@@ -353,7 +353,7 @@ class Account {
                 //console.log(tokenAddress, this.tokens.smart[ tokenAddress ]);
             }
             //} else {
-            // const account = await NodeService.liteWeb.trx.getUnconfirmedAccount(address);
+            // const account = await NodeService.liteWeb.xlt.getUnconfirmedAccount(address);
             // if (!account.address) {
             //     logger.info(`Account ${address} does not exist on the network`);
             //     this.reset();
@@ -428,15 +428,15 @@ class Account {
             // }
             // this.balance = account.balance || 0;
             // }
-            let totalOwnTrxCount = new BigNumber(this.balance + this.frozenBalance).shiftedBy(-6);
+            let totalOwnXltCount = new BigNumber(this.balance + this.frozenBalance).shiftedBy(-6);
             Object.entries({ ...this.tokens.basic, ...this.tokens.smart }).map(([tokenId, token]) => {
                 if (token.price !== 0 && !token.isLocked) {
                     const prices = StorageService.prices;
                     const price = tokenId === CONTRACT_ADDRESS.USDT ? token.price / prices.priceList[prices.selected] : token.price;
-                    totalOwnTrxCount = totalOwnTrxCount.plus(new BigNumber(token.balance).shiftedBy(-token.decimals).multipliedBy(price));
+                    totalOwnXltCount = totalOwnXltCount.plus(new BigNumber(token.balance).shiftedBy(-token.decimals).multipliedBy(price));
                 }
             });
-            this.asset = totalOwnTrxCount.toNumber();
+            this.asset = totalOwnXltCount.toNumber();
             this.lastUpdated = Date.now();
             await Promise.all([
                 this.updateBalance(),
@@ -451,7 +451,7 @@ class Account {
 
     async updateBalance() {
         const { address } = this;
-        const { EnergyLimit = 0, EnergyUsed = 0, freeNetLimit, NetLimit = 0, freeNetUsed = 0, NetUsed = 0, TotalEnergyWeight, TotalEnergyLimit } = await NodeService.liteWeb.trx.getAccountResources(address);
+        const { EnergyLimit = 0, EnergyUsed = 0, freeNetLimit, NetLimit = 0, freeNetUsed = 0, NetUsed = 0, TotalEnergyWeight, TotalEnergyLimit } = await NodeService.liteWeb.xlt.getAccountResources(address);
         this.energy = EnergyLimit;
         this.energyUsed = EnergyUsed;
         this.netLimit = freeNetLimit + NetLimit;
@@ -526,7 +526,7 @@ class Account {
         if (!this.privateKey) {
             return 'CREATION.LEDGER.ALERT.BODY';
         }
-        const signedTransaction = liteWeb.trx.sign(
+        const signedTransaction = liteWeb.xlt.sign(
             transaction,
             this.privateKey
         );
@@ -534,27 +534,27 @@ class Account {
         return await signedTransaction;
     }
 
-    async sendTrx(recipient, amount) {
+    async sendXlt(recipient, amount) {
         const selectedChain = NodeService._selectedChain;
         try {
             if (selectedChain === '_') {
-                const transaction = await NodeService.liteWeb.transactionBuilder.sendTrx(
+                const transaction = await NodeService.liteWeb.transactionBuilder.sendXlt(
                     recipient,
                     amount
                 );
 
-                await NodeService.liteWeb.trx.sendRawTransaction(
+                await NodeService.liteWeb.xlt.sendRawTransaction(
                     await this.sign(transaction)
                 ).then(() => true).catch(err => Promise.reject(
                     'Failed to broadcast transaction'
                 ));
                 return Promise.resolve(transaction.txID);
             } else {
-                const { transaction } = await NodeService.sunWeb.sidechain.trx.sendTransaction(recipient, amount, { privateKey: this.privateKey });
+                const { transaction } = await NodeService.solWeb.sidechain.xlt.sendTransaction(recipient, amount, { privateKey: this.privateKey });
                 return Promise.resolve(transaction.txID);
             }
         } catch (ex) {
-            logger.error('Failed to send TRX:', ex);
+            logger.error('Failed to send XLT:', ex);
             return Promise.reject(ex);
         }
     }
@@ -569,14 +569,14 @@ class Account {
                     token
                 );
 
-                await NodeService.liteWeb.trx.sendRawTransaction(
+                await NodeService.liteWeb.xlt.sendRawTransaction(
                     await this.sign(transaction)
                 ).then(() => true).catch(err => Promise.reject(
                     'Failed to broadcast transaction'
                 ));
                 return Promise.resolve(transaction.txID);
             } else {
-                const { transaction } = await NodeService.sunWeb.sidechain.trx.sendToken(recipient, amount, token, { privateKey: this.privateKey });
+                const { transaction } = await NodeService.solWeb.sidechain.xlt.sendToken(recipient, amount, token, { privateKey: this.privateKey });
                 return Promise.resolve(transaction.txID);
             }
         } catch (ex) {
@@ -596,13 +596,13 @@ class Account {
                 );
                 return Promise.resolve(transactionId);
             } else {
-                const sidechain = NodeService.sunWeb.sidechain;
+                const sidechain = NodeService.solWeb.sidechain;
                 const { transaction } = await NodeService.liteWeb.transactionBuilder.triggerSmartContract(LiteWeb.address.toHex(token), 'transfer(address,uint256)', { feeLimit: 1000000 }, [{
                     'type': 'address',
                     'value': recipient
                 }, { 'type': 'uint256', 'value': amount }]);
-                const signTransaction = await sidechain.trx.sign(transaction, this.privateKey);
-                await sidechain.trx.sendRawTransaction(signTransaction);
+                const signTransaction = await sidechain.xlt.sign(transaction, this.privateKey);
+                await sidechain.xlt.sendRawTransaction(signTransaction);
                 return Promise.resolve(transaction.txID);
             }
         } catch (ex) {
@@ -611,57 +611,57 @@ class Account {
         }
     }
 
-    async depositTrx(amount) {
+    async depositXlt(amount) {
         try {
-            const txId = await NodeService.sunWeb.depositTrx(amount, FEE.DEPOSIT_FEE, FEE.FEE_LIMIT, {}, this.privateKey);
+            const txId = await NodeService.solWeb.depositXlt(amount, FEE.DEPOSIT_FEE, FEE.FEE_LIMIT, {}, this.privateKey);
             return Promise.resolve(txId);
         } catch (ex) {
-            logger.error('Failed to send TRX:', ex);
+            logger.error('Failed to send XLT:', ex);
             return Promise.reject(ex);
         }
     }
 
-    async withdrawTrx(amount) {
+    async withdrawXlt(amount) {
         try {
-            const txId = await NodeService.sunWeb.withdrawTrx(amount, FEE.WITHDRAW_FEE, FEE.FEE_LIMIT, {}, this.privateKey);
+            const txId = await NodeService.solWeb.withdrawXlt(amount, FEE.WITHDRAW_FEE, FEE.FEE_LIMIT, {}, this.privateKey);
             return Promise.resolve(txId);
         } catch (ex) {
-            logger.error('Failed to send TRX:', ex);
+            logger.error('Failed to send XLT:', ex);
             return Promise.reject(ex);
         }
     }
 
     async depositTrc10(id, amount) {
         try {
-            const txId = await NodeService.sunWeb.depositTrc10(id, amount, FEE.DEPOSIT_FEE, FEE.FEE_LIMIT, {}, this.privateKey);
+            const txId = await NodeService.solWeb.depositTrc10(id, amount, FEE.DEPOSIT_FEE, FEE.FEE_LIMIT, {}, this.privateKey);
             return Promise.resolve(txId);
         } catch (ex) {
-            logger.error('Failed to send TRX:', ex);
+            logger.error('Failed to send XLT:', ex);
             return Promise.reject(ex);
         }
     }
 
     async withdrawTrc10(id, amount) {
         try {
-            const txId = await NodeService.sunWeb.withdrawTrc10(id, amount, FEE.WITHDRAW_FEE, FEE.FEE_LIMIT, {}, this.privateKey);
+            const txId = await NodeService.solWeb.withdrawTrc10(id, amount, FEE.WITHDRAW_FEE, FEE.FEE_LIMIT, {}, this.privateKey);
             return Promise.resolve(txId);
         } catch (ex) {
-            logger.error('Failed to send TRX:', ex);
+            logger.error('Failed to send XLT:', ex);
             return Promise.reject(ex);
         }
     }
 
     async depositTrc20(id, amount) {
         try {
-            const approve = await NodeService.sunWeb.approveTrc20(amount, FEE.FEE_LIMIT, id, {}, this.privateKey);
+            const approve = await NodeService.solWeb.approveTrc20(amount, FEE.FEE_LIMIT, id, {}, this.privateKey);
             if (approve) {
-                const txId = await NodeService.sunWeb.depositTrc20(amount, FEE.DEPOSIT_FEE, FEE.FEE_LIMIT, id, {}, this.privateKey);
+                const txId = await NodeService.solWeb.depositTrc20(amount, FEE.DEPOSIT_FEE, FEE.FEE_LIMIT, id, {}, this.privateKey);
                 return Promise.resolve(txId);
             } else {
                 return Promise.resolve('failed');
             }
         } catch (ex) {
-            logger.error('Failed to send TRX:', ex);
+            logger.error('Failed to send XLT:', ex);
             return Promise.reject(ex);
         }
     }
@@ -669,11 +669,11 @@ class Account {
     async withdrawTrc20(id, amount) {
         try {
 
-            const txId = await NodeService.sunWeb.withdrawTrc20(amount, FEE.WITHDRAW_FEE, FEE.FEE_LIMIT, id, {}, this.privateKey);
+            const txId = await NodeService.solWeb.withdrawTrc20(amount, FEE.WITHDRAW_FEE, FEE.FEE_LIMIT, id, {}, this.privateKey);
             return Promise.resolve(txId);
 
         } catch (ex) {
-            logger.error('Failed to send TRX:', ex);
+            logger.error('Failed to send XLT:', ex);
             return Promise.reject(ex);
         }
     }

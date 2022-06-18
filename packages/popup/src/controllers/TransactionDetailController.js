@@ -129,7 +129,7 @@ class TransactionDetailController extends React.Component {
                                             </Popover>
                                     </div>
                                     <div className='content'>
-                                        {new BigNumber(t.cost.energy_fee + t.cost.net_fee).shiftedBy(-6).toString()} TRX
+                                        {new BigNumber(t.cost.energy_fee + t.cost.net_fee).shiftedBy(-6).toString()} XLT
                                     </div>
                                 </div>
                                 :
@@ -137,7 +137,7 @@ class TransactionDetailController extends React.Component {
                         }
                     </div>
                     <div className='part3' onClick={() => window.open(`https://litescan.org/#/transaction/${t.hash}`)}>
-                        <FormattedMessage id='TRANSACTION_DETAIL.GO_TRONSCAN' />
+                        <FormattedMessage id='TRANSACTION_DETAIL.GO_LITESCAN' />
                     </div>
                 </div>
             </div>
